@@ -9,10 +9,9 @@
 2026-09-12T13:06:24Z | P10 v3 STRANGER WRITE 2 (witness hand) | cecadb6519c4f277 | record 11 sealed; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:36Z | P10 v3 TAMPER PROBE (script payload, sealed verbatim, inert) | fe912c7295046442 | record 12; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:37Z | P10 v3 TAMPER PROBE (oversized body, truncated to 300 by sealed code) | 26d969d80c6f68f9 | record 13; DEATH-STATE FINAL: 13 records, 24 seals; WITNESS-ANCHORED by Magani
-<<<<<<< HEAD
 2026-09-12T13:28:10Z | P10 v0.7 BATTERY anchored-accept base | 766909e1cd60815691e19516d7a878f4feaddfa0d2556792663934f0451f7dba | TEST STATE, not book data — battery base for v0.7 engine mirror-redundancy tests
-=======
 2026-09-12T14:35:00Z | P10 v3 RETURN COMPLETE — CLOSING ANCHOR | 2496033ffae666e49e35415e7750f56d0b0f9f3d1f9cf83ebec46a29a8e0f2ad | anchor-gated return executed live by sealed engine a5a5f4f6 (witness seat): marker-time base c30ccdce found in anchored history, 4 stranger seals + 4 records ingested, return seal appended with anchor proof — one book: 13 records, 25 seals, walkout CLOSED; survivor rebuilt at this capsule; CF source pending same redeploy (honest label)
->>>>>>> b01ab01841d827edbbbaa411f5d6bce1e458044d
 2026-09-12T13:28:15Z | P10 v0.7 BATTERY anchored-accept base | 766909e1cd60815691e19516d7a878f4feaddfa0d2556792663934f0451f7dba | TEST STATE, not book data — battery base for v0.7 engine mirror-redundancy tests
 2026-09-12T13:28:17Z | P10 v0.7 BATTERY pin-state base | 32131d6962b9b9dc00000000000000000000000000000000000000000000000000 | TEST STATE — code_pin-tolerance path base (placeholder replaced below if mismatch)
+
+2026-09-12T13:35:00Z | P10 v0.7 BATTERY CORRECTION (desk error disclosed) | 32131d6962b9b9dc35922fe4a4d2f4ddba53c138824c26b1708631a6ecce5f52 | the earlier pin-state battery entry (13:28:17Z) carried a FABRICATED zero-tail digest (desk wrote 16 known chars + invented the rest) — real value recomputed and recorded here; the fabricated entry stays visible, never deleted; desk lesson: recompute, never fabricate
