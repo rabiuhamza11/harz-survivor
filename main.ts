@@ -121,7 +121,7 @@ Deno.serve(async (req) => {
         overlay: { records: ov.records.length, seals: ov.seals.length },
         writes: cw.ok ? "WALKOUT ACTIVE — sealed writes open" : cw.reason,
         digest: v.digest,
-        digest_match: v.digest === composedDigest && (ov.lastDigest === null || v.digest === ov.lastDigest || true),
+        digest_match: v.digest === composedDigest && (ov.lastDigest === null || v.digest === ov.lastDigest), // witness finding fixed: stale-overlay check now live (no dead || true)
         ui_ok: [...state.chain].reverse().find((s: any) => s.kind === "ui_manifest")?.payload === JSON.stringify(C.ui_manifest),
         code_ok: [...state.chain].reverse().find((s: any) => s.kind === "code_pin")?.payload === JSON.stringify(C.code_manifest),
         engine_hash: C.code_manifest["/engine.js"],
