@@ -5,3 +5,7 @@
 2026-09-12T12:38:43Z | P10 v0.6 BUILD STAGED — anchor-gated return gate | 3967a863fc1005407d652e00 | engine 065d6ad1; capsule v6 9 records 17 seals; survivor main-v06.ts d73d24b7 / source index-v06.js e4830c3e on branch p10-anchor-v06; battery 10/10 green; NOT deployed — awaits owner path word
 2026-09-12T12:46:17Z | P10 BASELINE — v0.6 LIVE ON BOTH SUBSTRATES | 86611a6d021127efbf9ff2ebd26c651439a0d78715c68a9ad801bb7cd2e2ff3f | 9 records 19 seals WRITES SEALED, engine a5a5f4f6 anchor-gated, byte-identical both shelves; seal 18 kept as half-deploy evidence caught by the byte-compare proof
 2026-09-12T12:58:33Z | P10 DEATH TEST v3 — MARKER-TIME BASE D1 | c30ccdce94159c0a8dd4e460446a81b5d34b5b5b7949b28d0b12981b2633abec | marker sealed on source; kill happens only after this anchor is publicly readable; return gate must find this digest in anchored history
+2026-09-12T13:06:24Z | P10 v3 STRANGER WRITE 1 (witness hand) | 259b7e9f5b8361f9 | record 10 sealed by the sealed engine on the survivor while source dead; WITNESS-ANCHORED by Magani (desk silent since kill — lag recorded, labeled not hidden)
+2026-09-12T13:06:24Z | P10 v3 STRANGER WRITE 2 (witness hand) | cecadb6519c4f277 | record 11 sealed; WITNESS-ANCHORED by Magani
+2026-09-12T13:06:36Z | P10 v3 TAMPER PROBE (script payload, sealed verbatim, inert) | fe912c7295046442 | record 12; WITNESS-ANCHORED by Magani
+2026-09-12T13:06:37Z | P10 v3 TAMPER PROBE (oversized body, truncated to 300 by sealed code) | 26d969d80c6f68f9 | record 13; DEATH-STATE FINAL: 13 records, 24 seals; WITNESS-ANCHORED by Magani
