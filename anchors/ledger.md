@@ -9,3 +9,4 @@
 2026-09-12T13:06:24Z | P10 v3 STRANGER WRITE 2 (witness hand) | cecadb6519c4f277 | record 11 sealed; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:36Z | P10 v3 TAMPER PROBE (script payload, sealed verbatim, inert) | fe912c7295046442 | record 12; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:37Z | P10 v3 TAMPER PROBE (oversized body, truncated to 300 by sealed code) | 26d969d80c6f68f9 | record 13; DEATH-STATE FINAL: 13 records, 24 seals; WITNESS-ANCHORED by Magani
+2026-09-12T14:35:00Z | P10 v3 RETURN COMPLETE — CLOSING ANCHOR | 2496033ffae666e49e35415e7750f56d0b0f9f3d1f9cf83ebec46a29a8e0f2ad | anchor-gated return executed live by sealed engine a5a5f4f6 (witness seat): marker-time base c30ccdce found in anchored history, 4 stranger seals + 4 records ingested, return seal appended with anchor proof — one book: 13 records, 25 seals, walkout CLOSED; survivor rebuilt at this capsule; CF source pending same redeploy (honest label)
