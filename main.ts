@@ -27,9 +27,12 @@ Deno.serve(async (req) => {
   const u = new URL(req.url);
   let path = u.pathname;
   let rt = rtA;
-  if (path === "/registry" || path.startsWith("/registry/")) {
+  if (path === "/registry") {
+    return new Response(null, { status: 301, headers: { ...{ "access-control-allow-origin": "*", "cache-control": "no-store" }, "location": "/registry/" } });
+  }
+  if (path.startsWith("/registry/")) {
     rt = rtRegistry;
-    path = path === "/registry" ? "/" : path.slice("/registry".length);
+    path = path.slice("/registry".length);
   }
   const body = req.method === "POST" ? await req.text() : "";
   const r = await rt.handle(req.method, path, body);

@@ -28,9 +28,12 @@ const server = createServer(async (req, res) => {
   const u = new URL(req.url, "http://node-c");
   let path = u.pathname;
   let rt = rtA;
-  if (path === "/registry" || path.startsWith("/registry/")) {
+  if (path === "/registry") {
+    res.writeHead(301, { location: "/registry/" }); res.end(); return;
+  }
+  if (path.startsWith("/registry/")) {
     rt = rtR;
-    path = path === "/registry" ? "/" : path.slice("/registry".length);
+    path = path.slice("/registry".length);
   }
   let body = "";
   if (req.method === "POST") { for await (const chunk of req) body += chunk; }
