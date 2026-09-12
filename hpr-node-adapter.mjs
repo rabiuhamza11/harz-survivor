@@ -6,6 +6,7 @@
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
 import { CAPSULE } from "./capsule-v8.js";
+import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
@@ -20,13 +21,20 @@ const kv = {
   set: async (k, v) => { if (k === "overlay") writeFileSync(OVERLAY_FILE, JSON.stringify(v)); },
 };
 
-const rt = createRuntime(CAPSULE, kv, { walkedFrom: WALKED_FROM });
+const rtA = createRuntime(CAPSULE, kv, { walkedFrom: WALKED_FROM });
+const rtR = createRuntime(CAPSULE_REGISTRY, null, { walkedFrom: "HPR Registry — capsule 2, sealed read-only" });
 
 const server = createServer(async (req, res) => {
   const u = new URL(req.url, "http://node-c");
+  let path = u.pathname;
+  let rt = rtA;
+  if (path === "/registry" || path.startsWith("/registry/")) {
+    rt = rtR;
+    path = path === "/registry" ? "/" : path.slice("/registry".length);
+  }
   let body = "";
   if (req.method === "POST") { for await (const chunk of req) body += chunk; }
-  const r = await rt.handle(req.method, u.pathname, body);
+  const r = await rt.handle(req.method, path, body);
   res.writeHead(r.status, r.headers);
   res.end(r.body);
 });

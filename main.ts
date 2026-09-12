@@ -7,6 +7,7 @@
 import { createRuntime } from "./hpr-runtime-core.js";
 
 import { CAPSULE } from "./capsule-v8.js";
+import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 const CAPSULE_SRC = CAPSULE;
 
 const WALKED_FROM = "cloudflare-workers (harz, account 3) \u2014 P10 v0.7 mirror build, capsule v8 (13 records, 27 seals, engine f69339b6 multi-mirror anchor gate) \u2014 served since P11 Phase 1 through the extracted HPR runtime (hpr-1.0.0), behavior parity proven at digest 077bc802";
@@ -19,11 +20,18 @@ const kv = kvRaw ? {
   set: async (k: string, v: any): Promise<void> => { await kvRaw.set([k], v); },
 } : null;
 
-const rt = createRuntime(CAPSULE_SRC, kv, { walkedFrom: WALKED_FROM });
+const rtA = createRuntime(CAPSULE_SRC, kv, { walkedFrom: WALKED_FROM });
+const rtRegistry = createRuntime(CAPSULE_REGISTRY, null, { walkedFrom: "HPR Registry — capsule 2 (P11 Phase 3): a second, different app served by the SAME unmodified HPR core; sealed read-only by design (no overlay store attached)" });
 
 Deno.serve(async (req) => {
   const u = new URL(req.url);
+  let path = u.pathname;
+  let rt = rtA;
+  if (path === "/registry" || path.startsWith("/registry/")) {
+    rt = rtRegistry;
+    path = path === "/registry" ? "/" : path.slice("/registry".length);
+  }
   const body = req.method === "POST" ? await req.text() : "";
-  const r = await rt.handle(req.method, u.pathname, body);
+  const r = await rt.handle(req.method, path, body);
   return new Response(r.body, { status: r.status, headers: r.headers });
 });
