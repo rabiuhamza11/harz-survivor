@@ -9,3 +9,4 @@
 2026-09-12T13:06:24Z | P10 v3 STRANGER WRITE 2 (witness hand) | cecadb6519c4f277 | record 11 sealed; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:36Z | P10 v3 TAMPER PROBE (script payload, sealed verbatim, inert) | fe912c7295046442 | record 12; WITNESS-ANCHORED by Magani
 2026-09-12T13:06:37Z | P10 v3 TAMPER PROBE (oversized body, truncated to 300 by sealed code) | 26d969d80c6f68f9 | record 13; DEATH-STATE FINAL: 13 records, 24 seals; WITNESS-ANCHORED by Magani
+2026-09-12T13:28:10Z | P10 v0.7 BATTERY anchored-accept base | 766909e1cd60815691e19516d7a878f4feaddfa0d2556792663934f0451f7dba | TEST STATE, not book data — battery base for v0.7 engine mirror-redundancy tests
