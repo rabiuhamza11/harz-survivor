@@ -1,10 +1,4 @@
 const CONTRACT = 'walkout-contract v0.6 — state + UI + code + writes + EXTERNAL ANCHOR walk';
-// P10: the return gate fetches the PUBLIC git anchor ledger itself — anonymous, zero credentials,
-// URL pinned in these sealed bytes. The pre-marker base digest must appear in the anchored
-// history or the return is refused. Unreachable anchor => fail-closed refusal.
-// Gate order: all v0.5 divergence checks fire first (byte-exact); the anchor gate runs last,
-// after chain verification, immediately before the return seal is written.
-const ANCHOR_URL = 'https://raw.githubusercontent.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md';
 
 async function sha256hex(s) {
   const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
@@ -70,6 +64,7 @@ async function appendWithSeal(state, uiManifest, codeManifest, body, created, ac
 
 async function ingestReturn(sourceState, uiManifest, codeManifest, survivorExport) {
   const fail = (verdict) => ({ ok: false, verdict });
+  const ANCHOR_URL = 'https://raw.githubusercontent.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md';
   if (!survivorExport || !survivorExport.state) return fail('BROKEN — malformed survivor export');
   const sChain = survivorExport.state.chain || [];
   const marker = activeMarker(sChain);
@@ -94,8 +89,6 @@ async function ingestReturn(sourceState, uiManifest, codeManifest, survivorExpor
   const composed = srcChain.slice(0, mi + 1).concat(overlay);
   const v = await verifyChain(composed);
   if (!v.ok) return fail('BROKEN — overlay does not chain from the marker: ' + v.issues.join('; '));
-  // P10 ANCHOR GATE — last check before the return seal: the pre-marker base digest must be
-  // in the PUBLIC anchored history. Fail-closed if the anchor is unreachable.
   let ledger = null;
   try {
     const res = await fetch(ANCHOR_URL, { cache: 'no-store' });
