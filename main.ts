@@ -86,9 +86,9 @@ Deno.serve(async (req) => {
       let b: any; try { b = await req.json(); } catch { return json({ ok: false, error: "bad json" }, 400); }
       const body = String(b?.body ?? "").trim().slice(0, 300);
       if (!body) return json({ ok: false, error: "body required" }, 400);
-      if (!kv) return json({ ok: false, verdict: "OVERLAY UNAVAILABLE — no KV database attached to this app. Writes are refused (disclosed): the write overlay needs Deno KV. Attach a KV database in the console, then rebuild.", writes: "overlay-unavailable" }, 503);
       const cw = await E.canWrite(state);
       if (!cw.ok) return json({ ok: false, verdict: cw.reason, writes: "sealed-refused" }, 403);
+      if (!kv) return json({ ok: false, verdict: "OVERLAY UNAVAILABLE — walkout marker is active but no KV database is attached to this app; the write overlay needs Deno KV. Attach a KV database, then rebuild.", writes: "overlay-unavailable" }, 503);
       const r = await E.appendWithSeal(state, C.ui_manifest, C.code_manifest, body, new Date().toISOString(), "stranger");
       if (!r.ok) return json({ ok: false, verdict: r.reason }, 403);
       const v = await E.verifyExport({ state: r.state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: r.digest });
@@ -111,7 +111,6 @@ Deno.serve(async (req) => {
     }
     if (p === "/api/verify") {
       const v = await E.verifyExport({ state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: composedDigest });
-      if (!kv) return json({ ok: false, verdict: "OVERLAY UNAVAILABLE — no KV database attached to this app. Writes are refused (disclosed): the write overlay needs Deno KV. Attach a KV database in the console, then rebuild.", writes: "overlay-unavailable" }, 503);
       const cw = await E.canWrite(state);
       return json({
         ok: v.ok,
