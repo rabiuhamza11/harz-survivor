@@ -19,9 +19,11 @@ function loadSealedEngine(): any {
   return E;
 }
 
-const kv = await Deno.openKv();
+let kv: any = null;
+try { kv = await Deno.openKv(); } catch (_e) { kv = null; } // no KV attached: serve frozen capsule read-only, refuse writes honestly
 
 async function overlay(): Promise<{ records: any[]; seals: any[]; lastDigest: string | null }> {
+  if (!kv) return { records: [], seals: [], lastDigest: null };
   const r = await kv.get(["overlay"]);
   return (r.value ?? { records: [], seals: [], lastDigest: null }) as { records: any[]; seals: any[]; lastDigest: string | null };
 }
@@ -71,9 +73,9 @@ Deno.serve(async (req) => {
       if (h !== C.ui_manifest[p]) return new Response("TAMPER GUARD: served UI asset does not match its sealed hash", { status: 500 });
       return new Response(C.ui[p], { headers: { ...CORS, "content-type": MIME[p] } });
     }
-    if (p === "/api/health") return json({ ok: true, service: "HARZ Survivor", version: "0.5.0", contract: E.CONTRACT, engine: "sealed-executed (new Function)", frozen_records: C.state.records.length, overlay_records: ov.records.length, writes: (await E.canWrite(state)).ok ? "WALKOUT ACTIVE — sealed writes open" : "sealed-refused (no active walkout marker)" });
+    if (p === "/api/health") return json({ ok: true, service: "HARZ Survivor", version: "0.5.0", contract: E.CONTRACT, engine: "sealed-executed (new Function)", frozen_records: C.state.records.length, overlay: kv ? (ov.records.length + " overlay record(s) — KV attached") : "KV NOT ATTACHED — writes will be refused (503)", overlay_records: ov.records.length, writes: (await E.canWrite(state)).ok ? "WALKOUT ACTIVE — sealed writes open" : "sealed-refused (no active walkout marker)" });
     if (p === "/boundary") return json(BOUNDARY);
-    if (p === "/api/records") return json({ ok: true, records: state.records, walked_from: WALKED_FROM, overlay_records: ov.records.length, writes: (await E.canWrite(state)).ok ? "WALKOUT ACTIVE — sealed writes open" : (await E.canWrite(state)).reason });
+    if (p === "/api/records") return json({ ok: true, records: state.records, walked_from: WALKED_FROM, overlay: kv ? (ov.records.length + " overlay record(s) — KV attached") : "KV NOT ATTACHED — writes will be refused (503)", overlay_records: ov.records.length, writes: (await E.canWrite(state)).ok ? "WALKOUT ACTIVE — sealed writes open" : (await E.canWrite(state)).reason });
     if (p === "/api/source") {
       const src = C.code["/engine.js"];
       const h = await sha256hex(src);
@@ -84,6 +86,7 @@ Deno.serve(async (req) => {
       let b: any; try { b = await req.json(); } catch { return json({ ok: false, error: "bad json" }, 400); }
       const body = String(b?.body ?? "").trim().slice(0, 300);
       if (!body) return json({ ok: false, error: "body required" }, 400);
+      if (!kv) return json({ ok: false, verdict: "OVERLAY UNAVAILABLE — no KV database attached to this app. Writes are refused (disclosed): the write overlay needs Deno KV. Attach a KV database in the console, then rebuild.", writes: "overlay-unavailable" }, 503);
       const cw = await E.canWrite(state);
       if (!cw.ok) return json({ ok: false, verdict: cw.reason, writes: "sealed-refused" }, 403);
       const r = await E.appendWithSeal(state, C.ui_manifest, C.code_manifest, body, new Date().toISOString(), "stranger");
@@ -108,6 +111,7 @@ Deno.serve(async (req) => {
     }
     if (p === "/api/verify") {
       const v = await E.verifyExport({ state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: composedDigest });
+      if (!kv) return json({ ok: false, verdict: "OVERLAY UNAVAILABLE — no KV database attached to this app. Writes are refused (disclosed): the write overlay needs Deno KV. Attach a KV database in the console, then rebuild.", writes: "overlay-unavailable" }, 503);
       const cw = await E.canWrite(state);
       return json({
         ok: v.ok,
