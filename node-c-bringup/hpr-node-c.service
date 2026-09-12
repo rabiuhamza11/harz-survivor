@@ -1,0 +1,13 @@
+[Unit]
+Description=HARZ Portable Runtime — Node C (death test v4)
+After=network.target
+[Service]
+Type=simple
+# EDIT to the clone path on the host:
+WorkingDirectory=/opt/harz-survivor
+ExecStart=/usr/bin/node hpr-node-adapter.mjs
+Environment=HPR_PORT=8930
+Restart=always
+RestartSec=3
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+# TLS for Node C — EDIT the domain line
+# Router-forward path (Option C) does not need this file
+nodec.example.com {
+  reverse_proxy localhost:8930
+}
