@@ -5,7 +5,7 @@
 // executes on a third substrate family; physical sovereignty stays a hardware
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
-import { CAPSULE } from "./capsule-v13-ceremony.js"; // P13 key ceremony (owner "Go"): identity ACTIVE, book 18/42 at 704e97fb
+import { CAPSULE } from "./capsule-v14-canonical.js"; // P14 CANONICAL RE-FREEZE (owner "Do what is good"): ONE book on all three nodes byte-identical, 18/43 at 49b7cf42, mesh_ingest receipt #43 permanent history, engine v0.9 691fc5d8 unchanged
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
