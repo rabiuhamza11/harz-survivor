@@ -23,6 +23,5 @@ termux-wake-lock 2>/dev/null && echo "    wake lock: ON" || echo "    wake lock:
 echo "[4/4] opening public tunnel — leave this session OPEN..."
 echo "    Your public link appears below. Screenshot it and send to the witness."
 echo ""
-echo "    FIXED PUBLIC LINK: https://harznode.lhr.life"
-echo "    (send the word done to the witness — the link never changes now)"
-exec ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=60 -R harznode:80:localhost:8930 nokey@localhost.run
+echo "    Your public link appears below (screenshot it and send it — it changes each run, that is normal for a free anonymous tunnel)."
+exec ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=60 -R 80:localhost:8930 nokey@localhost.run
