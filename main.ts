@@ -6,7 +6,7 @@
 // runtime, not the wrapper, is the reusable primitive.
 import { createRuntime } from "./hpr-runtime-core.js";
 
-import { CAPSULE } from "./capsule-v8.js";
+import { CAPSULE } from "./capsule-v10-returned.js";
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 const CAPSULE_SRC = CAPSULE;
 
