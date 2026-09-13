@@ -6,7 +6,7 @@
 // runtime, not the wrapper, is the reusable primitive.
 import { createRuntime } from "./hpr-runtime-core.js";
 
-import { CAPSULE } from "./capsule-v12-reconciled.js"; // P12 v0.9 reconciliation (owner "You do it"): ONE canonical engine — identity (v0.8 desk) + mesh receive gate (hpr-1.1.0 Magani) merged; book 17/37 at 99ee5e2b; parallel-lineage divergence resolved from one base
+import { CAPSULE } from "./capsule-v13-ceremony.js"; // P13 key ceremony (owner "Go"): desk+witness+owner pubkeys pinned as key_pin seals, identity ACTIVE, first signed write by desk; book 18/42 at 704e97fb
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 const CAPSULE_SRC = CAPSULE;
 

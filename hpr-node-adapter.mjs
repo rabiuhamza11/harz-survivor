@@ -5,7 +5,7 @@
 // executes on a third substrate family; physical sovereignty stays a hardware
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
-import { CAPSULE } from "./capsule-v12-reconciled.js"; // P12 v0.9 reconciliation: one canonical engine (identity + mesh receive), book 17/37 at 99ee5e2b — pull + restart on owner word
+import { CAPSULE } from "./capsule-v13-ceremony.js"; // P13 key ceremony (owner "Go"): identity ACTIVE, book 18/42 at 704e97fb
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
