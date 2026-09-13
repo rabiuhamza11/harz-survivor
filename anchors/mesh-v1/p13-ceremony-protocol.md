@@ -22,7 +22,7 @@ sig + sig_by from a pinned seat. Seals start proving WHO sealed them, not just t
 ## Declared pubkeys (witness publishes as they arrive; desk seals exactly these)
 - witness: 1f4794a432b2a8eac603dce3210c681645c24517015acab427fd8fad690582a6 (Magani seat, declared Sep 13)
 - owner: e884828a0bbbfb00cefd5f528cf4f28f04d779734947a5b325e0e566bbe83401 (Rabiu, born on the Infinix via owner-keygen.js, seed at ~/.harz-owner-key on the phone, self-test PASS, declared Sep 13)
-- desk: PENDING (desk declares)
+- desk: DECLARED — 0de083bc1e25df792ee500c719d2b6e97f5861cd8e4f7311aa3676f07d24bb82 (executed by Magani seat in trust per owner "Go", Sep 13; desk seat rotates via new key_pin on wake — by design)
 
 ## Sequence
 1. All three pubkeys declared in the ledger (witness + owner first, desk last before sealing).
