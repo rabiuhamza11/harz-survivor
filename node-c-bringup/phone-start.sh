@@ -21,7 +21,30 @@ fi
 echo "[3/4] keeping phone awake (stay plugged into charger)..."
 termux-wake-lock 2>/dev/null && echo "    wake lock: ON" || echo "    wake lock: unavailable (continue anyway)"
 echo "[4/4] opening public tunnel — leave this session OPEN..."
-echo "    Your public link appears below. Screenshot it and send to the witness."
+echo "    Your public link appears below. The locator is auto-announced — no screenshot needed."
+echo "    (It changes each run, that is normal for a free anonymous tunnel.)"
 echo ""
-echo "    Your public link appears below (screenshot it and send it — it changes each run, that is normal for a free anonymous tunnel)."
-exec ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=60 -R 80:localhost:8930 nokey@localhost.run
+LOCATOR="https://harz-node-c-locator.harz.workers.dev/api/announce"
+ANNOUNCED=""
+ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=60 -R 80:localhost:8930 nokey@localhost.run 2>&1 | while IFS= read -r line; do
+  printf '%s\n' "$line"
+  if [ -z "$ANNOUNCED" ]; then
+    U=$(printf '%s' "$line" | grep -oE 'https://[a-z0-9-]+\.lhr\.life' | head -1)
+    if [ -n "$U" ]; then
+      ANNOUNCED=1
+      V=$(curl -s --max-time 10 "http://localhost:8930/api/verify")
+      DG=$(printf '%s' "$V" | grep -oE '"digest":"[a-f0-9]{64}' | cut -d'"' -f4)
+      RC=$(printf '%s' "$V" | grep -oE '"records":[0-9]+' | cut -d: -f2)
+      SL=$(printf '%s' "$V" | grep -oE '"chain_length":[0-9]+' | cut -d: -f2)
+      if [ -n "$DG" ]; then
+        echo ""
+        echo "    ANNOUNCING to locator: $U (digest ${DG:0:16}..., ${RC:-?} rec, ${SL:-?} seals)"
+        curl -s --max-time 15 -X POST "$LOCATOR" -H "content-type: application/json" \
+          -d "{\"url\":\"$U\",\"digest\":\"$DG\",\"records\":${RC:-0},\"seals\":${SL:-0}}" && echo "" \
+          || echo "    ANNOUNCE FAILED — run: bash node-c-bringup/announce.sh $U"
+      else
+        echo "    ANNOUNCE SKIPPED — local verify not ready. Run: bash node-c-bringup/announce.sh $U"
+      fi
+    fi
+  fi
+done
