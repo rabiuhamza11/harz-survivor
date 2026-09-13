@@ -6,7 +6,7 @@
 // runtime, not the wrapper, is the reusable primitive.
 import { createRuntime } from "./hpr-runtime-core.js";
 
-import { CAPSULE } from "./capsule-v11-receive.js"; // mesh v1 P2: hpr-1.1.0 receive gate (engine 223f1d0b), book 17/34, digest ac49a7e0
+import { CAPSULE } from "./capsule-v12-reconciled.js"; // P12 v0.9 reconciliation (owner "You do it"): ONE canonical engine — identity (v0.8 desk) + mesh receive gate (hpr-1.1.0 Magani) merged; book 17/37 at 99ee5e2b; parallel-lineage divergence resolved from one base
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 const CAPSULE_SRC = CAPSULE;
 
