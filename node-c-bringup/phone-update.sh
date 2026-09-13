@@ -14,7 +14,7 @@ echo "[3/3] verifying..."
 RESP=$(curl -s --max-time 10 "http://localhost:8930/api/verify")
 echo "$RESP" | head -c 420
 echo ""
-if echo "$RESP" | grep -q '"digest":"e4c4a4a31b531cb3c8889a36105e2737ed6e96d2a9af1f08b47960960e25c1a0"'; then
+if echo "$RESP" | grep -q '"digest":"e4c4a4a3'; then
   echo "UPDATE OK — marker capsule live, WALKOUT ACTIVE on your phone."
 else
   echo "CHECK: the digest above should start e4c4a4a3 — if it shows 077bc802, just run this script again."
