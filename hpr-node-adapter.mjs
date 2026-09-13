@@ -5,14 +5,14 @@
 // executes on a third substrate family; physical sovereignty stays a hardware
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
-import { CAPSULE } from "./capsule-v8.js";
+import { CAPSULE } from "./capsule-v9-marker.js"; // death test v4: marker-time base M e4c4a4a3 (13 records, 28 seals, marker b6840387) — identical to Node A live D1 state
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
 const PORT = Number(process.env.HPR_PORT || 8930);
 const OVERLAY_FILE = new URL("./hpr-node-c-overlay.json", import.meta.url);
-const WALKED_FROM = "cloudflare-workers (harz, account 3) — P10 v0.7 mirror build, capsule v8 (13 records, 27 seals, engine f69339b6) — Node C: HPR runtime hpr-1.0.0 on Node.js " + process.version + " (software mode, rented compute, workbench evidence)";
+const WALKED_FROM = "cloudflare-workers (harz, account 3) — death test v4 marker-time base M e4c4a4a3 (capsule v9-marker, 13 records, 28 seals, marker b6840387, engine f69339b6) — Node C: HPR runtime hpr-1.0.0 on Node.js " + process.version + " (HARZ-OWNED PHONE SOIL — Infinix Hot 10i, Termux, mobile data, single-window, battery-dependent — honest labels)";
 
 // file-backed KV adapter (disclosed unsealed glue — same contract as the Deno adapter)
 const loadOverlay = () => { try { return JSON.parse(readFileSync(OVERLAY_FILE, "utf8")); } catch (_e) { return null; } };
