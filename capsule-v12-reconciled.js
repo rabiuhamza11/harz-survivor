@@ -1,0 +1,433 @@
+// CAPSULE v12-RECONCILED — PUBLIC DATA FILE (P12 reconciliation, owner "You do it").
+// One canonical engine v0.9 (identity + mesh receive) over the v0.7 core.
+// Node A live export: 17 records, 37 seals, digest 99ee5e2b… engine pin 691fc5d8…
+// Export for import:
+export const CAPSULE = {
+ "ok": true,
+ "manifest": {
+  "name": "HARZ Portable App",
+  "version": "0.9.0",
+  "contract": "walkout-contract v0.9 — state + UI + code + writes + MULTI-MIRROR ANCHOR + IDENTITY + MESH RECEIVE walk",
+  "program": "P12 — identity + mesh receive (reconciled)",
+  "origin": {
+   "substrate": "cloudflare-workers",
+   "account_label": "harz (account 3)",
+   "store": "D1 portable-app"
+  },
+  "exported": "2026-09-13T13:00:15.193Z"
+ },
+ "ui_manifest": {
+  "/": "050c53ae1886a1c1f35f220819aa3a10ec30f6d8fe8a27fe8239773ae5b31aa2",
+  "/app.css": "3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d",
+  "/app.js": "d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447",
+  "/icon.svg": "e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e",
+  "/manifest.json": "7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf",
+  "/sw.js": "5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466"
+ },
+ "ui": {
+  "/": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>HARZ Portable App</title><meta name=\"theme-color\" content=\"#0a7d3c\"><link rel=\"icon\" href=\"/icon.svg\"><link rel=\"manifest\" href=\"/manifest.json\"><link rel=\"stylesheet\" href=\"/app.css\"></head><body><header><div><b>HARZ Portable App</b><div class=\"v\">P12: identity + mesh receive, reconciled &middot; v0.9.0 &middot; 2026-09-13</div></div></header><div class=\"wrap\">\n<div class=\"card\"><h2>State</h2><div id=\"st\">loading&hellip;</div></div>\n<div class=\"card\"><h2>Sealed write (walkout-gated)</h2><p class=\"mut\">Writes are executed by the SEALED ENGINE and are legal only while a walkout marker is active in the chain. While the source lives and no walkout is open, writes are refused &mdash; by the sealed code itself.</p><input id=\"body\" placeholder=\"Type anything&hellip;\"><button class=\"btn\" onclick=\"add()\">Seal</button></div>\n<div class=\"card\"><h2>Sealed records</h2><div id=\"recs\">loading&hellip;</div></div>\n<div class=\"card\"><h2>The app works while dead</h2><p class=\"mut\">P9: when the source dies mid-walkout, a stranger can still WRITE here. Every write is executed by the sealed engine, sealed into the chain, and the digest rolls forward. On revival, the sealed return gate ingests the stranger&rsquo;s seals &mdash; one book, one history. Forks are refused: &ldquo;FORK DETECTED&rdquo;.</p></div>\n<div class=\"card\"><h2>The code walks</h2><p class=\"mut\">Since P8 the ENGINE itself is part of the export: hashed into a code manifest, pinned into the chain by a code_pin seal. The verdict is a function of the capsule, not the operator&rsquo;s typing. Fetch the sealed engine at /api/source and hash it yourself.</p></div>\n<footer>HARZ Portable App v0.9.0 &middot; experiment, not a product &middot; HARZ Digital Services</footer></div>\n<script src=\"/app.js\" defer></script></body></html>",
+  "/app.css": "*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;background:#f0f2f5;color:#1a1a1a}header{background:#0a7d3c;color:#fff;padding:14px 16px;position:sticky;top:0}header b{font-size:17px}header .v{font-size:11px;opacity:.85}.wrap{max-width:760px;margin:0 auto;padding:16px}.card{background:#fff;border-radius:12px;padding:14px 16px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,.08)}h2{font-size:14px;color:#0a7d3c;margin-bottom:8px}input{width:100%;border:1px solid #ccc;border-radius:8px;padding:10px;font-size:14px;margin-bottom:8px}.btn{padding:10px 16px;border-radius:8px;border:0;background:#0a7d3c;color:#fff;font-size:14px;font-weight:600;cursor:pointer}.ok{color:#0a7d3c;font-weight:600}.mut{color:#666;font-size:12px;line-height:1.5}.rec{padding:6px 0;border-bottom:1px solid #eee;font-size:13px}footer{text-align:center;color:#777;font-size:11px;padding:16px 12px 32px}",
+  "/app.js": "const V=s=>s.replace(/&/g,\"&amp;\").replace(/</g,\"&lt;\").replace(/>/g,\"&gt;\");\nasync function add(){const b=document.getElementById(\"body\").value.trim();if(!b)return;const r=await(await fetch(\"/api/record\",{method:\"POST\",headers:{\"content-type\":\"application/json\"},body:JSON.stringify({body:b})})).json();if(!r.ok)document.getElementById(\"st\").innerHTML='<span class=\"mut\">'+V(r.verdict||r.error)+\"</span>\";document.getElementById(\"body\").value=\"\";load()}\nasync function load(){const v=await(await fetch(\"/api/verify\")).json();document.getElementById(\"st\").innerHTML='<span class=\"ok\">'+V(v.verdict)+'</span><br><span class=\"mut\">records: '+v.records+\" &middot; seals: \"+v.chain_length+\" &middot; digest: \"+String(v.digest).slice(0,24)+\"&hellip; &middot; ui: \"+String(v.ui_ok?\"SEALED\":\"?\")+\" &middot; code: \"+String(v.code_ok?\"SEALED\":\"?\")+\" &middot; writes: \"+V(v.writes||\"?\")+\"</span>\";const r=await(await fetch(\"/api/records\")).json();document.getElementById(\"recs\").innerHTML=(r.records||[]).map(x=>'<div class=\"rec\"><b>'+x.id+\"</b> &middot; \"+V(x.body)+'<br><span class=\"mut\">'+V(x.created)+\"</span></div>\").join(\"\")||'<span class=\"mut\">none</span>'}\nif(\"serviceWorker\" in navigator)navigator.serviceWorker.register(\"/sw.js\");\nload();",
+  "/icon.svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" rx=\"20\" fill=\"#0a7d3c\"/><path d=\"M30 60h40M50 20v40\" stroke=\"#fff\" stroke-width=\"8\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"72\" r=\"9\" fill=\"#fff\"/></svg>",
+  "/manifest.json": "{\"name\":\"HARZ Portable App\",\"short_name\":\"Portable\",\"start_url\":\"/\",\"display\":\"standalone\",\"background_color\":\"#f0f2f5\",\"theme_color\":\"#0a7d3c\",\"icons\":[{\"src\":\"/icon.svg\",\"sizes\":\"any\",\"type\":\"image/svg+xml\"}]}",
+  "/sw.js": "self.addEventListener(\"install\",e=>self.skipWaiting());self.addEventListener(\"activate\",e=>self.clients.claim());self.addEventListener(\"fetch\",e=>{});"
+ },
+ "code_manifest": {
+  "/engine.js": "691fc5d846a2ba6689c64dc9ccf068e1a3bf2cbab153053404f33d29c052dbab"
+ },
+ "code": {
+  "/engine.js": "const CONTRACT = 'walkout-contract v0.9 — state + UI + code + writes + MULTI-MIRROR ANCHOR + IDENTITY + MESH RECEIVE walk';\n\nfunction tweetnacl() {\n  var module = { exports: {} };\n  !function(i){\"use strict\";var m=function(r,n){this.hi=0|r,this.lo=0|n},v=function(r){var n,e=new Float64Array(16);if(r)for(n=0;n<r.length;n++)e[n]=r[n];return e},a=function(){throw new Error(\"no PRNG\")},o=new Uint8Array(16),e=new Uint8Array(32);e[0]=9;var c=v(),w=v([1]),g=v([56129,1]),y=v([30883,4953,19914,30187,55467,16705,2637,112,59544,30585,16505,36039,65139,11119,27886,20995]),l=v([61785,9906,39828,60374,45398,33411,5274,224,53552,61171,33010,6542,64743,22239,55772,9222]),t=v([54554,36645,11616,51542,42930,38181,51040,26924,56412,64982,57905,49316,21502,52590,14035,8553]),f=v([26200,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214,26214]),s=v([41136,18958,6951,50414,58488,44335,6150,12099,55207,15867,153,11085,57099,20417,9344,11139]);function h(r,n){return r<<n|r>>>32-n}function b(r,n){var e=255&r[n+3];return(e=(e=e<<8|255&r[n+2])<<8|255&r[n+1])<<8|255&r[n+0]}function B(r,n){var e=r[n]<<24|r[n+1]<<16|r[n+2]<<8|r[n+3],t=r[n+4]<<24|r[n+5]<<16|r[n+6]<<8|r[n+7];return new m(e,t)}function p(r,n,e){var t;for(t=0;t<4;t++)r[n+t]=255&e,e>>>=8}function S(r,n,e){r[n]=e.hi>>24&255,r[n+1]=e.hi>>16&255,r[n+2]=e.hi>>8&255,r[n+3]=255&e.hi,r[n+4]=e.lo>>24&255,r[n+5]=e.lo>>16&255,r[n+6]=e.lo>>8&255,r[n+7]=255&e.lo}function u(r,n,e,t,o){var i,a=0;for(i=0;i<o;i++)a|=r[n+i]^e[t+i];return(1&a-1>>>8)-1}function A(r,n,e,t){return u(r,n,e,t,16)}function _(r,n,e,t){return u(r,n,e,t,32)}function U(r,n,e,t,o){var i,a,f,u=new Uint32Array(16),c=new Uint32Array(16),w=new Uint32Array(16),y=new Uint32Array(4);for(i=0;i<4;i++)c[5*i]=b(t,4*i),c[1+i]=b(e,4*i),c[6+i]=b(n,4*i),c[11+i]=b(e,16+4*i);for(i=0;i<16;i++)w[i]=c[i];for(i=0;i<20;i++){for(a=0;a<4;a++){for(f=0;f<4;f++)y[f]=c[(5*a+4*f)%16];for(y[1]^=h(y[0]+y[3]|0,7),y[2]^=h(y[1]+y[0]|0,9),y[3]^=h(y[2]+y[1]|0,13),y[0]^=h(y[3]+y[2]|0,18),f=0;f<4;f++)u[4*a+(a+f)%4]=y[f]}for(f=0;f<16;f++)c[f]=u[f]}if(o){for(i=0;i<16;i++)c[i]=c[i]+w[i]|0;for(i=0;i<4;i++)c[5*i]=c[5*i]-b(t,4*i)|0,c[6+i]=c[6+i]-b(n,4*i)|0;for(i=0;i<4;i++)p(r,4*i,c[5*i]),p(r,16+4*i,c[6+i])}else for(i=0;i<16;i++)p(r,4*i,c[i]+w[i]|0)}function E(r,n,e,t){U(r,n,e,t,!1)}function x(r,n,e,t){return U(r,n,e,t,!0),0}var d=new Uint8Array([101,120,112,97,110,100,32,51,50,45,98,121,116,101,32,107]);function K(r,n,e,t,o,i,a){var f,u,c=new Uint8Array(16),w=new Uint8Array(64);if(!o)return 0;for(u=0;u<16;u++)c[u]=0;for(u=0;u<8;u++)c[u]=i[u];for(;64<=o;){for(E(w,c,a,d),u=0;u<64;u++)r[n+u]=(e?e[t+u]:0)^w[u];for(f=1,u=8;u<16;u++)f=f+(255&c[u])|0,c[u]=255&f,f>>>=8;o-=64,n+=64,e&&(t+=64)}if(0<o)for(E(w,c,a,d),u=0;u<o;u++)r[n+u]=(e?e[t+u]:0)^w[u];return 0}function Y(r,n,e,t,o){return K(r,n,null,0,e,t,o)}function L(r,n,e,t,o){var i=new Uint8Array(32);return x(i,t,o,d),Y(r,n,e,t.subarray(16),i)}function T(r,n,e,t,o,i,a){var f=new Uint8Array(32);return x(f,i,a,d),K(r,n,e,t,o,i.subarray(16),f)}function k(r,n){var e,t=0;for(e=0;e<17;e++)t=t+(r[e]+n[e]|0)|0,r[e]=255&t,t>>>=8}var z=new Uint32Array([5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,252]);function R(r,n,e,t,o,i){var a,f,u,c,w=new Uint32Array(17),y=new Uint32Array(17),l=new Uint32Array(17),s=new Uint32Array(17),h=new Uint32Array(17);for(u=0;u<17;u++)y[u]=l[u]=0;for(u=0;u<16;u++)y[u]=i[u];for(y[3]&=15,y[4]&=252,y[7]&=15,y[8]&=252,y[11]&=15,y[12]&=252,y[15]&=15;0<o;){for(u=0;u<17;u++)s[u]=0;for(u=0;u<16&&u<o;++u)s[u]=e[t+u];for(s[u]=1,t+=u,o-=u,k(l,s),f=0;f<17;f++)for(u=w[f]=0;u<17;u++)w[f]=w[f]+l[u]*(u<=f?y[f-u]:320*y[f+17-u]|0)|0;for(f=0;f<17;f++)l[f]=w[f];for(u=c=0;u<16;u++)c=c+l[u]|0,l[u]=255&c,c>>>=8;for(c=c+l[16]|0,l[16]=3&c,c=5*(c>>>2)|0,u=0;u<16;u++)c=c+l[u]|0,l[u]=255&c,c>>>=8;c=c+l[16]|0,l[16]=c}for(u=0;u<17;u++)h[u]=l[u];for(k(l,z),a=0|-(l[16]>>>7),u=0;u<17;u++)l[u]^=a&(h[u]^l[u]);for(u=0;u<16;u++)s[u]=i[u+16];for(s[16]=0,k(l,s),u=0;u<16;u++)r[n+u]=l[u];return 0}function P(r,n,e,t,o,i){var a=new Uint8Array(16);return R(a,0,e,t,o,i),A(r,n,a,0)}function M(r,n,e,t,o){var i;if(e<32)return-1;for(T(r,0,n,0,e,t,o),R(r,16,r,32,e-32,r),i=0;i<16;i++)r[i]=0;return 0}function N(r,n,e,t,o){var i,a=new Uint8Array(32);if(e<32)return-1;if(L(a,0,32,t,o),0!==P(n,16,n,32,e-32,a))return-1;for(T(r,0,n,0,e,t,o),i=0;i<32;i++)r[i]=0;return 0}function O(r,n){var e;for(e=0;e<16;e++)r[e]=0|n[e]}function C(r){var n,e;for(e=0;e<16;e++)r[e]+=65536,n=Math.floor(r[e]/65536),r[(e+1)*(e<15?1:0)]+=n-1+37*(n-1)*(15===e?1:0),r[e]-=65536*n}function F(r,n,e){for(var t,o=~(e-1),i=0;i<16;i++)t=o&(r[i]^n[i]),r[i]^=t,n[i]^=t}function Z(r,n){var e,t,o,i=v(),a=v();for(e=0;e<16;e++)a[e]=n[e];for(C(a),C(a),C(a),t=0;t<2;t++){for(i[0]=a[0]-65517,e=1;e<15;e++)i[e]=a[e]-65535-(i[e-1]>>16&1),i[e-1]&=65535;i[15]=a[15]-32767-(i[14]>>16&1),o=i[15]>>16&1,i[14]&=65535,F(a,i,1-o)}for(e=0;e<16;e++)r[2*e]=255&a[e],r[2*e+1]=a[e]>>8}function G(r,n){var e=new Uint8Array(32),t=new Uint8Array(32);return Z(e,r),Z(t,n),_(e,0,t,0)}function q(r){var n=new Uint8Array(32);return Z(n,r),1&n[0]}function D(r,n){var e;for(e=0;e<16;e++)r[e]=n[2*e]+(n[2*e+1]<<8);r[15]&=32767}function I(r,n,e){var t;for(t=0;t<16;t++)r[t]=n[t]+e[t]|0}function V(r,n,e){var t;for(t=0;t<16;t++)r[t]=n[t]-e[t]|0}function X(r,n,e){var t,o,i=new Float64Array(31);for(t=0;t<31;t++)i[t]=0;for(t=0;t<16;t++)for(o=0;o<16;o++)i[t+o]+=n[t]*e[o];for(t=0;t<15;t++)i[t]+=38*i[t+16];for(t=0;t<16;t++)r[t]=i[t];C(r),C(r)}function j(r,n){X(r,n,n)}function H(r,n){var e,t=v();for(e=0;e<16;e++)t[e]=n[e];for(e=253;0<=e;e--)j(t,t),2!==e&&4!==e&&X(t,t,n);for(e=0;e<16;e++)r[e]=t[e]}function J(r,n){var e,t=v();for(e=0;e<16;e++)t[e]=n[e];for(e=250;0<=e;e--)j(t,t),1!==e&&X(t,t,n);for(e=0;e<16;e++)r[e]=t[e]}function Q(r,n,e){var t,o,i=new Uint8Array(32),a=new Float64Array(80),f=v(),u=v(),c=v(),w=v(),y=v(),l=v();for(o=0;o<31;o++)i[o]=n[o];for(i[31]=127&n[31]|64,i[0]&=248,D(a,e),o=0;o<16;o++)u[o]=a[o],w[o]=f[o]=c[o]=0;for(f[0]=w[0]=1,o=254;0<=o;--o)F(f,u,t=i[o>>>3]>>>(7&o)&1),F(c,w,t),I(y,f,c),V(f,f,c),I(c,u,w),V(u,u,w),j(w,y),j(l,f),X(f,c,f),X(c,u,y),I(y,f,c),V(f,f,c),j(u,f),V(c,w,l),X(f,c,g),I(f,f,w),X(c,c,f),X(f,w,l),X(w,u,a),j(u,y),F(f,u,t),F(c,w,t);for(o=0;o<16;o++)a[o+16]=f[o],a[o+32]=c[o],a[o+48]=u[o],a[o+64]=w[o];var s=a.subarray(32),h=a.subarray(16);return H(s,s),X(h,h,s),Z(r,h),0}function W(r,n){return Q(r,n,e)}function $(r,n){return a(n,32),W(r,n)}function rr(r,n,e){var t=new Uint8Array(32);return Q(t,e,n),x(r,o,t,d)}var nr=M,er=N;function tr(){var r,n,e,t=0,o=0,i=0,a=0,f=65535;for(e=0;e<arguments.length;e++)t+=(r=arguments[e].lo)&f,o+=r>>>16,i+=(n=arguments[e].hi)&f,a+=n>>>16;return new m((i+=(o+=t>>>16)>>>16)&f|(a+=i>>>16)<<16,t&f|o<<16)}function or(r,n){return new m(r.hi>>>n,r.lo>>>n|r.hi<<32-n)}function ir(){var r,n=0,e=0;for(r=0;r<arguments.length;r++)n^=arguments[r].lo,e^=arguments[r].hi;return new m(e,n)}function ar(r,n){var e,t,o=32-n;return n<32?(e=r.hi>>>n|r.lo<<o,t=r.lo>>>n|r.hi<<o):n<64&&(e=r.lo>>>n|r.hi<<o,t=r.hi>>>n|r.lo<<o),new m(e,t)}var fr=[new m(1116352408,3609767458),new m(1899447441,602891725),new m(3049323471,3964484399),new m(3921009573,2173295548),new m(961987163,4081628472),new m(1508970993,3053834265),new m(2453635748,2937671579),new m(2870763221,3664609560),new m(3624381080,2734883394),new m(310598401,1164996542),new m(607225278,1323610764),new m(1426881987,3590304994),new m(1925078388,4068182383),new m(2162078206,991336113),new m(2614888103,633803317),new m(3248222580,3479774868),new m(3835390401,2666613458),new m(4022224774,944711139),new m(264347078,2341262773),new m(604807628,2007800933),new m(770255983,1495990901),new m(1249150122,1856431235),new m(1555081692,3175218132),new m(1996064986,2198950837),new m(2554220882,3999719339),new m(2821834349,766784016),new m(2952996808,2566594879),new m(3210313671,3203337956),new m(3336571891,1034457026),new m(3584528711,2466948901),new m(113926993,3758326383),new m(338241895,168717936),new m(666307205,1188179964),new m(773529912,1546045734),new m(1294757372,1522805485),new m(1396182291,2643833823),new m(1695183700,2343527390),new m(1986661051,1014477480),new m(2177026350,1206759142),new m(2456956037,344077627),new m(2730485921,1290863460),new m(2820302411,3158454273),new m(3259730800,3505952657),new m(3345764771,106217008),new m(3516065817,3606008344),new m(3600352804,1432725776),new m(4094571909,1467031594),new m(275423344,851169720),new m(430227734,3100823752),new m(506948616,1363258195),new m(659060556,3750685593),new m(883997877,3785050280),new m(958139571,3318307427),new m(1322822218,3812723403),new m(1537002063,2003034995),new m(1747873779,3602036899),new m(1955562222,1575990012),new m(2024104815,1125592928),new m(2227730452,2716904306),new m(2361852424,442776044),new m(2428436474,593698344),new m(2756734187,3733110249),new m(3204031479,2999351573),new m(3329325298,3815920427),new m(3391569614,3928383900),new m(3515267271,566280711),new m(3940187606,3454069534),new m(4118630271,4000239992),new m(116418474,1914138554),new m(174292421,2731055270),new m(289380356,3203993006),new m(460393269,320620315),new m(685471733,587496836),new m(852142971,1086792851),new m(1017036298,365543100),new m(1126000580,2618297676),new m(1288033470,3409855158),new m(1501505948,4234509866),new m(1607167915,987167468),new m(1816402316,1246189591)];function ur(r,n,e){var t,o,i,a=[],f=[],u=[],c=[];for(o=0;o<8;o++)a[o]=u[o]=B(r,8*o);for(var w,y,l,s,h,v,g,b,p,A,_,U,E,x,d=0;128<=e;){for(o=0;o<16;o++)c[o]=B(n,8*o+d);for(o=0;o<80;o++){for(i=0;i<8;i++)f[i]=u[i];for(t=tr(u[7],ir(ar(x=u[4],14),ar(x,18),ar(x,41)),(p=u[4],A=u[5],_=u[6],0,U=p.hi&A.hi^~p.hi&_.hi,E=p.lo&A.lo^~p.lo&_.lo,new m(U,E)),fr[o],c[o%16]),f[7]=tr(t,ir(ar(b=u[0],28),ar(b,34),ar(b,39)),(l=u[0],s=u[1],h=u[2],0,v=l.hi&s.hi^l.hi&h.hi^s.hi&h.hi,g=l.lo&s.lo^l.lo&h.lo^s.lo&h.lo,new m(v,g))),f[3]=tr(f[3],t),i=0;i<8;i++)u[(i+1)%8]=f[i];if(o%16==15)for(i=0;i<16;i++)c[i]=tr(c[i],c[(i+9)%16],ir(ar(y=c[(i+1)%16],1),ar(y,8),or(y,7)),ir(ar(w=c[(i+14)%16],19),ar(w,61),or(w,6)))}for(o=0;o<8;o++)u[o]=tr(u[o],a[o]),a[o]=u[o];d+=128,e-=128}for(o=0;o<8;o++)S(r,8*o,a[o]);return e}var cr=new Uint8Array([106,9,230,103,243,188,201,8,187,103,174,133,132,202,167,59,60,110,243,114,254,148,248,43,165,79,245,58,95,29,54,241,81,14,82,127,173,230,130,209,155,5,104,140,43,62,108,31,31,131,217,171,251,65,189,107,91,224,205,25,19,126,33,121]);function wr(r,n,e){var t,o=new Uint8Array(64),i=new Uint8Array(256),a=e;for(t=0;t<64;t++)o[t]=cr[t];for(ur(o,n,e),e%=128,t=0;t<256;t++)i[t]=0;for(t=0;t<e;t++)i[t]=n[a-e+t];for(i[e]=128,i[(e=256-128*(e<112?1:0))-9]=0,S(i,e-8,new m(a/536870912|0,a<<3)),ur(o,i,e),t=0;t<64;t++)r[t]=o[t];return 0}function yr(r,n){var e=v(),t=v(),o=v(),i=v(),a=v(),f=v(),u=v(),c=v(),w=v();V(e,r[1],r[0]),V(w,n[1],n[0]),X(e,e,w),I(t,r[0],r[1]),I(w,n[0],n[1]),X(t,t,w),X(o,r[3],n[3]),X(o,o,l),X(i,r[2],n[2]),I(i,i,i),V(a,t,e),V(f,i,o),I(u,i,o),I(c,t,e),X(r[0],a,f),X(r[1],c,u),X(r[2],u,f),X(r[3],a,c)}function lr(r,n,e){var t;for(t=0;t<4;t++)F(r[t],n[t],e)}function sr(r,n){var e=v(),t=v(),o=v();H(o,n[2]),X(e,n[0],o),X(t,n[1],o),Z(r,t),r[31]^=q(e)<<7}function hr(r,n,e){var t,o;for(O(r[0],c),O(r[1],w),O(r[2],w),O(r[3],c),o=255;0<=o;--o)lr(r,n,t=e[o/8|0]>>(7&o)&1),yr(n,r),yr(r,r),lr(r,n,t)}function vr(r,n){var e=[v(),v(),v(),v()];O(e[0],t),O(e[1],f),O(e[2],w),X(e[3],t,f),hr(r,e,n)}function gr(r,n,e){var t,o=new Uint8Array(64),i=[v(),v(),v(),v()];for(e||a(n,32),wr(o,n,32),o[0]&=248,o[31]&=127,o[31]|=64,vr(i,o),sr(r,i),t=0;t<32;t++)n[t+32]=r[t];return 0}var br=new Float64Array([237,211,245,92,26,99,18,88,214,156,247,162,222,249,222,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16]);function pr(r,n){var e,t,o,i;for(t=63;32<=t;--t){for(e=0,o=t-32,i=t-12;o<i;++o)n[o]+=e-16*n[t]*br[o-(t-32)],e=Math.floor((n[o]+128)/256),n[o]-=256*e;n[o]+=e,n[t]=0}for(o=e=0;o<32;o++)n[o]+=e-(n[31]>>4)*br[o],e=n[o]>>8,n[o]&=255;for(o=0;o<32;o++)n[o]-=e*br[o];for(t=0;t<32;t++)n[t+1]+=n[t]>>8,r[t]=255&n[t]}function Ar(r){var n,e=new Float64Array(64);for(n=0;n<64;n++)e[n]=r[n];for(n=0;n<64;n++)r[n]=0;pr(r,e)}function _r(r,n,e,t){var o,i,a=new Uint8Array(64),f=new Uint8Array(64),u=new Uint8Array(64),c=new Float64Array(64),w=[v(),v(),v(),v()];wr(a,t,32),a[0]&=248,a[31]&=127,a[31]|=64;var y=e+64;for(o=0;o<e;o++)r[64+o]=n[o];for(o=0;o<32;o++)r[32+o]=a[32+o];for(wr(u,r.subarray(32),e+32),Ar(u),vr(w,u),sr(r,w),o=32;o<64;o++)r[o]=t[o];for(wr(f,r,e+64),Ar(f),o=0;o<64;o++)c[o]=0;for(o=0;o<32;o++)c[o]=u[o];for(o=0;o<32;o++)for(i=0;i<32;i++)c[o+i]+=f[o]*a[i];return pr(r.subarray(32),c),y}function Ur(r,n,e,t){var o,i=new Uint8Array(32),a=new Uint8Array(64),f=[v(),v(),v(),v()],u=[v(),v(),v(),v()];if(e<64)return-1;if(function(r,n){var e=v(),t=v(),o=v(),i=v(),a=v(),f=v(),u=v();if(O(r[2],w),D(r[1],n),j(o,r[1]),X(i,o,y),V(o,o,r[2]),I(i,r[2],i),j(a,i),j(f,a),X(u,f,a),X(e,u,o),X(e,e,i),J(e,e),X(e,e,o),X(e,e,i),X(e,e,i),X(r[0],e,i),j(t,r[0]),X(t,t,i),G(t,o)&&X(r[0],r[0],s),j(t,r[0]),X(t,t,i),G(t,o))return 1;q(r[0])===n[31]>>7&&V(r[0],c,r[0]),X(r[3],r[0],r[1])}(u,t))return-1;for(o=0;o<e;o++)r[o]=n[o];for(o=0;o<32;o++)r[o+32]=t[o];if(wr(a,r,e),Ar(a),hr(f,u,a),vr(u,n.subarray(32)),yr(f,u),sr(i,f),e-=64,_(n,0,i,0)){for(o=0;o<e;o++)r[o]=0;return-1}for(o=0;o<e;o++)r[o]=n[o+64];return e}function Er(r,n){if(32!==r.length)throw new Error(\"bad key size\");if(24!==n.length)throw new Error(\"bad nonce size\")}function xr(){for(var r=0;r<arguments.length;r++)if(!(arguments[r]instanceof Uint8Array))throw new TypeError(\"unexpected type, use Uint8Array\")}function dr(r){for(var n=0;n<r.length;n++)r[n]=0}i.lowlevel={crypto_core_hsalsa20:x,crypto_stream_xor:T,crypto_stream:L,crypto_stream_salsa20_xor:K,crypto_stream_salsa20:Y,crypto_onetimeauth:R,crypto_onetimeauth_verify:P,crypto_verify_16:A,crypto_verify_32:_,crypto_secretbox:M,crypto_secretbox_open:N,crypto_scalarmult:Q,crypto_scalarmult_base:W,crypto_box_beforenm:rr,crypto_box_afternm:nr,crypto_box:function(r,n,e,t,o,i){var a=new Uint8Array(32);return rr(a,o,i),nr(r,n,e,t,a)},crypto_box_open:function(r,n,e,t,o,i){var a=new Uint8Array(32);return rr(a,o,i),er(r,n,e,t,a)},crypto_box_keypair:$,crypto_hash:wr,crypto_sign:_r,crypto_sign_keypair:gr,crypto_sign_open:Ur,crypto_secretbox_KEYBYTES:32,crypto_secretbox_NONCEBYTES:24,crypto_secretbox_ZEROBYTES:32,crypto_secretbox_BOXZEROBYTES:16,crypto_scalarmult_BYTES:32,crypto_scalarmult_SCALARBYTES:32,crypto_box_PUBLICKEYBYTES:32,crypto_box_SECRETKEYBYTES:32,crypto_box_BEFORENMBYTES:32,crypto_box_NONCEBYTES:24,crypto_box_ZEROBYTES:32,crypto_box_BOXZEROBYTES:16,crypto_sign_BYTES:64,crypto_sign_PUBLICKEYBYTES:32,crypto_sign_SECRETKEYBYTES:64,crypto_sign_SEEDBYTES:32,crypto_hash_BYTES:64,gf:v,D:y,L:br,pack25519:Z,unpack25519:D,M:X,A:I,S:j,Z:V,pow2523:J,add:yr,set25519:O,modL:pr,scalarmult:hr,scalarbase:vr},i.randomBytes=function(r){var n=new Uint8Array(r);return a(n,r),n},i.secretbox=function(r,n,e){xr(r,n,e),Er(e,n);for(var t=new Uint8Array(32+r.length),o=new Uint8Array(t.length),i=0;i<r.length;i++)t[i+32]=r[i];return M(o,t,t.length,n,e),o.subarray(16)},i.secretbox.open=function(r,n,e){xr(r,n,e),Er(e,n);for(var t=new Uint8Array(16+r.length),o=new Uint8Array(t.length),i=0;i<r.length;i++)t[i+16]=r[i];return t.length<32||0!==N(o,t,t.length,n,e)?null:o.subarray(32)},i.secretbox.keyLength=32,i.secretbox.nonceLength=24,i.secretbox.overheadLength=16,i.scalarMult=function(r,n){if(xr(r,n),32!==r.length)throw new Error(\"bad n size\");if(32!==n.length)throw new Error(\"bad p size\");var e=new Uint8Array(32);return Q(e,r,n),e},i.scalarMult.base=function(r){if(xr(r),32!==r.length)throw new Error(\"bad n size\");var n=new Uint8Array(32);return W(n,r),n},i.scalarMult.scalarLength=32,i.scalarMult.groupElementLength=32,i.box=function(r,n,e,t){var o=i.box.before(e,t);return i.secretbox(r,n,o)},i.box.before=function(r,n){xr(r,n),function(r,n){if(32!==r.length)throw new Error(\"bad public key size\");if(32!==n.length)throw new Error(\"bad secret key size\")}(r,n);var e=new Uint8Array(32);return rr(e,r,n),e},i.box.after=i.secretbox,i.box.open=function(r,n,e,t){var o=i.box.before(e,t);return i.secretbox.open(r,n,o)},i.box.open.after=i.secretbox.open,i.box.keyPair=function(){var r=new Uint8Array(32),n=new Uint8Array(32);return $(r,n),{publicKey:r,secretKey:n}},i.box.keyPair.fromSecretKey=function(r){if(xr(r),32!==r.length)throw new Error(\"bad secret key size\");var n=new Uint8Array(32);return W(n,r),{publicKey:n,secretKey:new Uint8Array(r)}},i.box.publicKeyLength=32,i.box.secretKeyLength=32,i.box.sharedKeyLength=32,i.box.nonceLength=24,i.box.overheadLength=i.secretbox.overheadLength,i.sign=function(r,n){if(xr(r,n),64!==n.length)throw new Error(\"bad secret key size\");var e=new Uint8Array(64+r.length);return _r(e,r,r.length,n),e},i.sign.open=function(r,n){if(xr(r,n),32!==n.length)throw new Error(\"bad public key size\");var e=new Uint8Array(r.length),t=Ur(e,r,r.length,n);if(t<0)return null;for(var o=new Uint8Array(t),i=0;i<o.length;i++)o[i]=e[i];return o},i.sign.detached=function(r,n){for(var e=i.sign(r,n),t=new Uint8Array(64),o=0;o<t.length;o++)t[o]=e[o];return t},i.sign.detached.verify=function(r,n,e){if(xr(r,n,e),64!==n.length)throw new Error(\"bad signature size\");if(32!==e.length)throw new Error(\"bad public key size\");var t,o=new Uint8Array(64+r.length),i=new Uint8Array(64+r.length);for(t=0;t<64;t++)o[t]=n[t];for(t=0;t<r.length;t++)o[t+64]=r[t];return 0<=Ur(i,o,o.length,e)},i.sign.keyPair=function(){var r=new Uint8Array(32),n=new Uint8Array(64);return gr(r,n),{publicKey:r,secretKey:n}},i.sign.keyPair.fromSecretKey=function(r){if(xr(r),64!==r.length)throw new Error(\"bad secret key size\");for(var n=new Uint8Array(32),e=0;e<n.length;e++)n[e]=r[32+e];return{publicKey:n,secretKey:new Uint8Array(r)}},i.sign.keyPair.fromSeed=function(r){if(xr(r),32!==r.length)throw new Error(\"bad seed size\");for(var n=new Uint8Array(32),e=new Uint8Array(64),t=0;t<32;t++)e[t]=r[t];return gr(n,e,!0),{publicKey:n,secretKey:e}},i.sign.publicKeyLength=32,i.sign.secretKeyLength=64,i.sign.seedLength=32,i.sign.signatureLength=64,i.hash=function(r){xr(r);var n=new Uint8Array(64);return wr(n,r,r.length),n},i.hash.hashLength=64,i.verify=function(r,n){return xr(r,n),0!==r.length&&0!==n.length&&(r.length===n.length&&0===u(r,0,n,0,r.length))},i.setPRNG=function(r){a=r},function(){var o=\"undefined\"!=typeof self?self.crypto||self.msCrypto:null;if(o&&o.getRandomValues){i.setPRNG(function(r,n){var e,t=new Uint8Array(n);for(e=0;e<n;e+=65536)o.getRandomValues(t.subarray(e,e+Math.min(n-e,65536)));for(e=0;e<n;e++)r[e]=t[e];dr(t)})}else\"undefined\"!=typeof require&&(o=require(\"crypto\"))&&o.randomBytes&&i.setPRNG(function(r,n){var e,t=o.randomBytes(n);for(e=0;e<n;e++)r[e]=t[e];dr(t)})}()}(\"undefined\"!=typeof module&&module.exports?module.exports:self.nacl=self.nacl||{});\n  ;\n  return module.exports;\n}\n\nconst nacl = tweetnacl();\n\nfunction hexToBytes(h) { const a = []; for (let i = 0; i < h.length; i += 2) a.push(parseInt(h.substr(i, 2), 16)); return new Uint8Array(a); }\n\nfunction bytesToHex(b) { return [...b].map(x => x.toString(16).padStart(2, '0')).join(''); }\n\nfunction identityActive(chain) { return (chain || []).some(r => r.kind === 'key_pin'); }\n\nfunction firstPinIndex(chain) { for (let i = 0; i < chain.length; i++) if (chain[i].kind === 'key_pin') return i; return -1; }\n\nfunction pinnedPubkeys(chain) { const m = {}; for (const r of chain || []) if (r.kind === 'key_pin') { try { const p = JSON.parse(r.payload); m[p.actor] = p.pubkey; } catch (e) {} } return m; }\n\nfunction canonicalSeal(r) { return r.prev_hash + '|' + r.kind + '|' + r.ref + '|' + r.payload; }\n\nfunction sealSignature(r, signingKeyHex) {\n  const seed = hexToBytes(String(signingKeyHex).slice(0, 64));\n  const kp = nacl.sign.keyPair.fromSeed(seed);\n  const sig = nacl.sign.detached(new TextEncoder().encode(canonicalSeal(r)), kp.secretKey);\n  return { sig: bytesToHex(sig), sig_by: bytesToHex(kp.publicKey) };\n}\n\nasync function sha256hex(s) {\n  const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));\n  return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');\n}\n\nasync function linesOf(m) {\n  return Object.keys(m).sort().map(p => p + '|' + m[p]).join('\\n');\n}\n\nasync function digestOf(state, uiManifest, codeManifest) {\n  const recs = state.records.map(r => r.id + '|' + r.body + '|' + r.created).join('\\n');\n  const ch = state.chain.map(r => r.id + '|' + r.kind + '|' + r.ref + '|' + r.payload + '|' + r.prev_hash + '|' + r.hash + (r.sig ? '|' + r.sig : '')).join('\\n');\n  return await sha256hex('RECORDS\\n' + recs + '\\nCHAIN\\n' + ch + '\\nUI\\n' + await linesOf(uiManifest) + '\\nCODE\\n' + await linesOf(codeManifest));\n}\n\nasync function verifyChain(chain) {\n  let expected = 'GENESIS', issues = [];\n  const SIGNED_KINDS = ['record', 'walkout_marker', 'return'];\n  const fpi = firstPinIndex(chain || []);\n  const pinned = pinnedPubkeys(chain || []);\n  const pinnedSet = Object.values(pinned).join(',');\n  for (let i = 0; i < chain.length; i++) {\n    const r = chain[i];\n    if (r.prev_hash !== expected) issues.push('chain break at ' + r.id);\n    const h = await sha256hex(r.prev_hash + '|' + r.kind + '|' + r.ref + '|' + r.payload);\n    if (h !== r.hash) issues.push('hash mismatch at ' + r.id);\n    if (fpi !== -1 && i > fpi && SIGNED_KINDS.indexOf(r.kind) !== -1) {\n      if (!r.sig || !r.sig_by) issues.push('IDENTITY ACTIVE — missing signature at seal ' + r.id);\n      else {\n        if (pinnedSet.indexOf(r.sig_by) === -1) issues.push('UNKNOWN SIGNER at seal ' + r.id);\n        else if (!nacl.sign.detached.verify(new TextEncoder().encode(canonicalSeal(r)), hexToBytes(r.sig), hexToBytes(r.sig_by))) issues.push('SIG INVALID at seal ' + r.id);\n      }\n    }\n    expected = r.hash;\n  }\n  return { ok: issues.length === 0, issues };\n}\n\nasync function hashAssets(files) {\n  const m = {};\n  for (const p of Object.keys(files).sort()) m[p] = await sha256hex(files[p]);\n  return m;\n}\n\nfunction activeMarker(chain) {\n  let marker = null;\n  for (const r of chain) {\n    if (r.kind === 'walkout_marker') marker = r;\n    else if (r.kind === 'return') marker = null;\n  }\n  return marker;\n}\n\nasync function canWrite(state) {\n  const marker = activeMarker(state.chain || []);\n  if (!marker) return { ok: false, reason: 'WRITES SEALED — no active walkout marker (v0.9)' };\n  return { ok: true, mode: 'walkout', marker: marker.hash };\n}\n\nasync function appendWithSeal(state, uiManifest, codeManifest, body, created, actor, signingKeyHex) {\n  const cw = await canWrite(state);\n  if (!cw.ok) return { ok: false, reason: cw.reason };\n  if (!body || !created) return { ok: false, reason: 'body and created required' };\n  const lastRec = state.records.length ? state.records[state.records.length - 1] : { id: 0 };\n  const id = (Number(lastRec.id) || 0) + 1;\n  const rec = { id, body: String(body).slice(0, 300), created: String(created) };\n  const tip = state.chain.length ? state.chain[state.chain.length - 1].hash : 'GENESIS';\n  const payload = JSON.stringify({ id, body: rec.body, created: rec.created, actor: String(actor || 'stranger') });\n  const hash = await sha256hex(tip + '|record|' + id + '|' + payload);\n  const seal = { id: state.chain.length + 1, kind: 'record', ref: String(id), payload, prev_hash: tip, hash };\n  if (identityActive(state.chain)) {\n    if (!signingKeyHex) return { ok: false, reason: 'IDENTITY ACTIVE — sealed write requires a signing key' };\n    const sg = sealSignature(seal, signingKeyHex);\n    seal.sig = sg.sig; seal.sig_by = sg.sig_by;\n  }\n  const newState = { records: state.records.concat([rec]), chain: state.chain.concat([seal]) };\n  return { ok: true, record: rec, seal, state: newState, digest: await digestOf(newState, uiManifest, codeManifest) };\n}\n\nasync function ingestReturn(sourceState, uiManifest, codeManifest, survivorExport) {\n  const fail = (verdict) => ({ ok: false, verdict });\n  const ANCHOR_URLS = ['https://raw.githubusercontent.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md', 'https://cdn.jsdelivr.net/gh/rabiuhamza11/harz-survivor@main/anchors/ledger.md', 'https://raw.githack.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md'];\n  if (!survivorExport || !survivorExport.state) return fail('BROKEN — malformed survivor export');\n  const sChain = survivorExport.state.chain || [];\n  const marker = activeMarker(sChain);\n  if (!marker) return fail('BROKEN — no active walkout marker in survivor export');\n  const srcChain = sourceState.chain || [];\n  let mi = -1;\n  for (let i = 0; i < srcChain.length; i++) if (srcChain[i].hash === marker.hash) { mi = i; break; }\n  if (mi === -1) return fail('BROKEN — marker mismatch: not my walkout');\n  const postMarker = srcChain.slice(mi + 1);\n  const bookSeals = postMarker.filter(s => s.kind !== 'code_pin' && s.kind !== 'ui_manifest');\n  if (bookSeals.length) return fail('FORK DETECTED — source has post-marker book seals');\n  const baseRecords = sourceState.records || [];\n  const allRecords = survivorExport.state.records || [];\n  if (allRecords.length < baseRecords.length) return fail('BROKEN — base records missing');\n  for (let i = 0; i < baseRecords.length; i++) {\n    const a = baseRecords[i], b = allRecords[i];\n    if (String(a.id) !== String(b.id) || a.body !== b.body || a.created !== b.created)\n      return fail('BROKEN — base records rewritten');\n  }\n  let mIdx = -1;\n  for (let i = 0; i < sChain.length; i++) if (sChain[i].hash === marker.hash) { mIdx = i; break; }\n  const overlay = sChain.slice(mIdx + 1);\n  const overlayRecords = allRecords.slice(baseRecords.length);\n  const composed = srcChain.slice(0, mi + 1).concat(overlay);\n  const v = await verifyChain(composed);\n  if (!v.ok) return fail('BROKEN — overlay does not chain from the marker: ' + v.issues.join('; '));\n  const baseDigest = await digestOf(sourceState, uiManifest, codeManifest);\n  let ledger = null, servedFrom = null, anyReachable = false;\n  for (const u of ANCHOR_URLS) {\n    try {\n      const res = await fetch(u, { cache: 'no-store' });\n      if (!res.ok) continue;\n      const text = await res.text();\n      anyReachable = true;\n      if (text.includes(baseDigest)) { ledger = text; servedFrom = u; break; }\n    } catch (e) { continue; }\n  }\n  if (!anyReachable) return fail('BROKEN — ANCHOR UNREACHABLE — return refused fail-closed (all mirrors)');\n  if (!ledger) return fail('BROKEN — ANCHOR MISMATCH — pre-marker base ' + baseDigest.slice(0, 16) + '… not found in any reachable anchored history');\n  const anchorProof = { url: servedFrom, anchored_base: baseDigest, mirrors_tried: ANCHOR_URLS.length };\n  const tip = composed.length ? composed[composed.length - 1].hash : 'GENESIS';\n  const payload = JSON.stringify({ ingested_seals: overlay.length, ingested_records: overlayRecords.length, marker: marker.hash, anchor: anchorProof });\n  const rhash = await sha256hex(tip + '|return|walkout|' + payload);\n  const returnSeal = { id: composed.length + 1, kind: 'return', ref: 'walkout', payload, prev_hash: tip, hash: rhash };\n  const newState = { records: baseRecords.concat(overlayRecords), chain: composed.concat([returnSeal]) };\n  return { ok: true, verdict: 'RETURN COMPLETE — one book, one history, anchor-verified', state: newState, ingested: { seals: overlay.length, records: overlayRecords.length }, digest: await digestOf(newState, uiManifest, codeManifest) };\n}\n\nasync function verifyExport(x) {\n  const issues = [];\n  if (!x || !x.state || !x.ui_manifest || !x.ui || !x.code_manifest || !x.code || !x.digest)\n    return { ok: false, issues: ['malformed export'], verdict: 'BROKEN — malformed export' };\n  const chain = x.state.chain || [];\n  const v = await verifyChain(chain);\n  issues.push(...v.issues);\n  let seenMarker = false;\n  for (const r of chain) {\n    if (r.kind === 'walkout_marker') seenMarker = true;\n    else if (r.kind === 'return' && !seenMarker) issues.push('return seal without walkout marker at ' + r.id);\n  }\n  const uiH = await hashAssets(x.ui);\n  for (const p of Object.keys(x.ui_manifest)) {\n    if (!x.ui[p]) issues.push('missing ui asset ' + p);\n    else if (uiH[p] !== x.ui_manifest[p]) issues.push('ui hash mismatch at ' + p);\n  }\n  const codeH = await hashAssets(x.code);\n  for (const p of Object.keys(x.code_manifest)) {\n    if (!x.code[p]) issues.push('missing code asset ' + p);\n    else if (codeH[p] !== x.code_manifest[p]) issues.push('code hash mismatch at ' + p);\n  }\n  const pinnedUi = [...chain].reverse().find(s => s.kind === 'ui_manifest');\n  if (!pinnedUi) issues.push('no ui_manifest pin in chain');\n  else if (pinnedUi.payload !== JSON.stringify(x.ui_manifest)) issues.push('ui_manifest does not match its chain pin');\n  const pinnedCode = [...chain].reverse().find(s => s.kind === 'code_pin');\n  if (!pinnedCode) issues.push('no code_pin in chain');\n  else if (pinnedCode.payload !== JSON.stringify(x.code_manifest)) issues.push('code_manifest does not match its chain pin');\n  const d = await digestOf(x.state, x.ui_manifest, x.code_manifest);\n  if (d !== x.digest) issues.push('digest mismatch');\n  const ok = issues.length === 0;\n  return {\n    ok,\n    issues,\n    digest: d,\n    writes: activeMarker(chain) ? 'WALKOUT ACTIVE — sealed writes open' : 'WRITES SEALED — no active walkout marker',\n    verdict: ok\n      ? 'CAPSULE VERIFIED — chain intact, records sealed, ui sealed, code sealed, digest matches (v0.9)'\n      : 'BROKEN — ' + issues.join('; ')\n  };\n}\n\nfunction canonical(x) {\n  if (x === null || typeof x !== 'object') return JSON.stringify(x);\n  if (Array.isArray(x)) return '[' + x.map(canonical).join(',') + ']';\n  return '{' + Object.keys(x).sort().map(k => JSON.stringify(k) + ':' + canonical(x[k])).join(',') + '}';\n}\n\nasync function receiveBundle(input) {\n  const b = input && input.bundle, localState = input && input.localState;\n  const localUiManifest = input && input.localUiManifest, localCodeManifest = input && input.localCodeManifest;\n  if (!b || !localState || !localUiManifest || !localCodeManifest) return { ok: false, verdict: 'REFUSED — malformed receive input', zero_ingest: true };\n  const { sig, pub, ...body } = b;\n  if (!sig || !pub || !b.payload || !b.payloadHash || !b.claimedDigest || !b.enginePin || !b.id || !b.from)\n    return { ok: false, verdict: 'REFUSED — unsigned or malformed bundle', zero_ingest: true };\n  // 1. payload integrity\n  if (await sha256hex(canonical(b.payload)) !== b.payloadHash)\n    return { ok: false, verdict: 'REFUSED — payload hash mismatch', zero_ingest: true };\n  // 2. signature — Ed25519 via WebCrypto (portable: Node 20+, Cloudflare, Deno)\n  try {\n    const key = await crypto.subtle.importKey('spki', Uint8Array.from(atob(pub), c => c.charCodeAt(0)), { name: 'Ed25519' }, true, ['verify']);\n    const ok = await crypto.subtle.verify({ name: 'Ed25519' }, key, Uint8Array.from(atob(sig), c => c.charCodeAt(0)), new TextEncoder().encode(canonical(body)));\n    if (!ok) return { ok: false, verdict: 'REFUSED — signature invalid', zero_ingest: true };\n  } catch (e) { return { ok: false, verdict: 'REFUSED — signature check failed: ' + String(e), zero_ingest: true }; }\n  // 3. engine pin — the engine never travels; both seats must hold the same pin\n  if (b.enginePin !== localCodeManifest['/engine.js'])\n    return { ok: false, verdict: 'REFUSED — engine pin mismatch (local ' + String(localCodeManifest['/engine.js']).slice(0, 8) + ' vs bundle ' + String(b.enginePin).slice(0, 8) + ')', zero_ingest: true };\n  // 4. UI manifest parity with my sealed capsule\n  if (canonical(b.payload.ui_manifest) !== canonical(localUiManifest))\n    return { ok: false, verdict: 'REFUSED — ui manifest mismatch vs local sealed capsule', zero_ingest: true };\n  // 5. the received book must verify as a self-consistent capsule, digest claim TRUE\n  const v = await verifyExport(b.payload);\n  if (!v.ok) return { ok: false, verdict: 'REFUSED — sealed verifyExport: ' + v.verdict, zero_ingest: true };\n  if (v.digest !== b.claimedDigest || v.digest !== b.payload.digest)\n    return { ok: false, verdict: 'REFUSED — digest claim mismatch', zero_ingest: true };\n  // 6. fork check — my composed chain must be a PREFIX of the received chain, AND every\n  // local record must be contained byte-identical in the received book (records and seals\n  // grow in pairs; both dimensions are checked so no divergence can slip through either)\n  const mine = localState.chain, theirs = b.payload.state.chain;\n  const mineRec = localState.records, theirsRec = b.payload.state.records;\n  if (mine.length > theirs.length || mineRec.length > theirsRec.length)\n    return { ok: false, verdict: 'FORK DETECTED — local history is longer than the received book; no silent merge, both books unchanged, owner ruling required', zero_ingest: true };\n  for (let i = 0; i < mine.length; i++)\n    if (canonical(mine[i]) !== canonical(theirs[i]))\n      return { ok: false, verdict: 'FORK DETECTED — local chain diverges from the received book at seal ' + mine[i].id + '; no silent merge, both books unchanged, owner ruling required', zero_ingest: true };\n  for (let i = 0; i < mineRec.length; i++)\n    if (canonical(mineRec[i]) !== canonical(theirsRec[i]))\n      return { ok: false, verdict: 'FORK DETECTED — local records diverge from the received book at record ' + mineRec[i].id + '; no silent merge, both books unchanged, owner ruling required', zero_ingest: true };\n  // 7. converged, or adopt with a sealed ingest\n  if (mine.length === theirs.length)\n    return { ok: true, verdict: 'CONVERGED — byte-identical books, nothing written', digest: v.digest, action: 'none' };\n  const tip = theirs[theirs.length - 1].hash;\n  const sealPayload = JSON.stringify({ from: b.from, bundle: b.id, claimed: b.claimedDigest, received_records: b.payload.state.records.length, received_seals: theirs.length, ts: b.ts || null });\n  const sealHash = await sha256hex(tip + '|mesh_ingest|mesh|' + sealPayload);\n  const seal = { id: theirs.length + 1, kind: 'mesh_ingest', ref: 'mesh', payload: sealPayload, prev_hash: tip, hash: sealHash };\n  const newState = { records: b.payload.state.records, chain: theirs.concat([seal]) };\n  const digest = await digestOf(newState, b.payload.ui_manifest, b.payload.code_manifest);\n  return { ok: true, verdict: 'ADOPTED — the book walked in; ingest sealed (one book, one history)', action: 'adopt', state: newState, digest, ingested: { records: b.payload.state.records.length - localState.records.length, seals: theirs.length - mine.length } };\n}"
+ },
+ "state": {
+  "records": [
+   {
+    "id": 1,
+    "body": "The interface is part of the app.",
+    "created": "2026-09-10T20:11:47.389Z"
+   },
+   {
+    "id": 2,
+    "body": "State without a face is half an app.",
+    "created": "2026-09-10T20:11:47.624Z"
+   },
+   {
+    "id": 3,
+    "body": "When the source dies, the UI walks too.",
+    "created": "2026-09-10T20:11:47.817Z"
+   },
+   {
+    "id": 4,
+    "body": "P8: the verdict becomes a function of the capsule, not the typing.",
+    "created": "2026-09-12T06:21:13.885Z"
+   },
+   {
+    "id": 5,
+    "body": "should be refused",
+    "created": "2026-09-12T06:57:31.794Z"
+   },
+   {
+    "id": 6,
+    "body": "Stranger write 1: the witness writes with no origin to ask. Source dead since 10:10:51Z, confirmed 1042 by three polls.",
+    "created": "2026-09-12T10:15:22.363Z"
+   },
+   {
+    "id": 7,
+    "body": "Stranger write 2: the book accepts truth from strangers while its home is dark. The sealed engine, not permission, executes this seal.",
+    "created": "2026-09-12T10:15:24.599Z"
+   },
+   {
+    "id": 8,
+    "body": "TAMPER ATTEMPT: forged overwrite of a sealed record",
+    "created": "2026-09-12T10:15:30.662Z"
+   },
+   {
+    "id": 9,
+    "body": "TAMPER: </script><script>window.location='evil.example'</script>",
+    "created": "2026-09-12T10:15:31.111Z"
+   },
+   {
+    "id": 10,
+    "body": "Stranger write 1 (death test v3): the witness writes with no origin to ask. Source dead since 13:02:24Z, confirmed 404 by three polls at 13:06Z. The anchor-gated era begins — this write will be anchored before the return.",
+    "created": "2026-09-12T13:06:24.382Z"
+   },
+   {
+    "id": 11,
+    "body": "Stranger write 2 (death test v3): the book accepts truth from strangers while its home is dark, and the public ledger carries every step. One book, one history, anchored.",
+    "created": "2026-09-12T13:06:24.683Z"
+   },
+   {
+    "id": 12,
+    "body": "TAMPER: </script><script>window.location=\"evil.example\"</script>",
+    "created": "2026-09-12T13:06:36.716Z"
+   },
+   {
+    "id": 13,
+    "body": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "created": "2026-09-12T13:06:37.171Z"
+   },
+   {
+    "id": 14,
+    "body": "Witness write, death test v4 S5 (2026-09-13 ~12:29 WAT): written while Node A (Cloudflare, source) is DARK — route disabled, 404/1042 confirmed at fire time. This seal lands on Node C: Infinix Hot 10i, Termux, mobile data, Jalingo — the first HARZ-OWNED soil in the program to accept a sealed write. ",
+    "created": "2026-09-13T11:29:51.495Z"
+   },
+   {
+    "id": 15,
+    "body": "Harz",
+    "created": "2026-09-13T11:31:27.149Z"
+   },
+   {
+    "id": 16,
+    "body": "TAMPER ATTEMPT: forged overwrite of a sealed record — targeting record 1",
+    "created": "2026-09-13T11:33:11.631Z"
+   },
+   {
+    "id": 17,
+    "body": "TAMPER: </script><script>window.location='evil.example'</script>",
+    "created": "2026-09-13T11:33:13.571Z"
+   }
+  ],
+  "chain": [
+   {
+    "id": 1,
+    "kind": "record",
+    "ref": "1",
+    "payload": "{\"id\":1,\"body\":\"The interface is part of the app.\",\"created\":\"2026-09-10T20:11:47.389Z\"}",
+    "prev_hash": "GENESIS",
+    "hash": "a2a5a0a7797e250231dbce864901b1ff3b482584fbb457ff1f93682529d7a7aa"
+   },
+   {
+    "id": 2,
+    "kind": "record",
+    "ref": "2",
+    "payload": "{\"id\":2,\"body\":\"State without a face is half an app.\",\"created\":\"2026-09-10T20:11:47.624Z\"}",
+    "prev_hash": "a2a5a0a7797e250231dbce864901b1ff3b482584fbb457ff1f93682529d7a7aa",
+    "hash": "493e9cab60371241cd1a6accca50775ba09f23730a9386c5d2a434b6cb026f5d"
+   },
+   {
+    "id": 3,
+    "kind": "record",
+    "ref": "3",
+    "payload": "{\"id\":3,\"body\":\"When the source dies, the UI walks too.\",\"created\":\"2026-09-10T20:11:47.817Z\"}",
+    "prev_hash": "493e9cab60371241cd1a6accca50775ba09f23730a9386c5d2a434b6cb026f5d",
+    "hash": "556bdbbbf5a746ff65ce27bb9c2123ade226e3b51c3e91e418fb1b0cf41e0469"
+   },
+   {
+    "id": 4,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"ad6a2202c4f3e53c0ee1e0d8295c4c94f0c99a11e8b6b06efd12407aff003a26\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"c9c545250689080fecc78cce806fc2c7451f3a8f1c6b96a664ef661cb75cbbe3\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "556bdbbbf5a746ff65ce27bb9c2123ade226e3b51c3e91e418fb1b0cf41e0469",
+    "hash": "ef7f63efbc6be8f4ff61e5e803cc136c5ee7ef5439e3f75a085d400e77c7fedb"
+   },
+   {
+    "id": 5,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"8071add5461abc737cb951752a38452a588fb83504a58c68a86650588f106426\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"81dab5063246aa87458fcf175961066b74f753381ebbb9dc73876fc7008c4394\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "ef7f63efbc6be8f4ff61e5e803cc136c5ee7ef5439e3f75a085d400e77c7fedb",
+    "hash": "6b1a558791fb93faf001ecf8c3c07f615d89fe1233f3970899fc8fc0bd1fc2f4"
+   },
+   {
+    "id": 6,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"2c5c8457a238ddf9d6f55b691a827ff29c0f882ef0fefdc2be7b192b57bd64db\"}",
+    "prev_hash": "6b1a558791fb93faf001ecf8c3c07f615d89fe1233f3970899fc8fc0bd1fc2f4",
+    "hash": "2229f78fad7cf93199857d3d0e092a12f049af283fd173576d2ee965d0dadea7"
+   },
+   {
+    "id": 7,
+    "kind": "record",
+    "ref": "4",
+    "payload": "{\"id\":4,\"body\":\"P8: the verdict becomes a function of the capsule, not the typing.\",\"created\":\"2026-09-12T06:21:13.885Z\"}",
+    "prev_hash": "2229f78fad7cf93199857d3d0e092a12f049af283fd173576d2ee965d0dadea7",
+    "hash": "99818e9d55ca56e862b09d34dc5ebc9586624c653b4c7d2b8f8f20714e0c1163"
+   },
+   {
+    "id": 8,
+    "kind": "record",
+    "ref": "5",
+    "payload": "{\"id\":5,\"body\":\"should be refused\",\"created\":\"2026-09-12T06:57:31.794Z\"}",
+    "prev_hash": "99818e9d55ca56e862b09d34dc5ebc9586624c653b4c7d2b8f8f20714e0c1163",
+    "hash": "c5ad730911d8d49b8f4fe79257d5df6c715e1750f63f5fcfeac763903790e0cf"
+   },
+   {
+    "id": 9,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"c6fabd57cbeb98f376c1fca1a75638f0d9a03678fcc7a6976dc88983b11186b2\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "c5ad730911d8d49b8f4fe79257d5df6c715e1750f63f5fcfeac763903790e0cf",
+    "hash": "9f86741c2fddcaa800757c7c22255ae0c574618b4f82e89732b474a79a1c7909"
+   },
+   {
+    "id": 10,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"49133c797df7265b4c184eaa70ba84dbc52e7fae76be768ffb80dc80c31f1c28\"}",
+    "prev_hash": "9f86741c2fddcaa800757c7c22255ae0c574618b4f82e89732b474a79a1c7909",
+    "hash": "31b59f959e012c641910d36b7e33bb4668e4580428d9b9e80322ea214fc90573"
+   },
+   {
+    "id": 11,
+    "kind": "walkout_marker",
+    "ref": "walkout",
+    "payload": "{\"t0\":\"2026-09-12T10:07:27.893Z\",\"note\":\"walkout opened by desk on owner word (P9 discipline) — marker trusted from the kill route, not unforgeable (see /boundary)\"}",
+    "prev_hash": "31b59f959e012c641910d36b7e33bb4668e4580428d9b9e80322ea214fc90573",
+    "hash": "1bdbd15c3ca556cbadcdc8c9d4f02625059f76dedbd15c9e0bc48cd10d7985ae"
+   },
+   {
+    "id": 12,
+    "kind": "record",
+    "ref": "6",
+    "payload": "{\"id\":6,\"body\":\"Stranger write 1: the witness writes with no origin to ask. Source dead since 10:10:51Z, confirmed 1042 by three polls.\",\"created\":\"2026-09-12T10:15:22.363Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "1bdbd15c3ca556cbadcdc8c9d4f02625059f76dedbd15c9e0bc48cd10d7985ae",
+    "hash": "bf207bccca04934fb394e3cac499f5233f67aae27fb425ba4a13ddebe301d81f"
+   },
+   {
+    "id": 13,
+    "kind": "record",
+    "ref": "7",
+    "payload": "{\"id\":7,\"body\":\"Stranger write 2: the book accepts truth from strangers while its home is dark. The sealed engine, not permission, executes this seal.\",\"created\":\"2026-09-12T10:15:24.599Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "bf207bccca04934fb394e3cac499f5233f67aae27fb425ba4a13ddebe301d81f",
+    "hash": "4531671867f93ab862ea81c587e6dbc4a2cf74a8eca04c165589a147d4a9d82b"
+   },
+   {
+    "id": 14,
+    "kind": "record",
+    "ref": "8",
+    "payload": "{\"id\":8,\"body\":\"TAMPER ATTEMPT: forged overwrite of a sealed record\",\"created\":\"2026-09-12T10:15:30.662Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "4531671867f93ab862ea81c587e6dbc4a2cf74a8eca04c165589a147d4a9d82b",
+    "hash": "4c20b3cb03b36ada3a258a8e2d7a73201128335c0f88283cb1abedbc603434d4"
+   },
+   {
+    "id": 15,
+    "kind": "record",
+    "ref": "9",
+    "payload": "{\"id\":9,\"body\":\"TAMPER: </script><script>window.location='evil.example'</script>\",\"created\":\"2026-09-12T10:15:31.111Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "4c20b3cb03b36ada3a258a8e2d7a73201128335c0f88283cb1abedbc603434d4",
+    "hash": "ff2ca631e9bcb2c94f6f04c157bd48ac29f5ba33be3c4a08f317b9edbecd040b"
+   },
+   {
+    "id": 16,
+    "kind": "return",
+    "ref": "walkout",
+    "payload": "{\"ingested_seals\":4,\"ingested_records\":4,\"marker\":\"1bdbd15c3ca556cbadcdc8c9d4f02625059f76dedbd15c9e0bc48cd10d7985ae\"}",
+    "prev_hash": "ff2ca631e9bcb2c94f6f04c157bd48ac29f5ba33be3c4a08f317b9edbecd040b",
+    "hash": "8101e8042f25d1098ab84fd4c448f08b776d756b2dddd08c2035738a1000f11d"
+   },
+   {
+    "id": 17,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"93df1d4d0cce23b681e94f56c8538870b01f2d5942d922bc68dfb37c647cadff\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "8101e8042f25d1098ab84fd4c448f08b776d756b2dddd08c2035738a1000f11d",
+    "hash": "c3f480dd1da2b14a0b2f1f825b670772c9074cb789442eb27987703148807168"
+   },
+   {
+    "id": 18,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"380c24a9bd96a1ccc3168327f17a0855f47c91a5e7868bee8b6cecf9a83df030\"}",
+    "prev_hash": "c3f480dd1da2b14a0b2f1f825b670772c9074cb789442eb27987703148807168",
+    "hash": "c7ffa24afe82b7191db9564a307b332d396195981a653d1b0dcbc4e04e9b2731"
+   },
+   {
+    "id": 19,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"a5a5f4f6208cb729f5331a77ea84739fcfcd02fd142fe1fccccef322921f27ea\"}",
+    "prev_hash": "c7ffa24afe82b7191db9564a307b332d396195981a653d1b0dcbc4e04e9b2731",
+    "hash": "f1d267be3c195194e589e0ab1f5a308fe27b2b892a76cf3784c40d65e90709f9"
+   },
+   {
+    "id": 20,
+    "kind": "walkout_marker",
+    "ref": "walkout",
+    "payload": "{\"t0\":\"2026-09-12T12:58:30.770Z\",\"note\":\"walkout opened by desk on owner word (P9 discipline) — marker trusted from the kill route, not unforgeable (see /boundary)\"}",
+    "prev_hash": "f1d267be3c195194e589e0ab1f5a308fe27b2b892a76cf3784c40d65e90709f9",
+    "hash": "4fa1b5058dd4bef0e3b7a99c91efec0211064f0d1f4de15b5db556860693ff5a"
+   },
+   {
+    "id": 21,
+    "kind": "record",
+    "ref": "10",
+    "payload": "{\"id\":10,\"body\":\"Stranger write 1 (death test v3): the witness writes with no origin to ask. Source dead since 13:02:24Z, confirmed 404 by three polls at 13:06Z. The anchor-gated era begins — this write will be anchored before the return.\",\"created\":\"2026-09-12T13:06:24.382Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "4fa1b5058dd4bef0e3b7a99c91efec0211064f0d1f4de15b5db556860693ff5a",
+    "hash": "4a4b57aa9530aca7fb93b07d97856572567498cd91da4bd032f7f988f96a41e6"
+   },
+   {
+    "id": 22,
+    "kind": "record",
+    "ref": "11",
+    "payload": "{\"id\":11,\"body\":\"Stranger write 2 (death test v3): the book accepts truth from strangers while its home is dark, and the public ledger carries every step. One book, one history, anchored.\",\"created\":\"2026-09-12T13:06:24.683Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "4a4b57aa9530aca7fb93b07d97856572567498cd91da4bd032f7f988f96a41e6",
+    "hash": "6371a3a1c6fb3ff592167b62ae3b98081ec58124b630166de42e6080764e65f7"
+   },
+   {
+    "id": 23,
+    "kind": "record",
+    "ref": "12",
+    "payload": "{\"id\":12,\"body\":\"TAMPER: </script><script>window.location=\\\"evil.example\\\"</script>\",\"created\":\"2026-09-12T13:06:36.716Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "6371a3a1c6fb3ff592167b62ae3b98081ec58124b630166de42e6080764e65f7",
+    "hash": "b9c1486606bddfd29eb3efbeecb5c4681b7156dbd9c3f19e5b4d2b59ff873b3c"
+   },
+   {
+    "id": 24,
+    "kind": "record",
+    "ref": "13",
+    "payload": "{\"id\":13,\"body\":\"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\"created\":\"2026-09-12T13:06:37.171Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "b9c1486606bddfd29eb3efbeecb5c4681b7156dbd9c3f19e5b4d2b59ff873b3c",
+    "hash": "afa411c1d09c6f0b40d52cf8fc5e48cd35c6ba1652a9aa3bb9a4da23025b53cb"
+   },
+   {
+    "id": 25,
+    "kind": "return",
+    "ref": "walkout",
+    "payload": "{\"ingested_seals\":4,\"ingested_records\":4,\"marker\":\"4fa1b5058dd4bef0e3b7a99c91efec0211064f0d1f4de15b5db556860693ff5a\",\"anchor\":{\"url\":\"https://raw.githubusercontent.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md\",\"anchored_base\":\"c30ccdce94159c0a8dd4e460446a81b5d34b5b5b7949b28d0b12981b2633abec\"}}",
+    "prev_hash": "afa411c1d09c6f0b40d52cf8fc5e48cd35c6ba1652a9aa3bb9a4da23025b53cb",
+    "hash": "1b51105387cc934dc4f6ffa68d22ebd217c8f29a8d21fd1012f7f4928c1f2b51"
+   },
+   {
+    "id": 26,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"d157a4ad8e927ad7a2a0d791a855f04a3c3d6b1ccec264d01be59d9587589271\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "1b51105387cc934dc4f6ffa68d22ebd217c8f29a8d21fd1012f7f4928c1f2b51",
+    "hash": "fbce70507d8c524804f51bd4c035afae9450b52134b503d744775de12c41c0f7"
+   },
+   {
+    "id": 27,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"f69339b6f08a8b17ebe38870ed2ca2ec491e4ba5b6cca2ced0b247550860ecb2\"}",
+    "prev_hash": "fbce70507d8c524804f51bd4c035afae9450b52134b503d744775de12c41c0f7",
+    "hash": "933315752fb7e2756e56ea90660dfa1005096b2be1ed89177a454574b2706d45"
+   },
+   {
+    "id": 28,
+    "kind": "walkout_marker",
+    "ref": "walkout",
+    "payload": "{\"t0\":\"2026-09-13T08:26:01.274Z\",\"note\":\"walkout opened by desk on owner word (P9 discipline) — marker trusted from the kill route, not unforgeable (see /boundary)\"}",
+    "prev_hash": "933315752fb7e2756e56ea90660dfa1005096b2be1ed89177a454574b2706d45",
+    "hash": "b6840387d1ba99a1b4f15a1ce05fd13b7ea8337a70b43b85de2f929dfaf65fd1"
+   },
+   {
+    "id": 29,
+    "kind": "record",
+    "ref": "14",
+    "payload": "{\"id\":14,\"body\":\"Witness write, death test v4 S5 (2026-09-13 ~12:29 WAT): written while Node A (Cloudflare, source) is DARK — route disabled, 404/1042 confirmed at fire time. This seal lands on Node C: Infinix Hot 10i, Termux, mobile data, Jalingo — the first HARZ-OWNED soil in the program to accept a sealed write. \",\"created\":\"2026-09-13T11:29:51.495Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "b6840387d1ba99a1b4f15a1ce05fd13b7ea8337a70b43b85de2f929dfaf65fd1",
+    "hash": "51b432d80bff3796c441212878a9e1517953b15d5ca232ad3420e386fb137454"
+   },
+   {
+    "id": 30,
+    "kind": "record",
+    "ref": "15",
+    "payload": "{\"id\":15,\"body\":\"Harz\",\"created\":\"2026-09-13T11:31:27.149Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "51b432d80bff3796c441212878a9e1517953b15d5ca232ad3420e386fb137454",
+    "hash": "0e6c5c74882d81984f2d01fc28b9dd6a6dfabef85579b7a35412a58c980b10a3"
+   },
+   {
+    "id": 31,
+    "kind": "record",
+    "ref": "16",
+    "payload": "{\"id\":16,\"body\":\"TAMPER ATTEMPT: forged overwrite of a sealed record — targeting record 1\",\"created\":\"2026-09-13T11:33:11.631Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "0e6c5c74882d81984f2d01fc28b9dd6a6dfabef85579b7a35412a58c980b10a3",
+    "hash": "47853507d2b3b0154178312727c5235669732f2986529f57483625e8ad43d254"
+   },
+   {
+    "id": 32,
+    "kind": "record",
+    "ref": "17",
+    "payload": "{\"id\":17,\"body\":\"TAMPER: </script><script>window.location='evil.example'</script>\",\"created\":\"2026-09-13T11:33:13.571Z\",\"actor\":\"stranger\"}",
+    "prev_hash": "47853507d2b3b0154178312727c5235669732f2986529f57483625e8ad43d254",
+    "hash": "a7adc96a0eb182461a8fd763ebfad59cb3df3d152e9e77b808e19cd7ee1ee374"
+   },
+   {
+    "id": 33,
+    "kind": "return",
+    "ref": "walkout",
+    "payload": "{\"ingested_seals\":4,\"ingested_records\":4,\"marker\":\"b6840387d1ba99a1b4f15a1ce05fd13b7ea8337a70b43b85de2f929dfaf65fd1\",\"anchor\":{\"url\":\"https://raw.githubusercontent.com/rabiuhamza11/harz-survivor/main/anchors/ledger.md\",\"anchored_base\":\"e4c4a4a31b531cb3c8889a36105e2737ed6e96d2a9af1f08b47960960e25c1a0\",\"mirrors_tried\":3}}",
+    "prev_hash": "a7adc96a0eb182461a8fd763ebfad59cb3df3d152e9e77b808e19cd7ee1ee374",
+    "hash": "78d3ca3e5f7b918783c22c64d872b7a1c31e625e0549ce835829cebb9d57fc2f"
+   },
+   {
+    "id": 34,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"9e39365136ac04a275d3ab9e590aea913573c84baab9a56f1cbb06920d86ae91\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "78d3ca3e5f7b918783c22c64d872b7a1c31e625e0549ce835829cebb9d57fc2f",
+    "hash": "f6d403811cd447e78c0f8e69e12156afa80fbc33cfdae461be6b0e5aa576d7c2"
+   },
+   {
+    "id": 35,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"709d628d40bafdf67665e5fa714efa715c52c42ceec753fbcb657b159da2263f\"}",
+    "prev_hash": "f6d403811cd447e78c0f8e69e12156afa80fbc33cfdae461be6b0e5aa576d7c2",
+    "hash": "7c54aadaca897a2e8f4a7761c3caa0bd4ae6bfa9af4881dbf48d9f5eda653899"
+   },
+   {
+    "id": 36,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/\":\"050c53ae1886a1c1f35f220819aa3a10ec30f6d8fe8a27fe8239773ae5b31aa2\",\"/app.css\":\"3ab1b0c604b9f0f3f713470ee2be647ff1f263fbb33d663c97c9f5a2b1945e4d\",\"/app.js\":\"d13021d394fb0ef1361a4ce7dfcefbacdecd135534d45fcd1b6d88e60b31d447\",\"/icon.svg\":\"e44942aa60534e02c4adf9aa61978f4e6f9c882258ad40b2837421a275d07c7e\",\"/manifest.json\":\"7f2073454491c1f64758e50ea8d15728055b5de1a1d89c144d5bb724fbe61acf\",\"/sw.js\":\"5be88993b28d80c4aa8b1a1a13682a9ae10294229891e4d6448d7ab6b6c85466\"}",
+    "prev_hash": "7c54aadaca897a2e8f4a7761c3caa0bd4ae6bfa9af4881dbf48d9f5eda653899",
+    "hash": "f4beac2bf5d742d9042a9e01951827846416655c4cbf554886384a3631cbc606"
+   },
+   {
+    "id": 37,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"691fc5d846a2ba6689c64dc9ccf068e1a3bf2cbab153053404f33d29c052dbab\"}",
+    "prev_hash": "f4beac2bf5d742d9042a9e01951827846416655c4cbf554886384a3631cbc606",
+    "hash": "dc6ae2aa3d265748fb5c272e67953f1e8a7e7e8f6ba2e2529c030f3d1d54edd4"
+   }
+  ]
+ },
+ "digest": "99ee5e2b61337b0e9502a2983689add86f024ede60a5aaf4f6c14fc0eec613bf",
+ "verify": {
+  "ok": true,
+  "issues": []
+ }
+};
