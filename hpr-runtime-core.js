@@ -44,7 +44,7 @@ export function createRuntime(capsule, kv, opts = {}) {
   };
 
   function loadSealedEngine() {
-    return (new Function(C.code["/engine.js"] + "; return { CONTRACT, activeMarker, canWrite, appendWithSeal, ingestReturn, verifyExport, digestOf, verifyChain, hashAssets, sha256hex };"))();
+    return (new Function(C.code["/engine.js"] + "; return { CONTRACT, activeMarker, canWrite, appendWithSeal, ingestReturn, verifyExport, digestOf, verifyChain, hashAssets, sha256hex, receiveBundle: (typeof receiveBundle !== 'undefined') ? receiveBundle : null };"))();
   }
 
   async function overlay() {
@@ -66,6 +66,15 @@ export function createRuntime(capsule, kv, opts = {}) {
     return { records: C.state.records.concat(ov.records), chain: C.state.chain.concat(ov.seals) };
   }
 
+  async function this_verify(expected) {
+    // internal re-verify after adoption — recompute the composed digest via the sealed engine
+    const ov2 = await overlay();
+    const state2 = composedState(ov2);
+    const d2 = await E2().digestOf(state2, C.ui_manifest, C.code_manifest);
+    const v2 = await E2().verifyExport({ state: state2, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: d2 });
+    return { status: 200, headers: {}, body: JSON.stringify({ records: state2.records.length, chain_length: state2.chain.length, verdict: v2.verdict, digest: d2, ok: v2.ok && d2 === expected }) };
+  }
+  function E2() { return loadSealedEngine(); }
   async function handle(method, path, body) {
     const CORS = { "access-control-allow-origin": "*", "cache-control": "no-store" };
     const json = (o, s = 200) => ({ status: s, headers: { ...CORS, "content-type": "application/json" }, body: JSON.stringify(o) });
@@ -103,6 +112,24 @@ export function createRuntime(capsule, kv, opts = {}) {
         const newOv = { records: ov.records.concat([r.record]), seals: ov.seals.concat([r.seal]), lastDigest: r.digest };
         await kv.set("overlay", newOv);
         return json({ ok: true, verdict: "SEALED WRITE — appended by the sealed engine", id: r.record.id, digest: r.digest, seals: r.state.chain.length });
+      }
+      if (path === "/api/mesh/receive" && method === "POST") {
+        // MESH CONVERGENCE TEST v1 (hpr-1.1.0). This route is UNSEALED GLUE: it parses the
+        // request and persists what the SEALED engine gate decides. Every verdict —
+        // REFUSED / FORK DETECTED / CONVERGED / ADOPTED — comes from receiveBundle, the
+        // sealed engine surface pinned in the chain (pre-registered: anchors/mesh-v1/).
+        let b; try { b = JSON.parse(body || ""); } catch (_e) { return json({ ok: false, verdict: "REFUSED — bad json" }, 400); }
+        if (!E.receiveBundle) return json({ ok: false, verdict: "REFUSED — this node runs a pre-gate engine (hpr-1.0.0, pin " + C.code_manifest["/engine.js"].slice(0, 8) + "); re-pin to hpr-1.1.0 to receive books over the mesh", zero_ingest: true }, 403);
+        const r = await E.receiveBundle({ bundle: b, localState: state, localUiManifest: C.ui_manifest, localCodeManifest: C.code_manifest });
+        if (r.ok && r.action === "adopt") {
+          if (!kv) return json({ ok: false, verdict: "REFUSED — adoption needs an overlay store; none attached", zero_ingest: true }, 503);
+          const frozenRec = C.state.records.length, frozenSeal = C.state.chain.length;
+          const newOv = { records: r.state.records.slice(frozenRec), seals: r.state.chain.slice(frozenSeal), lastDigest: r.digest };
+          await kv.set("overlay", newOv);
+          const after = JSON.parse((await this_verify(r.digest)).body);
+          return json({ ok: true, verdict: r.verdict, action: "adopt", digest: r.digest, ingested: r.ingested, composed: { records: after.records, seals: after.chain_length, verdict: after.verdict } });
+        }
+        return json({ ok: r.ok, verdict: r.verdict, digest: r.digest || null, action: r.action || "none", ingested: r.ingested || null, zero_ingest: r.zero_ingest !== false }, r.ok ? 200 : (String(r.verdict).startsWith("FORK") ? 409 : 403));
       }
       if (path === "/api/export") {
         return json({

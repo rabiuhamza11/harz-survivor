@@ -5,7 +5,7 @@
 // executes on a third substrate family; physical sovereignty stays a hardware
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
-import { CAPSULE } from "./capsule-v10-returned.js"; // death test v4 FINAL: returned book 8fbaa547 (17 records, 33 seals, return seal #33, walkout CLOSED) — identical to Node A live D1 state
+import { CAPSULE } from "./capsule-v11-receive.js"; // mesh v1 P2: hpr-1.1.0 receive gate (engine 223f1d0b), book 17/34, digest ac49a7e0 // death test v4 FINAL: returned book 8fbaa547 (17 records, 33 seals, return seal #33, walkout CLOSED) — identical to Node A live D1 state
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
