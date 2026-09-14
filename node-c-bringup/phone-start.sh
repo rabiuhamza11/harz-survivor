@@ -33,9 +33,10 @@ ssh -o StrictHostKeyChecking=accept-new -o ServerAliveInterval=60 -R 80:localhos
     if [ -n "$U" ]; then
       ANNOUNCED=1
       V=$(curl -s --max-time 10 "http://localhost:8930/api/verify")
-      DG=$(printf '%s' "$V" | grep -oE '"digest":"[a-f0-9]{64}' | cut -d'"' -f4)
-      RC=$(printf '%s' "$V" | grep -oE '"records":[0-9]+' | cut -d: -f2)
-      SL=$(printf '%s' "$V" | grep -oE '"chain_length":[0-9]+' | cut -d: -f2)
+      # first match ONLY — v0.9 verify has overlay fields ("records":0) after the real ones
+      DG=$(printf '%s' "$V" | grep -oE '"digest":"[a-f0-9]{64}' | head -1 | cut -d'"' -f4)
+      RC=$(printf '%s' "$V" | grep -oE '"records":[0-9]+' | head -1 | cut -d: -f2)
+      SL=$(printf '%s' "$V" | grep -oE '"chain_length":[0-9]+' | head -1 | cut -d: -f2)
       if [ -n "$DG" ]; then
         echo ""
         echo "    ANNOUNCING to locator: $U (digest ${DG:0:16}..., ${RC:-?} rec, ${SL:-?} seals)"
