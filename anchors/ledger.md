@@ -128,3 +128,8 @@ Infra event; HPR book unchanged (18/43 at 49b7cf42).
 - Both desk deployment errors (byte-compare seam, D1 seal spacing) were caught by the gates themselves — owner confirmed zero silent merges.
 - Verdict per the law's rung labels: the MECHANISM is proven by the owner's runs, not desk assertions. Full closure of Rung 2 awaits: R8 live adoption field test, owner topology ruling, Node C owner pull.
 - Anchored by: the desk (Elio), Oct 1, 2026. Book unchanged by this anchor (verification event, current book digest bf4681b5).
+
+## R8 PRE-REGISTRATION — WITNESS CARD SEALED (Oct 1, 2026, owner "Magani will witness it")
+- Owner named Magani as witness for the R8 live merge field test (topology: Option A as proposed — two live books, B and C, both accepting real writes; A is merge + adoption seat, unchanged by architecture). Card at anchors/r8-witness-card.md, sealed BEFORE any window: phases, pre-registered write bodies, refusal probes, witness PASS conditions, limits, revert path, $0 cost.
+- PRE-REGISTRATION FINDING (caught before the window, honest): the runtime write rail never passes a signing key — on the identity-active book it refuses ("IDENTITY ACTIVE — sealed write requires a signing key"); P11's hand-write predates the P12 signature law. Phase 0 = glue-only write-rail signing upgrade (engine pin 434c41d2 UNTOUCHED), seeds by vault per P12 custody (desk key at B; owner key never leaves the owner's phone at C), dated boundary amendment on A before the window.
+- Window opens ONLY when: Phase 0 batteries green + amendment published + witness seat ready + owner word. Book unchanged by this anchor (18/44 at bf4681b5).
