@@ -119,3 +119,12 @@ Infra event; HPR book unchanged (18/43 at 49b7cf42).
 - Node B (harz-survivor.harzcobusiness.deno.net): rebuilt from push f6bdcb3, CAPSULE INTACT 18/44 bf4681b5, merge rail + boundary live.
 - Node C: owner pull (phone lands on the same book by construction — repo is the book's home).
 - Anchored by: the desk (Elio), Oct 1, 2026, ~18:40 Lagos. Book unchanged by this anchor (infra event on live book).
+
+## RUNG 2 — OWNER INDEPENDENT VERIFICATION (Oct 1, 2026, ~18:20 Lagos, owner's own hands)
+- The owner personally audited and ran Rung 2: hashed the sealed engine himself (434c41d2 — exact match), read mergeBooks in the sealed bytes and confirmed every word of the law (lexicographic tip rule, common-ancestor detection, all four principle-4 verdicts, exactly-once via receipts, contradictions by slot with zero smoothing, second side preserved verbatim, merged chain re-verified before return).
+- Re-ran the battery himself: 13/13; recomputed merged digest 9eafb263 matching the desk's Python cross-check to the byte.
+- Own live-fire probes through Node A's rail: lockstep merge VERIFIED + deterministic; tampered record CONTRADICTED at the exact slot; tampered seal UNRESOLVED (BROKEN at link 31); live book untouched at 18/44 bf4681b5 through all three — compute-only confirmed by the owner, not just claimed by the desk.
+- Two owner notes, both correct and on record: (1) the desk's live diverged merge 8b15f4ab sealed no receipt (compute-only by design — re-issuing the identical pair reproduces the identical merge_id by determinism, but no trace was written, both true); (2) he could not forge his own diverged book because the P12 signatures rightly stopped him.
+- Both desk deployment errors (byte-compare seam, D1 seal spacing) were caught by the gates themselves — owner confirmed zero silent merges.
+- Verdict per the law's rung labels: the MECHANISM is proven by the owner's runs, not desk assertions. Full closure of Rung 2 awaits: R8 live adoption field test, owner topology ruling, Node C owner pull.
+- Anchored by: the desk (Elio), Oct 1, 2026. Book unchanged by this anchor (verification event, current book digest bf4681b5).
