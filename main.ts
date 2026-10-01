@@ -6,7 +6,7 @@
 // runtime, not the wrapper, is the reusable primitive.
 import { createRuntime } from "./hpr-runtime-core.js";
 
-import { CAPSULE } from "./capsule-v14-canonical.js"; // P14 CANONICAL RE-FREEZE (owner "Do what is good"): ONE book on all three nodes byte-identical, 18/43 at 49b7cf42, mesh_ingest receipt #43 permanent history, engine v0.9 691fc5d8 unchanged
+import { CAPSULE } from "./capsule-v15-merge.js"; // RUNG 2 MERGE (HarzNet law, Oct 1 2026, owner "Do all and leave 3 later"): book history unchanged + code_pin seal #44 adopts engine v1.0.0 434c41d2 (deterministic state reconciliation). 18/44 at bf4681b5.
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 const CAPSULE_SRC = CAPSULE;
 

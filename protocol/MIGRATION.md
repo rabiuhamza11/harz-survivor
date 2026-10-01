@@ -24,3 +24,7 @@ unification in the next zone build; no chain migration needed; owner word.
 Cost at each phase: $0 (same accounts, code swaps). Risk control: byte-exact
 verification batteries before and after each migration; per-product rollback
 = redeploy prior build.
+
+
+## v1.0.0 - RUNG 2 MERGE (Oct 1, 2026, owner "Do all and leave 3 later")
+Engine adds mergeBooks: deterministic state reconciliation per the HarzNet law. Capsule v15 = v14 book unchanged + code_pin seal #44 (engine pin 434c41d2). Node A live at 18/44 bf4681b5. Battery merge-battery.mjs 13/13; Python replay agrees. /api/merge rail = compute-only; R8 live field test gated on owner topology decision.

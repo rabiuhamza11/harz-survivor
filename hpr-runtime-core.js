@@ -41,10 +41,11 @@ export function createRuntime(capsule, kv, opts = {}) {
     ],
     trust: ["The substrate must faithfully execute the sealed bytes. Verify the digest yourself: fetch /api/export and run the sealed engine at /api/source."],
     research: "P11 / HPR-1 experiment of the cloud-substrate research program. Prototype at test scale. Not a product.",
+    rung2_merge: { date: "2026-10-01", text: "RUNG 2 MERGE (HarzNet law, owner \"Do all and leave 3 later\"): engine v1.0.0 adds deterministic state reconciliation — mergeBooks in the sealed bytes. Deterministic (lexicographic tip rule), fork detection at merge time, principle-4 verdicts, merge receipts with the second side preserved verbatim as evidence, replay-safe and exactly-once. Fail-closed: CONTRADICTED / UNRESOLVED never merge. The /api/merge rail COMPUTES; adoption is explicit (R8 gated on owner topology word)." },
   };
 
   function loadSealedEngine() {
-    return (new Function(C.code["/engine.js"] + "; return { CONTRACT, activeMarker, canWrite, appendWithSeal, ingestReturn, verifyExport, digestOf, verifyChain, hashAssets, sha256hex, receiveBundle: (typeof receiveBundle !== 'undefined') ? receiveBundle : null };"))();
+    return (new Function(C.code["/engine.js"] + "; return { CONTRACT, activeMarker, canWrite, appendWithSeal, ingestReturn, verifyExport, digestOf, verifyChain, hashAssets, sha256hex, receiveBundle: (typeof receiveBundle !== 'undefined') ? receiveBundle : null, mergeBooks: (typeof mergeBooks !== 'undefined') ? mergeBooks : null };"))();
   }
 
   async function overlay() {
@@ -142,6 +143,22 @@ export function createRuntime(capsule, kv, opts = {}) {
           state,
           digest: composedDigest,
         });
+      }
+      if (path === "/api/merge" && method === "POST") {
+        if (!E.mergeBooks) return json({ ok: false, verdict: 'BROKEN — engine has no merge law (pre-v1.0.0 capsule)' }, 500);
+        let b = null; try { b = JSON.parse(body); } catch (_e) { return json({ ok: false, verdict: 'INSUFFICIENT_EVIDENCE — bad json' }, 400); }
+        const remote = b && (b.remoteExport || b.export);
+        if (!remote) return json({ ok: false, verdict: 'INSUFFICIENT_EVIDENCE — remoteExport required (the other book\u2019s full export)' }, 400);
+        const ov = await overlay();
+        const state = composedState(ov);
+        const localDigest = await E.digestOf(state, C.ui_manifest, C.code_manifest);
+        const localExport = { manifest: C.manifest, state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: localDigest };
+        const r = await E.mergeBooks({ exportA: localExport, exportB: remote, uiManifest: C.ui_manifest, codeManifest: C.code_manifest });
+        const out = { ok: r.ok, verdict: r.verdict, merge_id: r.merge_id || null, zero_merge: r.zero_merge === true, rail: 'compute-only — adoption is explicit (R8 field test gated on owner word)' };
+        if (r.replay) out.replay = true;
+        if (r.ok && !r.replay) out.merged_export = { manifest: { version: 'merged' }, state: r.state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: r.digest };
+        if (!r.ok && r.conflicts) out.conflicts = r.conflicts;
+        return json(out, r.ok ? 200 : 409);
       }
       if (path === "/api/verify") {
         const v = await E.verifyExport({ state, ui_manifest: C.ui_manifest, ui: C.ui, code_manifest: C.code_manifest, code: C.code, digest: composedDigest });
