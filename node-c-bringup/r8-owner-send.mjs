@@ -14,7 +14,7 @@ import crypto from 'crypto';
 import os from 'os';
 import path from 'path';
 
-const EXPECTED_BASE_DIGEST = 'bf4681b518b7f524e2ec5080d3a29899434af825e2ec5080d3a29899'; // set at window open by the desk — full digest pasted from the engine, never typed by hand
+const EXPECTED_BASE_DIGEST = 'bf4681b518b7f524e2ec5080d3a29899434af82598f367d569bc1feda52bdb5e'; // PASTED from the sealed engine's own output (capsule v15 recompute, cross-checked byte-identical against Node A and Node B live verify, Oct 1, 2026) — never typed by hand
 const target = process.argv[2], body = process.argv[3];
 if (!target || !body) { console.error('usage: node r8-owner-send.mjs <target-url> "<record body>"'); process.exit(1); }
 const seedHex = readFileSync(path.join(os.homedir(), '.harz-owner-key'), 'utf-8').trim();
@@ -28,7 +28,7 @@ const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 const res = await fetch(target.replace(/\/$/, '') + '/api/export');
 const book = await res.json();
 if (!book.state || !book.digest) { console.error('REFUSED — target did not return a book export'); process.exit(1); }
-if (book.digest.startsWith(EXPECTED_BASE_DIGEST.slice(0, 32)) === false) { console.error('REFUSED — target is NOT at the pre-registered base digest; refusing to diverge from an unknown book. Digest: ' + book.digest.slice(0, 32)); process.exit(1); }
+if (book.digest !== EXPECTED_BASE_DIGEST) { console.error('REFUSED — target is NOT at the pre-registered base digest; refusing to diverge from an unknown book. Digest: ' + book.digest); process.exit(1); }
 console.log('target at base digest:', book.digest.slice(0, 16), '| records', book.state.records.length, '| seals', book.state.chain.length);
 
 const state = JSON.parse(JSON.stringify(book.state));
