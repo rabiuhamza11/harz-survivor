@@ -69,3 +69,12 @@ Infra event; book unchanged (18/43 at 49b7cf42, engine pin 691fc5d8…dbab).
 ## 2026-10-01 (later) — VERIFIER AUDIT PASSED + TWO LOOSE ENDS CLOSED
 
 Follow-up to 7b8797e. Independent verification (relayed by owner) confirmed every claim: zone height 2, signature valid, digest d2febe92… recomputed from scratch, four nodes byte-identical, 77/77 ROOT-CANONICAL, engine pin 691fc5d8 matched. Two trivial gaps it flagged are now closed: (1) root landing now lists /zone-v2 + /boundary in its route links; (2) node B now serves /zone-v2 (frozen pointer to root A's full v2 zone) + /boundary + /api/boundary (same boundary v3.1 — one law, many nodes), and its "king" wording is retired for "authority". A/B byte-parity re-verified post-deploy (zone bytes identical). Third note (Node C tunnel stale, 17 days) is by-design session-binding: owner re-runs phone-start.sh in Termux to bring the book live on his soil; repo + locator remain the recovery path. Book unchanged (18/43 at 49b7cf42).
+
+## 2026-10-01 — ENGINE CONSOLIDATION PHASE 1: NATION ANCHOR MIGRATED (owner "Go")
+
+Infra event; book unchanged (18/43 at 49b7cf42, engine pin 691fc5d8…dbab).
+
+- harz-nation-anchor v1.0.0 -> v1.1.0: sha256 primitive + chain-verify discipline now byte-identical to the canonical sealed engine v0.9 (pin 691fc5d8…). New: /anchor/verify (full chain replay from GENESIS), /boundary + /api/boundary (Amendment 1 dated 2026-10-01). Health carries canonical_engine_pin.
+- UNCHANGED BY DESIGN: data model, hash formula sha256(prev|tip|len), write rules (401 key, 409 regression/divergence, idempotent re-anchor), D1 database 76cbc96c-0806-4876-b72e-35bcab4532ce, ANCHOR_KEY secret (inherited on deploy, never read by this seat).
+- Pre-registered battery PASSED on live deployed build: health 1.1.0/25 anchors/pin; /anchor/all BYTE-IDENTICAL to pre-deploy snapshot; /anchor/verify CHAIN INTACT 25 links canonical:true; /anchor/latest unchanged; /api/boundary serves Amendment 1; python tamper sim (forged link) caught at the exact link; browser-tested (page + verify + boundary render, light theme, PWA manifest/icon intact). Ids start at 2 (pre-migration historical residue, chain intact per replay). node --check before deploy.
+- Deploy note: multipart PUT requires binding type "inherit" to preserve an existing secret_text on update — omitting text is a 400 (code 10021).
