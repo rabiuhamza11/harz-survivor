@@ -9,17 +9,17 @@
    {
     "id": 1,
     "body": "{\"type\":\"invoice\",\"no\":\"INV-001\",\"amount\":\"25000\"}",
-    "created": "2026-10-02T12:34:17.231Z"
+    "created": "2026-10-02T12:35:41.072Z"
    },
    {
     "id": 2,
     "body": "{\"type\":\"invoice\",\"no\":\"INV-002\",\"amount\":\"8000\"}",
-    "created": "2026-10-02T12:34:17.329Z"
+    "created": "2026-10-02T12:35:41.170Z"
    },
    {
     "id": 3,
     "body": "{\"type\":\"certificate\",\"id\":\"CERT-77\",\"holder\":\"HARZ Demo\"}",
-    "created": "2026-10-02T12:34:17.418Z"
+    "created": "2026-10-02T12:35:41.271Z"
    }
   ],
   "chain": [
@@ -43,59 +43,59 @@
     "id": 3,
     "kind": "key_pin",
     "ref": "actor",
-    "payload": "{\"actor\":\"demo-ltd\",\"pubkey\":\"f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2\"}",
+    "payload": "{\"actor\":\"demo-ltd\",\"pubkey\":\"6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a\"}",
     "prev_hash": "e9070efd4124fa592a397b3aeee06183d804eb304018006566f2de3f3b76b4a2",
-    "hash": "a694231ec1bf8c8ad585cb191ea2178c4cd5b8b9c00f84fcb2819ae04a95034a"
+    "hash": "86f9919ea981fa542389a9144064945fedba24d8125557bf6307b3ad90aa7b0a"
    },
    {
     "id": 4,
     "kind": "walkout_marker",
     "ref": "window",
-    "payload": "{\"opened\":\"2026-10-02T12:34:17.134Z\",\"reason\":\"daily-batch\"}",
-    "prev_hash": "a694231ec1bf8c8ad585cb191ea2178c4cd5b8b9c00f84fcb2819ae04a95034a",
-    "hash": "0ea4c1a68eb4a6b19404e0e2d55e7983b3d67bddac8e03bcb5720d619d105fb0",
-    "sig": "919713d11d44602fc4034c84cb3cbb0534164b2abc536d7d1c872824ce9e28d04f375c1384ad3ffa9accc1cf6892a746a43008b4b8e94348434a78de0b7cc40d",
-    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+    "payload": "{\"opened\":\"2026-10-02T12:35:40.942Z\",\"reason\":\"daily-batch\"}",
+    "prev_hash": "86f9919ea981fa542389a9144064945fedba24d8125557bf6307b3ad90aa7b0a",
+    "hash": "e1ce616d7b4a3c02d89ff21625f530fc99f2c14ac39e451822effd811fb0a2ca",
+    "sig": "c61a9d01c2e0bdf058543243fba513b44951c613b16050dbf009f37bd696ed0945dd7330d31504d11562db67914a7ce7a1d6c3c242419bad6fc04dce0b989e08",
+    "sig_by": "6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a"
    },
    {
     "id": 5,
     "kind": "record",
     "ref": "1",
-    "payload": "{\"id\":1,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-001\\\",\\\"amount\\\":\\\"25000\\\"}\",\"created\":\"2026-10-02T12:34:17.231Z\",\"actor\":\"demo-ltd\"}",
-    "prev_hash": "0ea4c1a68eb4a6b19404e0e2d55e7983b3d67bddac8e03bcb5720d619d105fb0",
-    "hash": "0d2a3087fdd287ab0ee05d1a4443cc6307a3fc5b4d5cf71499f407e532b52497",
-    "sig": "dfc797a148a4826f29a4cb5b127045070f7e2546032dc06e295dee62451a1bd469662620025f7657c69d1f6ed146ab1a85cda9d86b78d7591b8992e47ffdec00",
-    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+    "payload": "{\"id\":1,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-001\\\",\\\"amount\\\":\\\"25000\\\"}\",\"created\":\"2026-10-02T12:35:41.072Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "e1ce616d7b4a3c02d89ff21625f530fc99f2c14ac39e451822effd811fb0a2ca",
+    "hash": "eb1baa381b118878dbff0b8a87ec638f07f21e57e5ad6ad361d0f215c7d77027",
+    "sig": "6d13f011031539862610e5033ccf534256f57c6b5d3d38fe65708266256120cfc1c1c97b61c6725b6b9b8ea752eb06bde7cae3f3ecea87495ba0b2b5aee84002",
+    "sig_by": "6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a"
    },
    {
     "id": 6,
     "kind": "record",
     "ref": "2",
-    "payload": "{\"id\":2,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-002\\\",\\\"amount\\\":\\\"8000\\\"}\",\"created\":\"2026-10-02T12:34:17.329Z\",\"actor\":\"demo-ltd\"}",
-    "prev_hash": "0d2a3087fdd287ab0ee05d1a4443cc6307a3fc5b4d5cf71499f407e532b52497",
-    "hash": "988dda4d7695f9b6e92c669eaf4add603a2b709d206b4aae08c7c781cc689a93",
-    "sig": "0033d772b52e05062cf3f11e89f1a10ba2fea0f4536b5364ad98190cb648d370c0762372d1b842fc5ea56b3ca6c6cb94acc74ee969ce14f6a122227bec976d0f",
-    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+    "payload": "{\"id\":2,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-002\\\",\\\"amount\\\":\\\"8000\\\"}\",\"created\":\"2026-10-02T12:35:41.170Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "eb1baa381b118878dbff0b8a87ec638f07f21e57e5ad6ad361d0f215c7d77027",
+    "hash": "183b2824bb0f72103612804151b073bb947b9e19f243d880659a306a64b0b99c",
+    "sig": "253fa83fb57f5635edc79a7346cf5f2d4074ac968b8756e4d429806f1ac586a9c0d7ef1f48b7f47352386a0697ab7538df8280ca2a102b11a8f55e71d412b50e",
+    "sig_by": "6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a"
    },
    {
     "id": 7,
     "kind": "record",
     "ref": "3",
-    "payload": "{\"id\":3,\"body\":\"{\\\"type\\\":\\\"certificate\\\",\\\"id\\\":\\\"CERT-77\\\",\\\"holder\\\":\\\"HARZ Demo\\\"}\",\"created\":\"2026-10-02T12:34:17.418Z\",\"actor\":\"demo-ltd\"}",
-    "prev_hash": "988dda4d7695f9b6e92c669eaf4add603a2b709d206b4aae08c7c781cc689a93",
-    "hash": "9849d011a03fa3de65f9e2aa44795418be1258c2ac011058f7077fe2a1510d7f",
-    "sig": "55b4031a3f8c88fd277fce7cff6622b44bb0892ce6212eb647637304e4da3e9eb48c93e04f822bd3aafb5552afe4407d9a81d8f408c53eba2ad1aede93123c04",
-    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+    "payload": "{\"id\":3,\"body\":\"{\\\"type\\\":\\\"certificate\\\",\\\"id\\\":\\\"CERT-77\\\",\\\"holder\\\":\\\"HARZ Demo\\\"}\",\"created\":\"2026-10-02T12:35:41.271Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "183b2824bb0f72103612804151b073bb947b9e19f243d880659a306a64b0b99c",
+    "hash": "7afc0ad99009e2de678364769ed19b142572dfe6a43b5e45c6949aa8c3fc978e",
+    "sig": "09baf2a65a3a3c9d6257611027b87b2b30a7f92ce32330b5a3654ed67bd5dde8ff8939533e6cec11ba8c9070d8bc28698e4165952b854d24078972da10fc3509",
+    "sig_by": "6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a"
    },
    {
     "id": 8,
     "kind": "return",
     "ref": "window",
-    "payload": "{\"closed\":\"2026-10-02T12:34:17.514Z\",\"records\":3}",
-    "prev_hash": "9849d011a03fa3de65f9e2aa44795418be1258c2ac011058f7077fe2a1510d7f",
-    "hash": "0dbe5852cc394b4371cb24ede89277e33e1687a62a6a91e51968c481d8cada53",
-    "sig": "da63a05a7547874ea04b210f0a9a07f65fc7df74ab3fc2e4c8ecd53a3ee98b1f0691f09b4dbc195e27d5f15827836e70bf5851183a83f905a739be44274f9700",
-    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+    "payload": "{\"closed\":\"2026-10-02T12:35:41.370Z\",\"records\":3}",
+    "prev_hash": "7afc0ad99009e2de678364769ed19b142572dfe6a43b5e45c6949aa8c3fc978e",
+    "hash": "a5486a058f830a9092bb9828728f2127146486e48bbba99e989673766a332f6f",
+    "sig": "78f397e9ce0d05866707095841c178f6190594dd252589cd86a3d55e3a8770c2aaec609c7421336becff25ba5237d2083edd33a151ebe0031c2ea1fe4b462d0e",
+    "sig_by": "6df56388b39aae129bd6519b82ca7300b075ba85d3d55d8e5a98bcda2ae3f37a"
    }
   ]
  },

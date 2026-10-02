@@ -106,7 +106,7 @@ run(['export']);
 const ex = JSON.parse(fs.readFileSync(path.join(ROOT, 'export.json'), 'utf-8'));
 const demo = UI
   .replace('<script src="./engine-v10.js"></script>', '<script>' + ENGINE + '</script>')
-  .replace('(async () => {', '(async () => {\n  window.__EXPORT__ = window.__EXPORT__ || ' + JSON.stringify(ex) + ';');
+  .replace('(async () => {', '(async () => {\n  window.__EXPORT__ = window.__EXPORT__ || ' + JSON.stringify(ex).replace(/<\/script/gi, '<\\/script') + ';');
 fs.writeFileSync(path.join(ROOT, 'demo-verify.html'), demo);
 const evEx = await E.verifyExport(ex);
 T('T10 export verifies; demo page built inline (' + Math.round(demo.length / 1024) + ' KB)', evEx.ok && demo.includes('window.__EXPORT__'));
