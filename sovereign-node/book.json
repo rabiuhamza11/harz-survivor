@@ -1,0 +1,108 @@
+{
+ "manifest": {
+  "version": "sovereign-node-1.0.0",
+  "app": "sovereign-book",
+  "actor": "demo-ltd"
+ },
+ "state": {
+  "records": [
+   {
+    "id": 1,
+    "body": "{\"type\":\"invoice\",\"no\":\"INV-001\",\"amount\":\"25000\"}",
+    "created": "2026-10-02T12:34:17.231Z"
+   },
+   {
+    "id": 2,
+    "body": "{\"type\":\"invoice\",\"no\":\"INV-002\",\"amount\":\"8000\"}",
+    "created": "2026-10-02T12:34:17.329Z"
+   },
+   {
+    "id": 3,
+    "body": "{\"type\":\"certificate\",\"id\":\"CERT-77\",\"holder\":\"HARZ Demo\"}",
+    "created": "2026-10-02T12:34:17.418Z"
+   }
+  ],
+  "chain": [
+   {
+    "id": 1,
+    "kind": "ui_manifest",
+    "ref": "ui",
+    "payload": "{\"/verify.html\":\"c771ce26eb1df3120af4b2921f96d1c5d38919d12a699d8d9564a57a7efd5739\"}",
+    "prev_hash": "GENESIS",
+    "hash": "6eeb871337e90b99b24776e223b0171cffdbf0b503f6cb50d234aa9ba9b9d38f"
+   },
+   {
+    "id": 2,
+    "kind": "code_pin",
+    "ref": "code",
+    "payload": "{\"/engine.js\":\"434c41d2a30bdbc3a95d2a81fa0115948378d4e01ec0c6f0713a4598228f4a38\"}",
+    "prev_hash": "6eeb871337e90b99b24776e223b0171cffdbf0b503f6cb50d234aa9ba9b9d38f",
+    "hash": "e9070efd4124fa592a397b3aeee06183d804eb304018006566f2de3f3b76b4a2"
+   },
+   {
+    "id": 3,
+    "kind": "key_pin",
+    "ref": "actor",
+    "payload": "{\"actor\":\"demo-ltd\",\"pubkey\":\"f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2\"}",
+    "prev_hash": "e9070efd4124fa592a397b3aeee06183d804eb304018006566f2de3f3b76b4a2",
+    "hash": "a694231ec1bf8c8ad585cb191ea2178c4cd5b8b9c00f84fcb2819ae04a95034a"
+   },
+   {
+    "id": 4,
+    "kind": "walkout_marker",
+    "ref": "window",
+    "payload": "{\"opened\":\"2026-10-02T12:34:17.134Z\",\"reason\":\"daily-batch\"}",
+    "prev_hash": "a694231ec1bf8c8ad585cb191ea2178c4cd5b8b9c00f84fcb2819ae04a95034a",
+    "hash": "0ea4c1a68eb4a6b19404e0e2d55e7983b3d67bddac8e03bcb5720d619d105fb0",
+    "sig": "919713d11d44602fc4034c84cb3cbb0534164b2abc536d7d1c872824ce9e28d04f375c1384ad3ffa9accc1cf6892a746a43008b4b8e94348434a78de0b7cc40d",
+    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+   },
+   {
+    "id": 5,
+    "kind": "record",
+    "ref": "1",
+    "payload": "{\"id\":1,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-001\\\",\\\"amount\\\":\\\"25000\\\"}\",\"created\":\"2026-10-02T12:34:17.231Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "0ea4c1a68eb4a6b19404e0e2d55e7983b3d67bddac8e03bcb5720d619d105fb0",
+    "hash": "0d2a3087fdd287ab0ee05d1a4443cc6307a3fc5b4d5cf71499f407e532b52497",
+    "sig": "dfc797a148a4826f29a4cb5b127045070f7e2546032dc06e295dee62451a1bd469662620025f7657c69d1f6ed146ab1a85cda9d86b78d7591b8992e47ffdec00",
+    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+   },
+   {
+    "id": 6,
+    "kind": "record",
+    "ref": "2",
+    "payload": "{\"id\":2,\"body\":\"{\\\"type\\\":\\\"invoice\\\",\\\"no\\\":\\\"INV-002\\\",\\\"amount\\\":\\\"8000\\\"}\",\"created\":\"2026-10-02T12:34:17.329Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "0d2a3087fdd287ab0ee05d1a4443cc6307a3fc5b4d5cf71499f407e532b52497",
+    "hash": "988dda4d7695f9b6e92c669eaf4add603a2b709d206b4aae08c7c781cc689a93",
+    "sig": "0033d772b52e05062cf3f11e89f1a10ba2fea0f4536b5364ad98190cb648d370c0762372d1b842fc5ea56b3ca6c6cb94acc74ee969ce14f6a122227bec976d0f",
+    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+   },
+   {
+    "id": 7,
+    "kind": "record",
+    "ref": "3",
+    "payload": "{\"id\":3,\"body\":\"{\\\"type\\\":\\\"certificate\\\",\\\"id\\\":\\\"CERT-77\\\",\\\"holder\\\":\\\"HARZ Demo\\\"}\",\"created\":\"2026-10-02T12:34:17.418Z\",\"actor\":\"demo-ltd\"}",
+    "prev_hash": "988dda4d7695f9b6e92c669eaf4add603a2b709d206b4aae08c7c781cc689a93",
+    "hash": "9849d011a03fa3de65f9e2aa44795418be1258c2ac011058f7077fe2a1510d7f",
+    "sig": "55b4031a3f8c88fd277fce7cff6622b44bb0892ce6212eb647637304e4da3e9eb48c93e04f822bd3aafb5552afe4407d9a81d8f408c53eba2ad1aede93123c04",
+    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+   },
+   {
+    "id": 8,
+    "kind": "return",
+    "ref": "window",
+    "payload": "{\"closed\":\"2026-10-02T12:34:17.514Z\",\"records\":3}",
+    "prev_hash": "9849d011a03fa3de65f9e2aa44795418be1258c2ac011058f7077fe2a1510d7f",
+    "hash": "0dbe5852cc394b4371cb24ede89277e33e1687a62a6a91e51968c481d8cada53",
+    "sig": "da63a05a7547874ea04b210f0a9a07f65fc7df74ab3fc2e4c8ecd53a3ee98b1f0691f09b4dbc195e27d5f15827836e70bf5851183a83f905a739be44274f9700",
+    "sig_by": "f279aa07269751f5ea8477e33fe55ea893015bfdc011d3e45bdd57ce8b57e8e2"
+   }
+  ]
+ },
+ "ui_manifest": {
+  "/verify.html": "c771ce26eb1df3120af4b2921f96d1c5d38919d12a699d8d9564a57a7efd5739"
+ },
+ "code_manifest": {
+  "/engine.js": "434c41d2a30bdbc3a95d2a81fa0115948378d4e01ec0c6f0713a4598228f4a38"
+ }
+}
