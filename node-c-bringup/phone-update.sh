@@ -14,8 +14,8 @@ echo "[3/3] verifying..."
 RESP=$(curl -s --max-time 10 "http://localhost:8930/api/verify")
 echo "$RESP" | head -c 420
 echo ""
-if echo "$RESP" | grep -q '"digest":"8fbaa547'; then
+if echo "$RESP" | grep -q '"digest":"bf4681b5'; then
   echo "UPDATE OK — returned capsule live, WRITES SEALED on your phone."
 else
-  echo "CHECK: the digest above should start 8fbaa547 — if it shows 077bc802, just run this script again."
+  echo "CHECK: the digest above should start bf4681b5 — if it shows 49b7cf42 (v14), the pull came in after the restart — run this script once more."
 fi

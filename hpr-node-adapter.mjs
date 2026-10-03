@@ -5,7 +5,7 @@
 // executes on a third substrate family; physical sovereignty stays a hardware
 // claim until it runs on HARZ-owned machines.
 import { createRuntime } from "./hpr-runtime-core.js";
-import { CAPSULE } from "./capsule-v14-canonical.js"; // P14 CANONICAL RE-FREEZE (owner "Do what is good"): ONE book on all three nodes byte-identical, 18/43 at 49b7cf42, mesh_ingest receipt #43 permanent history, engine v0.9 691fc5d8 unchanged
+import { CAPSULE } from "./capsule-v15-merge.js"; // RUNG 2 MERGE (Oct 1 2026): Node C lands on the current book — 18/44 at bf4681b5, code_pin seal #44, engine v1.0.0 434c41d2 (repoint from v14, desk, Oct 3, owner Node C window)
 import { CAPSULE_REGISTRY } from "./capsule-registry.js";
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
