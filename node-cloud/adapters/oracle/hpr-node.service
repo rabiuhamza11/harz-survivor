@@ -1,0 +1,15 @@
+# HPR cloud node — Oracle Cloud Always Free VM (persistent class: overlay survives restarts).
+# Install: sudo cp node-cloud/adapters/oracle/hpr-node.service /etc/systemd/system/
+#           sudo systemctl daemon-reload && sudo systemctl enable --now hpr-node
+[Unit]
+Description=HPR cloud node (portable server soil, capsule v15)
+After=network-online.target
+[Service]
+WorkingDirectory=/opt/harz-survivor
+ExecStart=/usr/bin/node node-cloud/server.mjs
+Environment=HPR_PORT=8940
+Environment=HPR_OVERLAY=/opt/harz-survivor/node-cloud/overlay.json
+Restart=always
+User=hpr
+[Install]
+WantedBy=multi-user.target

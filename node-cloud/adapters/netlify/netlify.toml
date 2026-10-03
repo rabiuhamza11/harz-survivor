@@ -1,0 +1,13 @@
+[build]
+  command = "echo 'HPR cloud node — function deploy'"
+  functions = "node-cloud/adapters/netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+
+[[redirects]]
+  from = "/boundary"
+  to = "/.netlify/functions/api/boundary"
+  status = 200
