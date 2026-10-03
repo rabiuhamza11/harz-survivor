@@ -19,16 +19,17 @@ SEALED, unsigned write REFUSED, /boundary + /api/boundary served, UI renders.
 - PERSISTENT (Oracle Always Free, any mounted disk): full mesh member, overlay survives.
 - SLEEPING (Render free): slow first hit while the platform wakes.
 
-## Owner hands per platform (accounts + scoped tokens; desk deploys)
-1. VERCEL (first target): sign up vercel.com (GitHub login), create a token at
-   vercel.com/account/tokens, send the token to the desk. Desk: `npx vercel --prod`.
-2. NETLIFY: app.netlify.com account, token at user/applications (personal access tokens).
-3. CLOUD RUN: Google Cloud account (card needed for verification even on free tier — honest
-   limit), service account key or gcloud session. Free tier: 2M req/mo.
-4. ORACLE ALWAYS FREE (strongest — persistent, a real VM): oracle.com/cloud/free account
-   (card verification, no charge on Always Free shape), Ubuntu VM; desk ships install script.
-5. KOYEB: koyeb.com (GitHub SSO), free web service instance from the Dockerfile.
-6. RENDER: render.com account, free web service (sleeps, disclosed).
+## Owner hands per platform (CORRECTED Oct 3 after the witness's live deploy findings)
+LIVE: harz-hpr-zeta.vercel.app (witness-built, desk-verified byte-identical at bf4681b5).
+Cardless Tier-1 set is ONLY: Vercel, Netlify, Koyeb. Card-gated even on free plans
+(proven live, honest correction): Render, Cloud Run, Oracle.
+1. VERCEL: LIVE — no further action.
+2. NETLIFY: needs a FRESH personal access token (app.netlify.com → User settings →
+   Applications → New access token). Staging vaulted at harz-git hpr-soils/v0.1/netlify.
+3. KOYEB: koyeb.com (GitHub SSO), free instance from the Dockerfile.
+4. RENDER: repo ready (github.com/rabiuhamza11/harz-hpr-render); lights with one API
+   call once a card is on file.
+5. ORACLE / CLOUD RUN: card on file required; owner decides.
 
 ## Honesty notes
 - More soils do NOT strengthen book integrity (the digest does that, recomputable anywhere);
