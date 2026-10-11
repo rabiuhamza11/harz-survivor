@@ -1,0 +1,11 @@
+{
+ "pulled": 53987,
+ "recovered_local": 21377,
+ "needs_regather": 32610,
+ "hash_match": 18128,
+ "url_match": 21344,
+ "match_rate_pct": 39.6,
+ "wall_seconds": 68,
+ "errored_batches": 0,
+ "generated": "2026-10-11T23:40:00Z"
+}
