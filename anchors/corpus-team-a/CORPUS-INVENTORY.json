@@ -1,0 +1,47 @@
+{
+  "deliverable": "CORPUS-INVENTORY.json — Team A, HARZ Offline Knowledge Expansion",
+  "generated_at": "2026-10-11T23:30:00Z",
+  "auditor": "desk seat (audit-only; no ingestion, no changes)",
+  "browser_verified_at": "2026-10-12T00:00:00+01:00 (offline-browser PASS, harz-search PASS, knowledge-core PASS)",
+  "recorded_figures_reconciled": {
+    "search_corpus_11k": {"recorded": "more than 11,000 documents", "live": "acct3/harz_search_v02 = 11,365 docs / 140,894 terms", "verdict": "VERIFIED"},
+    "full_text_785": {"recorded": "785 documents with full readable text", "live": "offline browser onefile v0.6 serves 785 full pages / 5,997,406 chars — verified live in browser, SEALED, all checks passed", "verdict": "VERIFIED (source identified: the onefile, not a search DB)"},
+    "reservoir_1.06M_8.9GB": {"recorded": "~1.06M documents, ~8.9GB", "live": "harz-million-corpus meta: total_ingested 1,623,831; dup_rejected 498,518; total_bytes 7,250,063,374; cap 9,500,000,000 (sovereign storage ruling 2026-10-09)", "verdict": "SUPERSEDED — DB passed its 1M target; figures were an earlier snapshot"},
+    "knowledge_core_5k": {"recorded": "5K strategy accepted", "live": "kcore-v1.0 manifest: 5,100 docs, 150 excluded on failed integrity, 7 categories, 14 SHA-256-sealed chunks, created 2026-10-10", "verdict": "VERIFIED"}
+  },
+  "stored_searchable_usable": {
+    "stored": {
+      "million_corpus_d1": {"docs": 1623831, "dup_rejected": 498518, "bytes": 7250063374, "cap_bytes": 9500000000, "born": "2026-10-08", "status": "inline full text; UNDER ACTIVE WORK (enc backup table 2026-10-11) — desk stood off, per-doc readability unverified"},
+      "search_indexes_snippet_only": {"unique_docs_union": 55291, "raw_rows": 55396, "duplicates_cross_db": 105, "note": "all four search DBs carry snippet_text only — NO full-text column"},
+      "knowledge_core_full_docs": 5100,
+      "browser_onefile_full_pages": {"pages": 785, "chars": 5997406, "bytes": 8344922, "seal": "8344922-a44ceec55e61f3a4", "version": "v0.6", "updated": "2026-10-09T21:55:21Z"}
+    },
+    "searchable": "55,291 records via harz-search indexes (snippets); 5,100 docs via knowledge-core offline search; 785 pages via onefile built-in search",
+    "usable_offline_today": "785 full pages (browser, airplane-mode proof) + 5,100 full docs (knowledge core, SHA-verified, IndexedDB) — both live-verified; million-corpus full text stored but serve-path unverified mid-active-work"
+  },
+  "search_databases": [
+    {"name": "acct1/harz_search_v02", "role": "hunt corpus (corpus: hunt-wave08+base)", "docs": 42622, "unique_content_hash": 42622, "contract": "v0.2", "crawls": "2026-10-06 to 2026-10-09", "languages": "en only", "top_domains": ["en.wikipedia.org 11069", "businessday.ng 4577", "nairametrics.com 3383", "dailypost.ng 3001", "techcabal.com 1500"], "flag": "UNRECORDED in any prior figure — 3.7x the recorded index size"},
+    {"name": "acct3/harz_search_v02", "role": "curated reference corpus", "docs": 11365, "contract": "v0.4", "crawls": "2026-09-19 to 2026-10-07", "top_domains": ["wikipedia.org 212", "mozilla.org 132", "kernel.org 122", "sec.gov.ng 110", "nafdac.gov.ng 108"], "flag": "the recorded '11k+' index — VERIFIED"},
+    {"name": "acct1/harz_search_v011", "role": "stale snapshot", "docs": 1409, "contract": "v0.1.1", "crawls": "2026-09-19 only", "flag": "STALE — superseded by v0.2/v0.4"},
+    {"name": "acct1/harz_search (FTS5)", "role": "FTS5 mirror of v011", "docs": 1409, "index_digest": "8bdec9df… (identical to v011)", "flag": "STALE duplicate of the stale snapshot — dead weight"}
+  ],
+  "cross_db_dedup": {"hunt_vs_curated": 0, "hunt_vs_v011": 0, "v011_vs_curated": 105, "union_unique": 55291},
+  "kv_namespaces": [
+    {"name": "HARZ_BROWSER_KV (acct1)", "keys": 37, "contents": "onefile.0 + meta, gather-bank.0..N, gather-queue (AT CAP 1000), gather-sources (107 nightly sources)"},
+    {"name": "harz-knowledge-core-chunks (acct3)", "keys": 15, "contents": "chunk-000..013 + manifest.json (kcore-v1.0)"},
+    {"name": "HARZ_SEARCH (acct1)", "keys": 2, "contents": "index-digest, index-export"},
+    {"name": "HARZ_RECORDS_ARCHIVE (acct1)", "keys": 319, "contents": "AEE/HPR program records (worker sources, findings) — NOT knowledge corpus; separate asset class"},
+    {"name": "HARZ_WIKI_KV (acct1)", "keys": 0, "contents": "EMPTY — dead namespace"}
+  ],
+  "user_facing_doors": [
+    {"url": "harz-offline-browser.hamzarabiu390.workers.dev", "browser_test": "PASS — SEALED, ALL CHECKS PASSED, 785 full pages", "cosmetic_flag": "inner file header still reads 'v0.3 one-file' while meta says v0.6"},
+    {"url": "harz-search.hamzarabiu390.workers.dev", "browser_test": "PASS — UI renders, v0.1.1 frozen federation contract"},
+    {"url": "harz-knowledge-core.harz.workers.dev", "browser_test": "PASS — kcore-v1.0, SHA-256 chunks, IndexedDB offline storage, export + wipe present"}
+  ],
+  "constraints_for_teams_b_to_f": [
+    "D1 free-tier row-read/CPU limits are the binding constraint — million-corpus threw CPU-limit resets on light probes during active work; budget every batch",
+    "million-corpus storage cap 9.5GB with 7.25GB used — ingestion headroom is 2.25GB (approx 500k docs at current avg 4.5KB) before the honest 507 refusal",
+    "language coverage is ~100% English — Team D's Africa/Nigeria mandate has zero linguistic footprint today",
+    "no R2 buckets exist on either account — all bulk content is D1-inline; Team E should weigh R2 vs D1 before designing ingestion"
+  ]
+}
