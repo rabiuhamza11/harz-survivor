@@ -1,0 +1,16 @@
+{
+  "deliverable": "Team E — measured storage inventory (audit-only, 2026-10-11T23:20Z)",
+  "d1_databases": [
+    {"name": "acct3/harz-million-corpus", "file_size_bytes": 8925073408, "file_size_gb": 8.93, "content_bytes_meta": 7250063374, "overhead_ratio": 1.23, "docs_ingested": 1623831, "dup_rejected": 498518, "cap_bytes": 9500000000, "note": "THE RECORDED '8.9GB' FIGURE = this D1 file_size (content bytes are 7.25GB; SQLite overhead/indexes make the file 23% larger)"},
+    {"name": "acct1/harz_search_v02", "file_size_bytes": 401866752, "file_size_mb": 401.9, "docs": 42622, "note": "9.4KB per doc with terms — snippet-only"},
+    {"name": "acct1/harz_search_v011", "file_size_bytes": 10211328, "docs": 1409, "note": "stale"},
+    {"name": "acct1/harz_search (FTS5)", "file_size_bytes": 12636160, "docs": 1409, "note": "stale mirror"},
+    {"name": "acct3/harz_search_v02", "file_size_bytes": 66863104, "docs": 11365, "note": "curated"}
+  ],
+  "critical_findings": [
+    {"id": "E1", "finding": "D1 hard ceiling: Cloudflare documents a 10GB per-database limit. The million-corpus file is at 8.93GB = 89% of the hard ceiling.", "consequence": "Real remaining headroom is ~1.07GB of file growth. At the measured overhead (1.23x) and avg content 4.47KB/doc, that is roughly 190,000 more docs — NOT the ~500k that content-byte math suggests. The wall arrives ~5x sooner than the cap ledger implies."},
+    {"id": "E2", "finding": "The cap check compares content_bytes (meta) against cap_bytes, but actual disk consumption runs 23% higher (file_size). The sovereign 9.5GB ruling is enforced on a number 23% smaller than reality.", "consequence": "If the ruling's intent was 9.5GB of real storage, the DB will overshoot it; if the intent was 9.5GB of content, the D1 10GB hard limit bites first. Either way the binding wall is D1's 10GB, and it is close."},
+    {"id": "E3", "finding": "DB is on paid D1 (8.9GB exceeds the free-tier 5GB/database cap); per-row read/write billing applies to all future ingestion.", "consequence": "Ingestion cost scales with rows written; batch design must minimize re-reads (dup checks) and re-writes."},
+    {"id": "E4", "finding": "Accepted mechanisms verified in the live worker code and preserved by this procedure: 3-level dedup (content_hash + norm_hash + prefix_hash via INSERT OR IGNORE), D1 .batch() for grouped writes, meta-table ledger (total_ingested / dup_rejected / total_bytes), honest 507-style refusal at cap.", "consequence": "These are known-good and this procedure does not replace them — it wraps them."}
+  ]
+}
