@@ -332,7 +332,3 @@ export default {
     return handle(request, env);
   }
 };
-function readShell(title, body) {
-  var t = String(title).replace(/&/g, "&amp;").replace(/</g, "&lt;");
-  return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f0f2f5"><title>' + t + '</title><style>body{font-family:-apple-system,system-ui,sans-serif;background:#f0f2f5;color:#111;margin:0;padding:20px}.w{max-width:720px;margin:0 auto}h1{color:#0a7d3c;font-size:20px;margin-bottom:4px;word-break:break-word}.seal{background:#e8f5ee;color:#0a7d3c;padding:8px 12px;border-radius:8px;font-size:12px;margin:10px 0}.meta{color:#5f6368;font-size:13px;word-break:break-all}a{color:#0a7d3c}.txt{background:#fff;border-radius:12px;padding:18px;margin-top:12px;white-space:pre-wrap;line-height:1.55;box-shadow:0 1px 3px rgba(0,0,0,.08)}</style></head><body><div class="w"><a href="/">&larr; HARZ Search</a><h1>' + t + '</h1>' + body + '</div></body></html>';
-}
