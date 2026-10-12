@@ -13,7 +13,7 @@ const MANIFEST_WEB = {
 const ICON = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='#f0f2f5'/><path d='M28 24 h34 a10 10 0 0 1 10 10 v34 l-10-8 -10 8 -10-8 -10 8 V34 a10 10 0 0 1 10-10z' fill='#2563eb' transform='rotate(-8 50 50)'/><circle cx='62' cy='38' r='12' fill='#16a34a'/></svg>`;
 
 const SW = `
-const CACHE='sftcore-shell-v2';
+const CACHE='sftcore-shell-v3';
 self.addEventListener('install',e=>{e.waitUntil((async()=>{const c=await caches.open(CACHE);await c.addAll(['/','/icon.svg','/manifest.json']);})().then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>k.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);
@@ -117,7 +117,15 @@ $('dl').onclick=async()=>{
         const buf=await r.arrayBuffer();
         const sha=await sha256hex(buf);
         if(sha!==ch.sha256){throw new Error('SHA-256 MISMATCH — chunk rejected, refetching');}
-        const docs=JSON.parse(new TextDecoder().decode(buf));
+        const raw=JSON.parse(new TextDecoder().decode(buf));
+        const ci=parseInt(ch.name.slice(6,9),10)||0;
+        const docs=raw.map((d,k)=>{
+          const slug=(d.url||'').split('?')[0].split('#')[0].split('/').filter(Boolean).pop()||'';
+          const t=decodeURIComponent(slug).replace(/[-_]+/g,' ').replace(/\.[a-z]{2,4}$/i,'').trim();
+          return {i: ci*1000+k, t: t||(d.text||'untitled').slice(0,60), u: d.url||'',
+                  l: d.language||'en', c: ((d.url||'').split('/')[2]||'web'),
+                  h: d.sha256||d.content_hash||'', x: d.text||''};
+        });
         await putAll(docs); ok=true; good.push(ch.name);
         doneBytes+=ch.bytes;
         $('dlstatus').textContent='stored '+ch.name+' ('+good.length+'/'+MAN.chunks.length+' chunks, '+(doneBytes/1e6).toFixed(1)+' MB)';
