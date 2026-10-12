@@ -1,0 +1,25 @@
+{
+  "catalog": "OFFLINE-KNOWLEDGE-CATALOG",
+  "version": "1.0",
+  "generated": "2026-10-12",
+  "law": "Recommend before download. Nothing in this catalog has been downloaded. Authoritative references over bulk collection.",
+  "scale": "C (owner-confirmed): reference library first, then expanding web archive. Stage 1 (recover) complete; this catalog defines Stage 2 candidates.",
+  "storage_honesty": "D1 real headroom ~190k docs (Team E). Full catalog ~250k+ docs — requires owner ruling on scale vs R2-backing before full acquisition; pilot-first recommended.",
+  "collections": [
+    {"id": "openstax", "name": "OpenStax Textbooks", "source": "openstax.org", "license": "CC BY 4.0", "provenance": "Rice University, peer-reviewed", "subjects": "math, physics, chemistry, biology, economics, accounting, business, entrepreneurship", "est_docs": 80, "est_size_gb": 2, "offline_usefulness_rank": 1, "acquisition_cost": "low (one-shot site crawl)", "legal_notes": "clean commercial reuse", "status": "already in regather queue"},
+    {"id": "wikimedia-refs", "name": "Wikibooks + Wiktionary + Wikisource (all languages)", "source": "wikimedia.org", "license": "CC BY-SA 4.0 / public domain (Wikisource pre-1929)", "provenance": "Wikimedia Foundation", "est_docs": 400000, "est_size_gb": 12, "offline_usefulness_rank": 2, "acquisition_cost": "medium (dumps available)", "legal_notes": "share-alike applies to redistribution — fine for sovereign archive with attribution", "status": "en.* editions already nightly-sourced; language editions in Team D T1"},
+    {"id": "ng-gov-pub", "name": "Nigerian Government Publications (NASS acts/bills, NBS statistics, CBN reports)", "source": "nass.gov.ng, nigerianstat.gov.ng, cbn.gov.ng", "license": "Nigerian public sector information (per-site terms; gazettes and acts are public)", "provenance": "Federal Government of Nigeria", "est_docs": 30000, "est_size_gb": 3, "offline_usefulness_rank": 3, "acquisition_cost": "medium (site structures vary)", "legal_notes": "Nigerian Law Reports (NLR) are COPYRIGHT-PROTECTED — excluded; only official gazettes/acts", "status": "partially sourced (cbn, nigerianstat live; nass in Team D T3)"},
+    {"id": "health-edu", "name": "Public Health Education (WHO + NCDC)", "source": "who.int, ncdc.gov.ng", "license": "CC BY-NC-SA 3.0 IGO (WHO) / public info (NCDC)", "provenance": "WHO, Nigeria CDC", "est_docs": 5000, "est_size_gb": 1, "offline_usefulness_rank": 4, "acquisition_cost": "low", "legal_notes": "HIGH-STAKES: publication dates + source attribution mandatory; not medical advice", "status": "who.int + ncdc.gov.ng already nightly-sourced"},
+    {"id": "agri-ng", "name": "Agriculture for Nigeria (FAO + IITA + CABI docs)", "source": "fao.org, iita.org", "license": "CC BY 4.0 (FAO) / research-publication terms (IITA)", "provenance": "FAO, IITA (Ibadan)", "est_docs": 8000, "est_size_gb": 2, "offline_usefulness_rank": 5, "acquisition_cost": "low", "legal_notes": "attribution required", "status": "fao.org nightly-sourced; iita.org in regather queue"},
+    {"id": "mit-ocw", "name": "MIT OpenCourseWare materials", "source": "ocw.mit.edu", "license": "CC BY-NC-SA 4.0", "provenance": "MIT", "est_docs": 2400, "est_size_gb": 4, "offline_usefulness_rank": 6, "acquisition_cost": "medium", "legal_notes": "non-commercial share-alike", "status": "proposed — not yet queued (mit.edu partially sourced)"},
+    {"id": "wiki-langs", "name": "Nigerian-language encyclopedias (ha/ig/yo/ff Wikipedia)", "source": "ha.wikipedia.org etc.", "license": "CC BY-SA 4.0", "provenance": "Wikimedia", "est_docs": 72000, "est_size_gb": 3, "offline_usefulness_rank": 7, "acquisition_cost": "low", "legal_notes": "tokenizer pilot gated (Yoruba diacritics untested)", "status": "Team D T1, awaiting owner word"},
+    {"id": "gutenberg", "name": "Project Gutenberg public-domain books", "source": "gutenberg.org", "license": "public domain (US)", "provenance": "Project Gutenberg", "est_docs": 75000, "est_size_gb": 5, "offline_usefulness_rank": 8, "acquisition_cost": "low", "legal_notes": "pre-1929 works; some NC titles excluded in Germany (irrelevant to NG)", "status": "already nightly-sourced"},
+    {"id": "african-inst", "name": "Pan-African institutional publications (AU, AfDB, UNECA, Africa CDC)", "source": "au.int, afdb.org, uneca.org, africacdc.org", "license": "typically CC BY / free with attribution (verify per-doc)", "provenance": "AU, AfDB, UN ECA, Africa CDC", "est_docs": 15000, "est_size_gb": 2, "offline_usefulness_rank": 9, "acquisition_cost": "medium", "legal_notes": "per-document license verification before ingestion", "status": "Team D T2, not yet queued"}
+  ],
+  "excluded": [
+    {"name": "Nigerian Law Reports (NLR)", "reason": "copyright-protected commercial reporting"},
+    {"name": "ISO/SON standards texts", "reason": "copyrighted standards bodies"},
+    {"name": "Paywalled academic (Elsevier/Springer bulk)", "reason": "not legally reusable without agreements"}
+  ],
+  "ranking_basis": "offline usefulness x legal cleanliness x acquisition cost; authoritative-first per Team C mandate"
+}
