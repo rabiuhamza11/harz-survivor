@@ -1,0 +1,8 @@
+{
+ "test": "Ruling8_metadata_only_safety",
+ "pass": true,
+ "at": "2026-10-13T07:28:06.989Z",
+ "metadata_records": 1,
+ "stored": 0,
+ "never_conflated": true
+}

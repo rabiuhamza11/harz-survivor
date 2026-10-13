@@ -1,0 +1,9 @@
+{
+ "test": "T9_network_partition",
+ "pass": true,
+ "at": "2026-10-13T07:27:02.657Z",
+ "served_during_partition": 100,
+ "resynced_docs": 100,
+ "forked_records": 0,
+ "both_nodes_consistent_after_return": true
+}

@@ -1,0 +1,10 @@
+{
+ "test": "T6_corruption_detection",
+ "pass": true,
+ "at": "2026-10-13T07:27:00.210Z",
+ "corruption_detected": true,
+ "expected": "43ba6f0f596d9428a4ed235997e24293da992ae28ac59ded14860d85d158a158",
+ "actual": "f6b23777e3d78ff3e56d2ee06d824a28dbb39aefc8b41ee39b76a950ad721e69",
+ "refused_honestly": true,
+ "restored_ok": true
+}
