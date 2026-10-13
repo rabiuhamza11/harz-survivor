@@ -1,0 +1,9 @@
+{
+ "test": "T2b_torn_window_adoption",
+ "pass": true,
+ "at": "2026-10-13T13:51:29.337Z",
+ "crashpoint": "after journal commit, before manifest write",
+ "process_exit_77_crashes": 5,
+ "adopted_unacked_by_recovery": 5,
+ "digest_verified_after_adoption": 5
+}

@@ -1,0 +1,7 @@
+{
+ "sample_size": 1509,
+ "present_in_bodies": 1301,
+ "missing": 208,
+ "rate": 86.2,
+ "note": "stratified 2-strata sample; missing checked against hunt index and corpus docs table"
+}

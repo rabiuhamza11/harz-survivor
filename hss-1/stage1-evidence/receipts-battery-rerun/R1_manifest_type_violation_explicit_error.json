@@ -1,0 +1,9 @@
+{
+ "test": "R1_manifest_type_violation_explicit_error",
+ "pass": true,
+ "at": "2026-10-13T13:54:19.776Z",
+ "defect_history": "first run of battery seeded manifest as [] and records vanished silently",
+ "law": "Ruling 002 §2: explicit error, never silent success",
+ "threw": true,
+ "message": "MANIFEST TYPE VIOLATION at /tmp/hss-proto/runs/run-2026-10-13T13-49-53-631Z/r1/n"
+}

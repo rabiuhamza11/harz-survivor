@@ -1,0 +1,8 @@
+{
+ "test": "R2_prototype_token_collision",
+ "pass": true,
+ "at": "2026-10-13T13:54:19.779Z",
+ "defect": "idx[constructor] resolved to Object prototype function, crashed buildIndex",
+ "fixed_with": "Object.create(null) index + Array.isArray guard in search",
+ "results_type": "object"
+}

@@ -51,7 +51,13 @@ class HssStore {
     this.events = events;
     return events;
   }
-    manifest(b) { return JSON.parse(fs.readFileSync(path.join(b, 'objects/manifest.json'), 'utf8')); }
+    manifest(b) {
+    const m = JSON.parse(fs.readFileSync(path.join(b, 'objects/manifest.json'), 'utf8'));
+    if (m === null || typeof m !== 'object' || Array.isArray(m)) {
+      throw new Error('MANIFEST TYPE VIOLATION at ' + b + ': expected a plain object, got ' + (Array.isArray(m) ? 'array' : typeof m) + ' — refusing to operate on a corrupt manifest (Ruling 002 silent-success ban)');
+    }
+    return m;
+  }
   saveManifest(b, m) { fs.writeFileSync(path.join(b, 'objects/manifest.json'), JSON.stringify(m, null, 1)); }
   objDir(b) { const d = path.join(b, 'objects'); fs.mkdirSync(d, {recursive:true}); return d; }
 
@@ -111,6 +117,57 @@ class HssStore {
     }
     return { ok: true, hash, size: bytes.length, degraded_backends: degraded };
   }
+  // --- batchPut: batched ingestion for scale (same laws as put: dedup, verify-before-ack) ---
+  batchPut(docs, opts = {}) {
+    const live = this.backends.filter(b => fs.existsSync(path.join(b, 'journal.log')));
+    if (live.length === 0) return { ok: false, error: 'no storage backend available', code: 503 };
+    const m0 = this.manifest(live[0]);
+    const fresh = [], dupCount = {n: 0};
+    const results = {received: docs.length, inserted: 0, dup: 0, failed_identity: 0};
+    for (const d of docs) {
+      const bytes = Buffer.from(d.content, 'utf8');
+      const hash = d.content_hash || sha256(bytes);
+      if (d.content_hash && d.content_hash !== sha256(bytes)) { results.failed_identity++; continue; }
+      if (m0[hash] && m0[hash].states.includes('STORED')) { (m0[hash].dup_hits = (m0[hash].dup_hits||0)+1); results.dup++; continue; }
+      fresh.push({bytes, hash, meta: d});
+    }
+    // capacity: one walk for the whole batch, full cost model (Ruling 002: replica+journal cost)
+    const cap = this.capacity();
+    const projected = fresh.reduce((a, f) => a + f.bytes.length * live.length + 2048, 0);
+    if (cap.used + projected > this.quota) return { ok: false, error: 'capacity cap reached', code: 507, used: cap.used, quota: this.quota, projected, batch: true };
+    const now = new Date().toISOString();
+    for (const f of fresh) {
+      for (const b of live) {
+        fs.appendFileSync(path.join(b, 'journal.log'), JSON.stringify({op:'begin', hash: f.hash, t:'tmp'}) + '\n');
+        const tmp = path.join(this.objDir(b), f.hash + '.tmp');
+        fs.writeFileSync(tmp, f.bytes);
+        fs.renameSync(tmp, path.join(this.objDir(b), f.hash));
+        fs.appendFileSync(path.join(b, 'journal.log'), JSON.stringify({op:'commit', hash: f.hash, t:'final'}) + '\n');
+      }
+    }
+    const records = {};
+    let verifyFail = 0;
+    for (const f of fresh) {
+      let okB = true;
+      for (const b of live) { const r = fs.readFileSync(path.join(this.objDir(b), f.hash)); if (sha256(r) !== f.hash) { okB = false; } }
+      if (!okB) { verifyFail++; continue; }
+      records[f.hash] = { doc_id: f.hash, content_hash: f.hash, source: f.meta.source || 'seed',
+        collected_at: f.meta.collected_at || now, language: f.meta.language || 'en',
+        content_type: f.meta.content_type || 'text', license_policy: f.meta.license_policy || 'unspecified',
+        states: ['STORED'], storage_locations: live.map(b => path.basename(b)), size: f.bytes.length, kind: 'complete' };
+      results.inserted++;
+    }
+    if (verifyFail) results.verify_failures = verifyFail;
+    for (const b of live) {
+      const m = this.manifest(b);
+      for (const [h, r] of Object.entries(records)) m[h] = r;
+      for (const [h, r] of Object.entries(m0)) if (r.dup_hits) m[h] = r; // persist dup counters
+      this.saveManifest(b, m);
+    }
+    results.ok = true;
+    return results;
+  }
+
   // metadata-only records are NEVER STORED (ruling: metadata existence is not storage)
   putMetadata(doc) {
     const hash = doc.content_hash || null;
@@ -166,27 +223,49 @@ class HssStore {
   }
   // --- SEARCHABLE: rebuildable index derived from authoritative content ---
   buildIndex() {
+    // SHARDED index (defect #6, caught by scale ladder Oct 13: a monolithic JSON index
+    // exceeds V8 max string length at ~50k docs). Each shard covers SHARD docs; search
+    // merges across shards. Honest limitation: search parses each shard (bounded, but
+    // linear in shard count) — a real inverted-index service is a later rung.
+    const SHARD = 10000;
+    const idxDir = path.join(this.root, 'index-shards'); fs.mkdirSync(idxDir, {recursive: true});
+    for (const f of fs.readdirSync(idxDir)) fs.unlinkSync(path.join(idxDir, f));
     const m = this.manifest(this.backends[0]);
-    const idx = {};
-    for (const [hash, rec] of Object.entries(m)) {
-      if (!rec.states.includes('STORED')) continue;
-      let text = null;
-      for (const be of this.backends) { const p = path.join(this.objDir(be), hash); if (fs.existsSync(p)) { text = fs.readFileSync(p, 'utf8'); break; } }
-      if (text === null) { (idx.__alarms = idx.__alarms || []).push({missing_object: hash, note: 'record STORED but object missing in all backends'}); continue; }
-      const toks = [...new Set(text.toLowerCase().match(/[a-z0-9\u00c0-\u024f]{2,}/g) || [])].slice(0, 400);
-      for (const t of toks) (idx[t] = idx[t] || []).push(hash);
+    const stored = Object.entries(m).filter(([, r]) => r.states.includes('STORED'));
+    let shardN = 0, termsTotal = 0, alarms = 0;
+    for (let i = 0; i < stored.length; i += SHARD) {
+      const idx = Object.create(null);
+      const chunk = stored.slice(i, i + SHARD);
+      for (const [hash, rec] of chunk) {
+        let text = null;
+        for (const be of this.backends) { const p = path.join(this.objDir(be), hash); if (fs.existsSync(p)) { text = fs.readFileSync(p, 'utf8'); break; } }
+        if (text === null) { alarms++; continue; }
+        const toks = [...new Set(text.toLowerCase().match(/[a-z0-9\u00c0-\u024f]{2,}/g) || [])].slice(0, 400);
+        for (const t of toks) (idx[t] = idx[t] || []).push(hash);
+      }
+      fs.writeFileSync(path.join(idxDir, 'shard-' + String(shardN).padStart(3, '0') + '.json'), JSON.stringify(idx));
+      termsTotal += Object.keys(idx).length; shardN++;
     }
-    fs.writeFileSync(path.join(this.root, 'search-index.json'), JSON.stringify(idx));
+    fs.writeFileSync(path.join(idxDir, 'meta.json'), JSON.stringify({shards: shardN, docs: stored.length, built: new Date().toISOString()}));
     for (const be of this.backends) {
       const mm = this.manifest(be);
-      for (const [h, r] of Object.entries(mm)) if (r.states.includes('STORED')) r.states.push('SEARCHABLE');
+      for (const [h, r] of Object.entries(mm)) if (r.states.includes('STORED')) r.states = [...new Set([...r.states, 'SEARCHABLE'])];
       this.saveManifest(be, mm);
     }
-    return { ok: true, terms: Object.keys(idx).filter(t => t !== '__alarms').length, missing_object_alarms: (idx.__alarms || []).length };
+    return { ok: true, terms_per_shard_sum: termsTotal, shards: shardN, missing_object_alarms: alarms, index_format: 'sharded v2' };
   }
-  search(term) {
-    const idx = JSON.parse(fs.readFileSync(path.join(this.root, 'search-index.json'), 'utf8'));
-    return { ok: true, term, results: (idx[term.toLowerCase()] || []).slice(0, 50) };
+    search(term) {
+    const t = term.toLowerCase();
+    const idxDir = path.join(this.root, 'index-shards');
+    const shards = fs.existsSync(idxDir) ? fs.readdirSync(idxDir).filter(f => f.endsWith('.json') && f.startsWith('shard-')) : [];
+    if (!shards.length) return { ok: false, error: 'index not built', term };
+    const merged = [];
+    for (const f of shards) {
+      const idx = JSON.parse(fs.readFileSync(path.join(idxDir, f), 'utf8'));
+      const hit = idx[t];
+      if (Array.isArray(hit)) merged.push(...hit);
+    }
+    return { ok: true, term, results: merged.slice(0, 50), shards_scanned: shards.length };
   }
   // --- T10: export / import, provider-independent ---
   exportTo(file) {

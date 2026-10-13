@@ -1,0 +1,16 @@
+{
+ "test": "T11_capacity_accounting",
+ "pass": true,
+ "at": "2026-10-13T13:52:54.591Z",
+ "quota_bytes": 2097152,
+ "accepted_docs": 120,
+ "refused_507_events": 1880,
+ "measured_used": 2094380,
+ "remaining": 2772,
+ "breakdown": {
+  "nodeA": 1047190,
+  "nodeB": 1047190,
+  "search-index": 0
+ },
+ "honest_refusal": true
+}

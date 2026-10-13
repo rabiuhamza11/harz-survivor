@@ -3,8 +3,10 @@
 // Ruling 001 gate: no passing result may be inferred; every test executed and evidenced.
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const { HssStore, sha256 } = require('./hss.js');
-const ROOT = '/tmp/hss-proto/run'; const RECEIPTS = '/tmp/hss-proto/run/receipts';
-fs.rmSync(ROOT, {recursive: true, force: true}); fs.mkdirSync(RECEIPTS, {recursive: true});
+const RUNID = 'run-' + new Date().toISOString().replace(/[:.]/g, '-');
+const ROOT = '/tmp/hss-proto/runs/' + RUNID; const RECEIPTS = ROOT + '/receipts';
+fs.mkdirSync(RECEIPTS, {recursive: true});
+console.log('RUN DIR (preserved as evidence):', ROOT);
 const seed = JSON.parse(fs.readFileSync('/tmp/hss-proto/seed/seed-2000.json', 'utf8'));
 const receipt = (t, pass, detail) => { fs.writeFileSync(path.join(RECEIPTS, t + '.json'), JSON.stringify({test: t, pass, at: new Date().toISOString(), ...detail}, null, 1)); console.log(t, pass ? 'PASS' : 'FAIL', JSON.stringify(detail).slice(0, 200)); if (!pass) process.exitCode = 1; };
 
@@ -108,11 +110,12 @@ child.on('exit', () => {
   const s7 = new HssStore(ROOT + '/t1', 500 * 1024 * 1024);
   s7.buildIndex();
   const before = s7.search('nigeria');
-  fs.unlinkSync(path.join(ROOT + '/t1/search-index.json'));
-  let threw = false; try { s7.search('nigeria'); } catch { threw = true; }
+  const idxDir7 = path.join(ROOT, '/t1/index-shards');
+  for (const f of fs.readdirSync(idxDir7)) fs.unlinkSync(path.join(idxDir7, f));
+  let refusedH = false; try { const g = s7.search('nigeria'); refusedH = g.ok === false; } catch { refusedH = true; }
   const rebuilt = s7.buildIndex();
   const after = s7.search('nigeria');
-  receipt('T7_index_reconstruction', threw && rebuilt.ok && JSON.stringify(before.results) === JSON.stringify(after.results), { index_destroyed: threw, rebuilt: rebuilt.ok, terms: rebuilt.terms, results_identical: JSON.stringify(before.results) === JSON.stringify(after.results), corpus_untouched: fs.readdirSync(path.join(ROOT + '/t1/nodeA/objects')).filter(f => f.length === 64).length === 2000 });
+  receipt('T7_index_reconstruction', refusedH && rebuilt.ok && JSON.stringify(before.results) === JSON.stringify(after.results), { index_destroyed: refusedH, refused_honestly: refusedH, rebuilt: rebuilt.ok, shards: rebuilt.shards, results_identical: JSON.stringify(before.results) === JSON.stringify(after.results), corpus_untouched: fs.readdirSync(path.join(ROOT + '/t1/nodeA/objects')).filter(f => f.length === 64).length === 2000 });
 
   // T8 EXPANSION — add a third backend mid-operation; identities unchanged
   const s8 = new HssStore(ROOT + '/t8', 500 * 1024 * 1024);
@@ -193,5 +196,23 @@ child.on('exit', () => {
   const meta1 = s13.putMetadata({content_hash: 'abc123nonexistent', fields: {url: 'https://example.com/lost', source: 'old-index'}});
   const stats13 = s13.stats();
   receipt('Ruling8_metadata_only_safety', meta1.metadata_only === true && stats13.metadata_only === 1 && stats13.STORED === 0, { metadata_records: stats13.metadata_only, stored: stats13.STORED, never_conflated: stats13.STORED === 0 });
+  // R1 REGRESSION (Ruling 002 silent-success ban): corrupt manifest must throw explicitly
+  const sR1 = new HssStore(ROOT + '/r1', 100 * 1024 * 1024);
+  sR1.put({content: 'regression seed doc', content_hash: sha256('regression seed doc')});
+  fs.writeFileSync(path.join(ROOT, '/r1/nodeA/objects/manifest.json'), '[]'); // the original defect: array manifest
+  let threwR1 = false, msgR1 = '';
+  try { sR1.put({content: 'after corruption', content_hash: sha256('after corruption')}); } catch (e) { threwR1 = true; msgR1 = e.message.slice(0, 80); }
+  receipt('R1_manifest_type_violation_explicit_error', threwR1 && msgR1.includes('MANIFEST TYPE VIOLATION'),
+    { defect_history: 'first run of battery seeded manifest as [] and records vanished silently', law: 'Ruling 002 §2: explicit error, never silent success', threw: threwR1, message: msgR1 });
+
+  // R2 REGRESSION: token 'constructor' must not corrupt the index (defect caught by scale ladder Oct 13)
+  const sR2 = new HssStore(ROOT + '/r2', 100 * 1024 * 1024);
+  const evilText = 'constructor toString hasOwnProperty __proto__ valueOf normal words too';
+  sR2.put({content: evilText, content_hash: sha256(evilText)});
+  const bIdx = sR2.buildIndex();
+  const gC = sR2.search('constructor');
+  receipt('R2_prototype_token_collision', bIdx.ok === true && Array.isArray(gC.results),
+    { defect: 'idx[constructor] resolved to Object prototype function, crashed buildIndex', fixed_with: 'Object.create(null) index + Array.isArray guard in search', results_type: typeof gC.results });
+
   console.log('BATTERY COMPLETE. exit code:', process.exitCode || 0);
 });

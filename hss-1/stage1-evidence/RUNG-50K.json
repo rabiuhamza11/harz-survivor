@@ -1,0 +1,31 @@
+{
+ "rung": "50k (12k real + 38k derived-variant)",
+ "docs": 50000,
+ "raw_payload_bytes": 230387807,
+ "ingestion_docs_per_s": 382.8,
+ "ingestion_MBps": 1.76,
+ "get_latency_ms": {
+  "p50": 158.02,
+  "p95": 190.34,
+  "samples": 1000
+ },
+ "restart_recovery_ms": 1700,
+ "index_build_ms": 19903,
+ "index_shards": 5,
+ "search_latency_ms": 6794,
+ "search_shards_scanned": 5,
+ "storage_breakdown_bytes": {
+  "nodeA:payload": 238404940,
+  "nodeA:manifest": 27280780,
+  "nodeA:journal": 10048794,
+  "nodeB:payload": 238404940,
+  "nodeB:manifest": 27280780,
+  "nodeB:journal": 10048794,
+  "index-shards": 801817929,
+  "TOTAL": 1353286957
+ },
+ "total_bytes": 1353286957,
+ "measured_multiplier_vs_raw": 5.87,
+ "rss_peak_bytes": 1852223488,
+ "at": "2026-10-13T09:55:27.023Z"
+}

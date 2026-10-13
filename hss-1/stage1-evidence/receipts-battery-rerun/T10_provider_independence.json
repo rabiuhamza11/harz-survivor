@@ -1,0 +1,10 @@
+{
+ "test": "T10_provider_independence",
+ "pass": true,
+ "at": "2026-10-13T13:52:47.382Z",
+ "exported_docs": 300,
+ "payload_bytes": 2223421,
+ "imported_docs": 300,
+ "digests_bit_identical": true,
+ "restored_serves_all": true
+}
