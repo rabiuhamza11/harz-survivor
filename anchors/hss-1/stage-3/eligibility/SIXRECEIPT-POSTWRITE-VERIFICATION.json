@@ -1,0 +1,29 @@
+{
+ "at": "2026-10-14T06:12:23Z",
+ "1_rows": {
+  "count": 6,
+  "distinct_doc_ids": 6,
+  "pass": true
+ },
+ "2_verbatim_and_verified": {
+  "recorded_hash_verbatim_and_live": 6,
+  "body_digest_reverified_live": 6,
+  "pass": true
+ },
+ "3_docs_rows_untouched": {
+  "of_six": 6,
+  "pass": true
+ },
+ "4_population_unchanged": {
+  "docs_count": 1341437,
+  "provenance_count": 3249,
+  "six_not_in_provenance": true,
+  "pass": true
+ },
+ "5_verdicts": {
+  "quarantine_maintained": 6,
+  "verdict_correct": 6,
+  "pass": true
+ },
+ "overall": "ALL PASS"
+}
