@@ -1,0 +1,16 @@
+{
+ "at": "2026-10-14T06:26:10Z",
+ "docs_count": 1341437,
+ "provenance_count": 3249,
+ "six_body_receipts": 6,
+ "corroboration_table_exists": false,
+ "six_docs_live": {
+  "2006": "58d53fc67b9aa294a5f57b3cdf0725956e46941a847807f5663644075adf2ecd",
+  "2011": "ec2d205ccc4fbe9926d690a6b57db225c8879cb51393fb65a9d1a584f345a906",
+  "2018": "ad59f5a151d361e970d3bdb512ba14ef43dc5ec50e48bb18148ec5a395caa134",
+  "2025": "0123bce7b65cd6f0518b1ce963a85c3c4bcc5180b670c74ef59e8d3919057cbf",
+  "2030": "b0fb70dd80b7860b8a2d0222f1e45b43938217ecc0682c0376a8a28ac76578a1",
+  "8254": "a47b3cbe10d1b828ce81fc1da778e7006c062063acf243f0fdeb6d32fda98b41"
+ },
+ "docs_rows_match_receipts": true
+}

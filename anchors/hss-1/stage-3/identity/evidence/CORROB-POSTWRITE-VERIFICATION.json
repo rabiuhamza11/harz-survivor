@@ -1,0 +1,19 @@
+{
+ "at": "2026-10-14T06:26:25Z",
+ "rows": 6,
+ "distinct": 6,
+ "c1_three_distinct": true,
+ "c2_verbatim_hashes": "6/6",
+ "c2_receipt_join": "6/6",
+ "c2_live_body_rehash": "6/6",
+ "c3_quarantine": true,
+ "c4_population": {
+  "docs": 1341437,
+  "provenance": 3249,
+  "six_body_receipts": 6
+ },
+ "c4_docs_unchanged": true,
+ "c5_reproducible": true,
+ "wording_correction_in_basis": true,
+ "overall": "ALL PASS"
+}
