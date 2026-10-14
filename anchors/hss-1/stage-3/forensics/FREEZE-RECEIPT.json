@@ -1,0 +1,91 @@
+{
+ "frozen_at": "2026-10-14T05:25:00Z",
+ "records": [
+  {
+   "seed_idx": 2005,
+   "recorded_content_hash": "58d53fc67b9aa294a5f57b3cdf0725956e46941a847807f5663644075adf2ecd",
+   "body_sha256_current": "d749edcc9d1cfc58e2f23f04bf7894a2b712a357df6c83c650e5cb2247d9e5c4",
+   "body_len_codeunits": 14102,
+   "body_utf8_bytes": 14185,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  },
+  {
+   "seed_idx": 2010,
+   "recorded_content_hash": "ec2d205ccc4fbe9926d690a6b57db225c8879cb51393fb65a9d1a584f345a906",
+   "body_sha256_current": "e198cde578bba15441f5b9a26d860b5d3fe9b0ae144770393c5c1ec4cbf3e0e3",
+   "body_len_codeunits": 3787,
+   "body_utf8_bytes": 3846,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  },
+  {
+   "seed_idx": 2017,
+   "recorded_content_hash": "ad59f5a151d361e970d3bdb512ba14ef43dc5ec50e48bb18148ec5a395caa134",
+   "body_sha256_current": "13fc4f8fe73f93cabe23d2a5db5f1cdbb57fe65bf30f3ab9c280b561f3ac9b5d",
+   "body_len_codeunits": 13261,
+   "body_utf8_bytes": 13333,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  },
+  {
+   "seed_idx": 2024,
+   "recorded_content_hash": "0123bce7b65cd6f0518b1ce963a85c3c4bcc5180b670c74ef59e8d3919057cbf",
+   "body_sha256_current": "3d9ebdef0ca9a4da5851a91152b9af38a9c32af62f602561414831e063318736",
+   "body_len_codeunits": 2457,
+   "body_utf8_bytes": 2502,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  },
+  {
+   "seed_idx": 2029,
+   "recorded_content_hash": "b0fb70dd80b7860b8a2d0222f1e45b43938217ecc0682c0376a8a28ac76578a1",
+   "body_sha256_current": "377a3d3a0f198920c85fdb06d1476449f74497570f4ca4b8fced83b655d34643",
+   "body_len_codeunits": 2656,
+   "body_utf8_bytes": 2721,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  },
+  {
+   "seed_idx": 8253,
+   "recorded_content_hash": "a47b3cbe10d1b828ce81fc1da778e7006c062063acf243f0fdeb6d32fda98b41",
+   "body_sha256_current": "e1da67ae54fa22ff9421df8f38015eea7b841015ff51abc211c62c5583706558",
+   "body_len_codeunits": 3918,
+   "body_utf8_bytes": 3944,
+   "evidence": {
+    "body_snapshot_sha256": null,
+    "note": "body bytes preserved verbatim in frozen-snapshot.jsonl"
+   },
+   "title": null,
+   "url": null,
+   "source": null
+  }
+ ],
+ "frozen_snapshot_sha256": "68bdf0957c0c63cce0990eada646d427942ec13dcfbb705536e8375945270b5a",
+ "law": "evidence immutable; investigation is read-only over these records; no hash rewriting, no re-ingestion"
+}

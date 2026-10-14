@@ -1,0 +1,8 @@
+PASS S1_kill_midbatch_resume {"stored":400,"unique_journal":400}
+PASS S2_manifest_kill_never_torn {"opens_after_kills":10,"torn_opens":0}
+PASS S3_replay_idempotent {"s3_in_manifest":100,"s3_objects":100,"dup_state_entries":0}
+PASS S4_digest_mismatch_refused {"refused":1}
+PASS S5_quarantined_refused {"refused":1,"accepted":false}
+PASS S6_restart_mixed_states_preserved {"entries":501,"drifted":0}
+PASS S7_no_silent_promotion_survives_rail {"rail":{"ok":true,"attempted_new":501,"verified":501,"failed":0,"skipped_already_receipted":0},"receipts":501,"victim_states_after":["STORED","VERIFIED_DIGEST"]}
+INTEGRITY BATTERY ALL PASS

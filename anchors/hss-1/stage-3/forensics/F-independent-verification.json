@@ -1,0 +1,46 @@
+{
+ "verifier": "Team F independent re-verification (Python 3, different substrate than the Node engine)",
+ "at": "2026-10-13T08:2x",
+ "checks": [
+  {
+   "check": "F1 all t1 objects re-hashed independently",
+   "objects": 2000,
+   "digest_mismatches": 0
+  },
+  {
+   "check": "F2 STORED records vs objects on disk",
+   "stored_records": 2000,
+   "missing_objects": 0
+  },
+  {
+   "check": "F3 witness seal chain recomputed",
+   "seals": 100,
+   "chain_valid_up_to": 100
+  },
+  {
+   "check": "F4 export content digest independent recompute",
+   "recorded": "3c4eb9b82e7d2b3d67dbaefc6ebe5b7f3ef7c947fb5572adec297e21e51966e4",
+   "recomputed": "3c4eb9b82e7d2b3d67dbaefc6ebe5b7f3ef7c947fb5572adec297e21e51966e4",
+   "match": true
+  },
+  {
+   "check": "F5 export->restore byte parity",
+   "objects_compared": 300,
+   "byte_differences": 0
+  },
+  {
+   "check": "F6 t11 accounting: python walk vs engine capacity()",
+   "python_walk_bytes": 2094380,
+   "engine_used_bytes": 2094380,
+   "delta_bytes": 0
+  },
+  {
+   "check": "F7 t2 post-kill store: digest truth + ack/stored accounting",
+   "stored": 310,
+   "journal_acks": 310,
+   "corrupt_objects": 0,
+   "note": "adopted-unacked records are extra by design"
+  }
+ ],
+ "verdict": "PASS"
+}

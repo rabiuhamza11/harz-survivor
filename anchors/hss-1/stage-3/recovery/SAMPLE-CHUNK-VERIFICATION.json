@@ -1,0 +1,1 @@
+{"sampled_chunks": [{"name": "chunk-000.json", "docs": 500, "bytes": 2138750, "seal_ok": true}, {"name": "chunk-021.json", "docs": 500, "bytes": 3953120, "seal_ok": true}, {"name": "chunk-042.json", "docs": 377, "bytes": 6037401, "seal_ok": true}], "hunt_only_found": 229, "perdoc_sha_verified": 229, "perdoc_sha_mismatch": 0, "chunk_seal_verified": 3, "chunk_seal_mismatch": 0}
