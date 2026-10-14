@@ -1,0 +1,62 @@
+{
+ "2006": {
+  "missing_shingles": 350,
+  "divergence_by_third(first/middle/end)": [
+   66,
+   87,
+   197
+  ],
+  "sample_first_missing": "0 4 teams bleacher report23hbuyers or",
+  "sample_last_missing": "of their most coveted available player"
+ },
+ "2011": {
+  "missing_shingles": 158,
+  "divergence_by_third(first/middle/end)": [
+   41,
+   0,
+   117
+  ],
+  "sample_first_missing": "01 06 falcons may have figured",
+  "sample_last_missing": "clips of taking notes on sidelines"
+ },
+ "2018": {
+  "missing_shingles": 339,
+  "divergence_by_third(first/middle/end)": [
+   80,
+   86,
+   173
+  ],
+  "sample_first_missing": "01 18 dodgers advance to 3rd",
+  "sample_last_missing": "12h76ers hc addresses bron embiid rumors"
+ },
+ "2025": {
+  "missing_shingles": 144,
+  "divergence_by_third(first/middle/end)": [
+   45,
+   4,
+   95
+  ],
+  "sample_first_missing": "00 15 fried gives up another",
+  "sample_last_missing": "10h76ers hc addresses bron embiid rumors"
+ },
+ "2030": {
+  "missing_shingles": 183,
+  "divergence_by_third(first/middle/end)": [
+   45,
+   15,
+   123
+  ],
+  "sample_first_missing": "00 40 is this the best",
+  "sample_last_missing": "10hnew rankings after 1st week web"
+ },
+ "8254": {
+  "missing_shingles": 5,
+  "divergence_by_third(first/middle/end)": [
+   5,
+   0,
+   0
+  ],
+  "sample_first_missing": "consumer credit regulations 2004 2004 regulations",
+  "sample_last_missing": "credit regulations 2004 2004 regulations however"
+ }
+}

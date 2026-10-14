@@ -1,0 +1,74 @@
+{
+ "2006": {
+  "raw_containment": 0.8534,
+  "missing_total": 350,
+  "missing_chrome_like": 108,
+  "missing_content_like": 242,
+  "content_corroboration_bound": 0.8986,
+  "sample_content_missing": [
+   "photo adam hunger projected trade value",
+   "cowboys 8 mason rudolph qb pittsburgh",
+   "stew milne projected trade value conditional"
+  ]
+ },
+ "2011": {
+  "raw_containment": 0.7362,
+  "missing_total": 158,
+  "missing_chrome_like": 68,
+  "missing_content_like": 90,
+  "content_corroboration_bound": 0.8497,
+  "sample_content_missing": [
+   "have figured it out top newslane",
+   "do that top newslane johnson retirement",
+   "5hcolts owner defends approachcarlie irsay gordon"
+  ]
+ },
+ "2018": {
+  "raw_containment": 0.8599,
+  "missing_total": 339,
+  "missing_chrome_like": 108,
+  "missing_content_like": 231,
+  "content_corroboration_bound": 0.9045,
+  "sample_content_missing": [
+   "to get over the hump8 of",
+   "team s october x factor bleacher",
+   "the victor mesa jr show5 of"
+  ]
+ },
+ "2025": {
+  "raw_containment": 0.6139,
+  "missing_total": 144,
+  "missing_chrome_like": 57,
+  "missing_content_like": 87,
+  "content_corroboration_bound": 0.7668,
+  "sample_content_missing": [
+   "move as some teams start to",
+   "8hbroadcaster sorry for false lebron rumorcnnbleacher",
+   "out of mlb playoffstimothy rappoct 7"
+  ]
+ },
+ "2030": {
+  "raw_containment": 0.5481,
+  "missing_total": 183,
+  "missing_chrome_like": 72,
+  "missing_content_like": 111,
+  "content_corroboration_bound": 0.7259,
+  "sample_content_missing": [
+   "move as some teams start to",
+   "already this season top newsmel kiper",
+   "for eagles pro bowl ol herobleacher"
+  ]
+ },
+ "8254": {
+  "raw_containment": 0.9921,
+  "missing_total": 5,
+  "missing_chrome_like": 0,
+  "missing_content_like": 5,
+  "content_corroboration_bound": 0.9921,
+  "sample_content_missing": [
+   "uk consumer credit regulations 2004 2004",
+   "the uk consumer credit regulations 2004",
+   "consumer credit regulations 2004 2004 regulations"
+  ]
+ }
+}

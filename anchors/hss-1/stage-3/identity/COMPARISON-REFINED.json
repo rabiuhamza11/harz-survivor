@@ -1,0 +1,50 @@
+{
+ "2006": {
+  "method": "p-only extraction (6-gram)",
+  "live_chars": 12061,
+  "body_shingles": 2387,
+  "shared": 2037,
+  "fwd_containment": 0.8534,
+  "live_sha256": "31a61d913778d962e17b92e74d0c0a1d3b93e36d7acce9f766febd0ddb4ef35c"
+ },
+ "2011": {
+  "method": "p-only extraction (6-gram)",
+  "live_chars": 2648,
+  "body_shingles": 599,
+  "shared": 441,
+  "fwd_containment": 0.7362,
+  "live_sha256": "243ebe9556d5fa0e251d2747a5d3368766d34d2317af5d6e2fe369469a133467"
+ },
+ "2018": {
+  "method": "p-only extraction (6-gram)",
+  "live_chars": 11196,
+  "body_shingles": 2420,
+  "shared": 2081,
+  "fwd_containment": 0.8599,
+  "live_sha256": "1ec54cd2176b1cd7e3f6aec0b12cefb13fa601ff3dd7c78ebe31324ec46a203b"
+ },
+ "2025": {
+  "method": "p-only extraction (6-gram)",
+  "live_chars": 1367,
+  "body_shingles": 373,
+  "shared": 229,
+  "fwd_containment": 0.6139,
+  "live_sha256": "58ca9eaf97f2b68d78da916595bec174d92f926555a7eef3af036a7726e7918b"
+ },
+ "2030": {
+  "method": "p-only extraction (6-gram)",
+  "live_chars": 1339,
+  "body_shingles": 405,
+  "shared": 222,
+  "fwd_containment": 0.5481,
+  "live_sha256": "ae6494daad9074e290525c17791afeb42f397f1225ca61a0d97829ce9d1b2617"
+ },
+ "8254": {
+  "method": "wikipedia api explaintext",
+  "live_chars": 3985,
+  "body_shingles": 629,
+  "shared": 624,
+  "fwd_containment": 0.9921,
+  "live_sha256": "3661dc9e5b815ee78800e580e4d62c985efdf3baac7a3432d8b2496d39e4e256"
+ }
+}

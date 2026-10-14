@@ -1,0 +1,68 @@
+[
+ {
+  "doc_id": 2006,
+  "url": "https://bleacherreport.com/articles/25507024-2026-nfl-trade-block-big-board-entering-week-5?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "fetched_at": "2026-10-14T06:21:03Z",
+  "status": 200,
+  "final_url": "https://bleacherreport.com/articles/25507024-2026-nfl-trade-block-big-board-entering-week-5?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "content_type": "text/html; charset=utf-8",
+  "response_sha256": "c51bc314849e8d426489ddf8ce677de75f44b3bee8e5b8994d60ea9622f49536",
+  "response_bytes": 2056888,
+  "saved": "source-2006.html"
+ },
+ {
+  "doc_id": 2011,
+  "url": "https://bleacherreport.com/articles/25507880-stephen-smith-apologizes-lane-johnson-retirement-comments-mental-health?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "fetched_at": "2026-10-14T06:21:04Z",
+  "status": 200,
+  "final_url": "https://bleacherreport.com/articles/25507880-stephen-smith-apologizes-lane-johnson-retirement-comments-mental-health?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "content_type": "text/html; charset=utf-8",
+  "response_sha256": "00e7714b4b2265d42b3c7c8a8d4668226da62f7593433dd2c77859270eb7c50c",
+  "response_bytes": 1880015,
+  "saved": "source-2011.html"
+ },
+ {
+  "doc_id": 2018,
+  "url": "https://bleacherreport.com/articles/25508029-mlb-playoff-divisional-round-overreactions-dodgers-vs-braves-rays-vs-yankees-and-every-game?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "fetched_at": "2026-10-14T06:21:05Z",
+  "status": 200,
+  "final_url": "https://bleacherreport.com/articles/25508029-mlb-playoff-divisional-round-overreactions-dodgers-vs-braves-rays-vs-yankees-and-every-game?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "content_type": "text/html; charset=utf-8",
+  "response_sha256": "62280ce5a983f3adf671cea11a3d11ff03d17df13d4fd54524fd86e6261638b0",
+  "response_bytes": 2000214,
+  "saved": "source-2018.html"
+ },
+ {
+  "doc_id": 2025,
+  "url": "https://bleacherreport.com/articles/25508065-aaron-boone-describes-broken-clubhouse-ripped-fans-yankees-swept-out-mlb-playoffs?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "fetched_at": "2026-10-14T06:21:06Z",
+  "status": 200,
+  "final_url": "https://bleacherreport.com/articles/25508065-aaron-boone-describes-broken-clubhouse-ripped-fans-yankees-swept-out-mlb-playoffs?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "content_type": "text/html; charset=utf-8",
+  "response_sha256": "862791eb2598e8df0e430981bf7e7102a8774f8b1b49418e68aaa431a525f1b3",
+  "response_bytes": 1905994,
+  "saved": "source-2025.html"
+ },
+ {
+  "doc_id": 2030,
+  "url": "https://bleacherreport.com/articles/25507895-peyton-mannings-son-marshall-has-cfb-offers-top-programs-amid-freshman-hsfb-season?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "fetched_at": "2026-10-14T06:21:07Z",
+  "status": 200,
+  "final_url": "https://bleacherreport.com/articles/25507895-peyton-mannings-son-marshall-has-cfb-offers-top-programs-amid-freshman-hsfb-season?utm_source=cnn.com&utm_medium=referral&utm_campaign=editorial",
+  "content_type": "text/html; charset=utf-8",
+  "response_sha256": "92c06f03451daf3e555895b4802e976f256cfb61ca6b75055db9abbc332887cb",
+  "response_bytes": 1974939,
+  "saved": "source-2030.html"
+ },
+ {
+  "doc_id": 8254,
+  "url": "https://en.wikipedia.org/wiki/Representative_APR",
+  "fetched_at": "2026-10-14T06:21:08Z",
+  "status": 200,
+  "final_url": "https://en.wikipedia.org/wiki/Representative_APR",
+  "content_type": "text/html; charset=UTF-8",
+  "response_sha256": "ac3e1dfaf58ae405d5bc0f9e52606812c373ed578d5955582b7f5236aa0db9c8",
+  "response_bytes": 52172,
+  "saved": "source-8254.html"
+ }
+]
