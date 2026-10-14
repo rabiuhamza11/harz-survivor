@@ -1,0 +1,122 @@
+{
+ "team": "E",
+ "wave": 1,
+ "at_start": "2026-10-14T06:50:08Z",
+ "repo_head": "0ea50b7 Ruling 016: corroboration-receipt stage CLOSED \u2014 final classification bound, chapter chain recorded, boundaries retained",
+ "E1_shard_counts": {
+  "chunks": 43,
+  "docs_total": 21377,
+  "bytes_total": 142353201,
+  "empty_bodies": 0,
+  "docs_min": 377,
+  "docs_max": 500
+ },
+ "E2_live_seals": {
+  "seals_fresh_verified": 43,
+  "of": 43,
+  "identical_to_prior": 43,
+  "perdoc_ok": 21377,
+  "perdoc_mismatch": 0,
+  "rehashed": 21377
+ },
+ "E3_quarantine_recorded": {
+  "six_body_receipts": [
+   {
+    "doc_id": 2006,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2011,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2018,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2025,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2030,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 8254,
+    "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+    "quarantine": "MAINTAINED"
+   }
+  ],
+  "identity_corroboration_receipts": [
+   {
+    "doc_id": 2006,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2011,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2018,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2025,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 2030,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   },
+   {
+    "doc_id": 8254,
+    "body_integrity": "VERIFIED",
+    "current_source_identity": "CORROBORATED",
+    "historical_identity": "UNPROVEN",
+    "quarantine": "MAINTAINED"
+   }
+  ],
+  "six_absent_from_provenance": true,
+  "method": "RECORDED-ONLY: production annotation tables read; quarantined bodies NOT inspected per mandate"
+ },
+ "E4_population_swap": {
+  "fresh_counts": {
+   "corpus_docs": 1341437,
+   "hunt_provenance": 3249,
+   "hunt_acct1": 42622,
+   "hunt_acct3": 32036,
+   "corpus_refs": {
+    "baseline_oct13": 1328715,
+    "this_morning_0612Z": 1341437
+   }
+  },
+  "sample_correspondence": {
+   "sampled": 300,
+   "corpus_row_found": 300,
+   "not_found": 0,
+   "not_found_detail": [],
+   "method": "uniform random 300 of 21,377 fresh-rehashed sealed docs; live corpus docs queried by BOTH identities (sealed content_hash OR verified body digest), 50 docs (<=100 keys) per batch"
+  }
+ },
+ "at_end": "2026-10-14T06:50:36Z"
+}
