@@ -1,0 +1,29 @@
+{
+ "purpose": "HSS-1 Ruling 006 preflight condition 1: artifact binding by recorded digests",
+ "artifacts": {
+  "RECOVERY-MANIFEST-3249.json": "125c72abf64a4e716ad7afee59716766f0c7bea0ec9244e49d1566c0c22bb873",
+  "SWEEP43-AGGREGATE.json": "45e7ca3c5661f2d0406eb7bf57395c94c26ce9541fb629e864ae9a84aaa672ea",
+  "STAGING-TEST-RECEIPT.json": "22c0908b1cb1631bb1ad4d472d2cc573071420b4f5c501a4c00df069939995fd",
+  "RECEIPTS-SIX-BODIES.json": "c7000919851d3f5634a548981988f1528089f6fc896df6f5fcf6c21f1a9d239f",
+  "integrity-audit.js": "71717b399795e8939f2d56faef1debc8cf3a3a63d18b39e27dae96acd8d15f49",
+  "integrity-run4.log": "77034c6b3ff6116821fb9367297f7bf6c6c6b8535ff82022f6271b784ed73895",
+  "F-independent-verification.json": "b7a03bd0edb1d322c62b34e96220d3820877a51f46d22f260f2ec84a279d4b0f",
+  "FORENSIC-REPORT-SIX.md": "e3c93a2f40cc04f540bd2312353a6124ccbbdc4164f0824a43b6192183a38cc2",
+  "frozen-snapshot.jsonl": "68bdf0957c0c63cce0990eada646d427942ec13dcfbb705536e8375945270b5a",
+  "hss.js (engine, defect #8/#9 fixes)": "492dd1a1e055e6b12342a375324ad3992be47e910f165cd6e447aafa9a4e961d"
+ },
+ "engine": {
+  "working_copy": "/tmp/hss-proto/engine/hss.js",
+  "repo_copy": "hss-1/prototype/engine/hss.js",
+  "engine_sha256": "492dd1a1e055e6b12342a375324ad3992be47e910f165cd6e447aafa9a4e961d",
+  "byte_identical_working_vs_repo": true
+ },
+ "repository": {
+  "commit_015cd8d": "015cd8dec1fa2ddccabdece9295227fcfe14c72d"
+ },
+ "recovery_manifest_canonical_sha256": "cead2356429880355106981e3cb65a4220e12e5eab5c8de290b41bfaf7c23764",
+ "expectations": {
+  "manifest_prefix": "cead2356",
+  "manifest_suffix": "23764"
+ }
+}

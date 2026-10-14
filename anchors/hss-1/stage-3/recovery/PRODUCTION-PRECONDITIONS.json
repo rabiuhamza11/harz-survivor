@@ -1,0 +1,34 @@
+{
+ "checked_at": "2026-10-14",
+ "baseline_recorded_docs": 1328715,
+ "kv_chunk_store": {
+  "chunks_compared": 43,
+  "unchanged_since_sweep": true,
+  "mismatches": []
+ },
+ "corpus_docs_now": 1341437,
+ "corpus_max_id": 1341437,
+ "corpus_newest_rows": [
+  {
+   "id": 1341437,
+   "url": "https://spox.com/",
+   "size": 3265
+  },
+  {
+   "id": 1341436,
+   "url": "https://cdjapan.co.jp/",
+   "size": 4758
+  },
+  {
+   "id": 1341435,
+   "url": "https://haystack.tv/",
+   "size": 2597
+  }
+ ],
+ "hunt_acct1_docs": 42622,
+ "hunt_acct3_docs": 23928,
+ "collision_precheck": {
+  "checked_body_digests": 3249,
+  "already_in_corpus": 3249
+ }
+}

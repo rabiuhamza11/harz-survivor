@@ -1,0 +1,34 @@
+{
+ "stats": {
+  "old": 3249,
+  "new": 0,
+  "not_found": 0
+ },
+ "id_range": [
+  3,
+  1065585
+ ],
+ "samples": [
+  {
+   "corpus_id": 748219,
+   "corpus_size": 20000,
+   "corpus_url": "https://en.wikipedia.org/wiki/Value_investing",
+   "hunt_url": "https://en.wikipedia.org/wiki/Value_investing",
+   "hunt_bytes": 20018
+  },
+  {
+   "corpus_id": 934091,
+   "corpus_size": 5023,
+   "corpus_url": "https://en.wikipedia.org/wiki/Chit_fund",
+   "hunt_url": "https://en.wikipedia.org/wiki/Chit_fund",
+   "hunt_bytes": 5035
+  },
+  {
+   "corpus_id": 486010,
+   "corpus_size": 13546,
+   "corpus_url": "https://en.wikipedia.org/wiki/Delta_Junction,_Alaska",
+   "hunt_url": "https://en.wikipedia.org/wiki/Delta_Junction,_Alaska",
+   "hunt_bytes": 13558
+  }
+ ]
+}
