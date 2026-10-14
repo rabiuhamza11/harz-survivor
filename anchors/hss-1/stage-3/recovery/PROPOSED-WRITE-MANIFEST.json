@@ -1,0 +1,69 @@
+{
+ "title": "HSS-1 PROPOSED PRODUCTION WRITE \u2014 provenance mapping (Ruling 007) \u2014 NOT YET AUTHORIZED",
+ "objective": "Repair the identity relationship: hunt index hashes -> corpus records. No content changes.",
+ "target": {
+  "database": "harz-million-corpus (ea622de9-44a6-499e-8839-a42cd5a690d5)",
+  "new_tables": [
+   "hunt_provenance (INSERT-only)",
+   "hunt_provenance_conflicts (quarantine of conflicts)"
+  ],
+  "modified_existing": "NONE \u2014 docs, bodies, chunk store, hunt indexes all untouched"
+ },
+ "exact_fields_per_row": [
+  "hunt_hash (provenance PK, NOT content identity)",
+  "body_sha256 (canonical content identity = corpus content_hash, never overwritten)",
+  "corpus_id",
+  "corpus_url",
+  "hunt_url",
+  "corpus_size_chars",
+  "body_bytes",
+  "chunk (sealed source)",
+  "seq",
+  "mapped_at"
+ ],
+ "counts": {
+  "eligible_mappings": 3249,
+  "already_mapped": 0,
+  "conflicts": 0,
+  "url_mismatches": 0,
+  "missing": 0,
+  "duplicate_corpus_rows": 0,
+  "six_quarantined_included": 0
+ },
+ "procedure": [
+  "0. TOCTOU recheck: re-resolve all 3,249 against live corpus immediately before write (live writer active: corpus 1,341,437, hunt3 23,928, hunt1 42,622 at 2026-10-14T05:45Z)",
+  "1. CREATE TABLE IF NOT EXISTS (schema in dry-run receipts)",
+  "2. INSERT in bounded batches of 500 (hard constant); atomic durable checkpoint after each batch (bound to recovery manifest sha cead2356...c23764)",
+  "3. Idempotent apply: existing valid mapping skipped; digest mismatch recorded to conflict table, never applied (proven in dry-run)",
+  "4. Resume from checkpoint on interruption (proven: crash-after-3-batches + resume + exactly-once)"
+ ],
+ "post_write_verification": [
+  "count == 3,249; distinct hunt hashes == 3,249",
+  "every row joins recovery manifest on body_sha256",
+  "every body_sha256 joins corpus docs (id match) AND bodies DB",
+  "sample 300 production bodies re-hashed == body_sha256",
+  "zero rows changed/deleted in docs/bodies (COUNT + MAX(updated) before/after)",
+  "corpus total unchanged by the write except new tables",
+  "conflict table count == 0 expected; any nonzero reported"
+ ],
+ "evidence_binding": {
+  "recovery_manifest_sha256": "cead2356429880355106981e3cb65a4220e12e5eab5c8de290b41bfaf7c23764",
+  "mapping_set_digest": "172743ccfd58413c0b1042bb32a9f5f5e5d78256cb39b32a529a3a2a054b63ca",
+  "identity_resolution_file": "IDENTITY-RESOLUTION.json",
+  "battery_receipt": "PREWRITE-BATTERY.json"
+ },
+ "battery_results": {
+  "idempotency": {
+   "replay_applied": 0,
+   "skipped_valid": 3249,
+   "new_conflicts": 0
+  },
+  "conflict_injection": {
+   "recorded": 1,
+   "original_intact": true
+  },
+  "six_exclusion_pass": true,
+  "rows": 3249
+ },
+ "request": "EXPLICIT AUTHORIZATION REQUIRED BEFORE WRITE. Production remains untouched."
+}

@@ -1,0 +1,13 @@
+{
+ "idempotency": {
+  "replay_applied": 0,
+  "skipped_valid": 3249,
+  "new_conflicts": 0
+ },
+ "conflict_injection": {
+  "recorded": 1,
+  "original_intact": true
+ },
+ "six_exclusion_pass": true,
+ "rows": 3249
+}
