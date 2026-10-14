@@ -1,0 +1,8 @@
+{
+ "next_batch": 7,
+ "inserted": 3249,
+ "skipped_existing": 0,
+ "conflicts": 0,
+ "batch_size": 500,
+ "recovery_manifest_sha256": "cead2356429880355106981e3cb65a4220e12e5eab5c8de290b41bfaf7c23764"
+}

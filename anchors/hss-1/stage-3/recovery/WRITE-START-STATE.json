@@ -1,0 +1,13 @@
+{
+ "live_state": {
+  "corpus_docs": 1341437,
+  "hunt_acct1": 42622,
+  "hunt_acct3": 23928,
+  "at": "2026-10-14T05:47:23Z"
+ },
+ "docs_count": 1341437,
+ "recovery_manifest_sha256": "cead2356429880355106981e3cb65a4220e12e5eab5c8de290b41bfaf7c23764",
+ "authorized_repo": "ad45a17",
+ "mapping_count": 3249,
+ "at": "2026-10-14T05:47:23Z"
+}

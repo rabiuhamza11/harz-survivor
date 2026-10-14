@@ -1,0 +1,45 @@
+{
+ "1_count": {
+  "rows": 3249,
+  "distinct_hunt_hashes": 3249,
+  "pass": true
+ },
+ "2_joins": {
+  "join_corpus_docs": 3249,
+  "bodies_present": 3249,
+  "pass": true
+ },
+ "3_corpus_unchanged": {
+  "docs_start": 1341437,
+  "docs_now": 1341437,
+  "pass": true
+ },
+ "4_rehash": {
+  "sampled": 300,
+  "verified": 300,
+  "mismatch": 0,
+  "pass": true
+ },
+ "5_no_modification": {
+  "hunt_acct1_start": 42622,
+  "hunt_acct1_now": 42622,
+  "hunt_acct3_start": 23928,
+  "hunt_acct3_now": 23928,
+  "chunk_manifest_seals_unchanged": true,
+  "chunk_spot_seal_ok": 3,
+  "pass": true
+ },
+ "6_six_excluded": {
+  "six_in_provenance": 0,
+  "conflict_rows": 0,
+  "pass": true
+ },
+ "7_final_state": {
+  "at": "2026-10-14T05:49:44Z",
+  "rows": 3249,
+  "conflicts": 0,
+  "recovery_manifest_sha256": "cead2356429880355106981e3cb65a4220e12e5eab5c8de290b41bfaf7c23764"
+ },
+ "overall": "ALL PASS",
+ "at": "2026-10-14T05:49:44Z"
+}
