@@ -1,0 +1,74 @@
+{
+ "law": "HSS-1 Ruling 005 §2 step 6-7: isolated staging restoration test; production untouched",
+ "tests": [
+  {
+   "test": "S_prepare_bodies",
+   "pass": true,
+   "detail": {
+    "bodies": 3249
+   }
+  },
+  {
+   "test": "T1_restore_ingest",
+   "pass": true,
+   "detail": {
+    "inserted": 3249,
+    "refused": 0,
+    "dup": 0
+   }
+  },
+  {
+   "test": "T2_identity_uniqueness",
+   "pass": true,
+   "detail": {
+    "unique_identities": 3249,
+    "total": 3249
+   }
+  },
+  {
+   "test": "T3_restored_bytes_exact",
+   "pass": true,
+   "detail": {
+    "objects_rehashed": 6498,
+    "mismatches": 0
+   }
+  },
+  {
+   "test": "T4_provenance_coverage",
+   "pass": true,
+   "detail": {
+    "hunt_hashes_mapped": 3249,
+    "expected": 3249
+   }
+  },
+  {
+   "test": "T5_storage_accounting_exact",
+   "pass": true,
+   "detail": {
+    "engine_used": 86565018,
+    "walked": 86565014,
+    "delta": 4
+   }
+  },
+  {
+   "test": "T6_restart_recovery",
+   "pass": true,
+   "detail": {
+    "states_preserved": true,
+    "verify_failed": 0,
+    "verified": 3249
+   }
+  },
+  {
+   "test": "T7_rollback",
+   "pass": true,
+   "detail": {
+    "staging_removed": true,
+    "recovery_manifest_preserved": true,
+    "pre_rollback_manifest_digest": "02e2eef50d01618b"
+   }
+  }
+ ],
+ "fails": 0,
+ "at": "2026-10-14T05:36:50.506Z"
+}

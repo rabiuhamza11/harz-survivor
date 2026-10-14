@@ -1,0 +1,145 @@
+{
+ "law": "HSS-1 Ruling 005 \u00a71 repair receipts: prove what is stored NOW without rewriting the historical record",
+ "receipts": [
+  {
+   "doc_id": 8254,
+   "hunt_hash_recorded": "a47b3cbe10d1b828ce81fc1da778e7006c062063acf243f0fdeb6d32fda98b41",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "e1da67ae54fa22ff9421df8f38015eea7b841015ff51abc211c62c5583706558",
+   "body_bytes": 3944,
+   "declared_sha_in_chunk": "e1da67ae54fa22ff9421df8f38015eea7b841015ff51abc211c62c5583706558",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-011.json",
+   "chunk_seal_sha256": "d8543f4708987e2542419d3655ee62d88f383f0fef63ad567cd8fec8c93b37e3",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  },
+  {
+   "doc_id": 2030,
+   "hunt_hash_recorded": "b0fb70dd80b7860b8a2d0222f1e45b43938217ecc0682c0376a8a28ac76578a1",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "377a3d3a0f198920c85fdb06d1476449f74497570f4ca4b8fced83b655d34643",
+   "body_bytes": 2721,
+   "declared_sha_in_chunk": "377a3d3a0f198920c85fdb06d1476449f74497570f4ca4b8fced83b655d34643",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-017.json",
+   "chunk_seal_sha256": "ff60a01a22df8fb4bf8c61d4cda4e16ea9975a1668fc2c6eb4061fc71b1494d5",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  },
+  {
+   "doc_id": 2025,
+   "hunt_hash_recorded": "0123bce7b65cd6f0518b1ce963a85c3c4bcc5180b670c74ef59e8d3919057cbf",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "3d9ebdef0ca9a4da5851a91152b9af38a9c32af62f602561414831e063318736",
+   "body_bytes": 2502,
+   "declared_sha_in_chunk": "3d9ebdef0ca9a4da5851a91152b9af38a9c32af62f602561414831e063318736",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-017.json",
+   "chunk_seal_sha256": "ff60a01a22df8fb4bf8c61d4cda4e16ea9975a1668fc2c6eb4061fc71b1494d5",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  },
+  {
+   "doc_id": 2018,
+   "hunt_hash_recorded": "ad59f5a151d361e970d3bdb512ba14ef43dc5ec50e48bb18148ec5a395caa134",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "13fc4f8fe73f93cabe23d2a5db5f1cdbb57fe65bf30f3ab9c280b561f3ac9b5d",
+   "body_bytes": 13333,
+   "declared_sha_in_chunk": "13fc4f8fe73f93cabe23d2a5db5f1cdbb57fe65bf30f3ab9c280b561f3ac9b5d",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-017.json",
+   "chunk_seal_sha256": "ff60a01a22df8fb4bf8c61d4cda4e16ea9975a1668fc2c6eb4061fc71b1494d5",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  },
+  {
+   "doc_id": 2011,
+   "hunt_hash_recorded": "ec2d205ccc4fbe9926d690a6b57db225c8879cb51393fb65a9d1a584f345a906",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "e198cde578bba15441f5b9a26d860b5d3fe9b0ae144770393c5c1ec4cbf3e0e3",
+   "body_bytes": 3846,
+   "declared_sha_in_chunk": "e198cde578bba15441f5b9a26d860b5d3fe9b0ae144770393c5c1ec4cbf3e0e3",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-017.json",
+   "chunk_seal_sha256": "ff60a01a22df8fb4bf8c61d4cda4e16ea9975a1668fc2c6eb4061fc71b1494d5",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  },
+  {
+   "doc_id": 2006,
+   "hunt_hash_recorded": "58d53fc67b9aa294a5f57b3cdf0725956e46941a847807f5663644075adf2ecd",
+   "historical_disposition": "QUARANTINED \u2014 recorded hashes describe an unknown ingest-era buffer; exact mechanism unresolved",
+   "body_sha256_verified": "d749edcc9d1cfc58e2f23f04bf7894a2b712a357df6c83c650e5cb2247d9e5c4",
+   "body_bytes": 14185,
+   "declared_sha_in_chunk": "d749edcc9d1cfc58e2f23f04bf7894a2b712a357df6c83c650e5cb2247d9e5c4",
+   "declared_matches_body": true,
+   "source_chunk": "chunk-017.json",
+   "chunk_seal_sha256": "ff60a01a22df8fb4bf8c61d4cda4e16ea9975a1668fc2c6eb4061fc71b1494d5",
+   "chunk_seal_matches_manifest": true,
+   "frozen_snapshot_body_identical": true,
+   "discrepancy": {
+    "historical_hash_equals_body_digest": false,
+    "recorded_norm_prefix_size_consistent_with_other_text": true,
+    "explanation": "UNRESOLVED \u2014 ingest-era hash/buffer divergence, pre-v1 pipeline code unrecoverable at this seat"
+   },
+   "verdict": "BODY_INTEGRITY_VERIFIED / HISTORICAL_IDENTITY_INTEGRITY_UNPROVEN",
+   "quarantine": "MAINTAINED",
+   "recorded_hashes_modified": false,
+   "verified_at": "2026-10-14T05:35:25Z",
+   "verifier": "HSS-1 desk pipeline, independent recompute from preserved evidence"
+  }
+ ],
+ "count": 6,
+ "generated": "2026-10-14T05:35:25Z"
+}

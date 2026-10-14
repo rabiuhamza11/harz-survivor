@@ -1,0 +1,1 @@
+{"chunk": "chunk-027.json", "seal_expected": "e431ade3d83e121206fff62dd893be5fdb2a66b7dcebcee72d4a5afd208ed869", "seal_actual": "e431ade3d83e121206fff62dd893be5fdb2a66b7dcebcee72d4a5afd208ed869", "seal_ok": true, "docs": 500, "perdoc_verified": 500, "perdoc_mismatch": 0, "empty_bodies": 0, "hunt_docs": {}, "at": "2026-10-14T05:35:48Z"}
