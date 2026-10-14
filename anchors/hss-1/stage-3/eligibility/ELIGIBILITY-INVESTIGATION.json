@@ -1,0 +1,40 @@
+{
+ "at": "2026-10-14T06:08:38Z",
+ "_cf_KV": "access prohibited by D1 (SQLITE_AUTH) \u2014 outside scope",
+ "schemas": {
+  "docs_source_backup_20261011": [
+   "id",
+   "source",
+   "content_hash",
+   "domain",
+   "url"
+  ],
+  "docs_enc_backup_20261011": [
+   "id",
+   "source",
+   "original_text",
+   "original_content_hash",
+   "backup_sha256",
+   "repaired_hash",
+   "created_at",
+   "original_title"
+  ]
+ },
+ "docs_source_backup_20261011": {
+  "rows_by_id": 1,
+  "ids_found": [
+   8254
+  ],
+  "sample": {
+   "id": "8254",
+   "source": "",
+   "content_hash": "a47b3cbe10d1b828ce81fc1da778e7006c062063acf243f0fdeb6d32fda98b41",
+   "domain": "en.wikipedia.org",
+   "url": "https://en.wikipedia.org/wiki/Representative_APR"
+  }
+ },
+ "docs_enc_backup_20261011": {
+  "rows_by_id": 0,
+  "ids_found": []
+ }
+}
