@@ -1,0 +1,19 @@
+{
+ "rail_result": {
+  "ok": true,
+  "attempted_new": 99994,
+  "verified": 99994,
+  "failed": 0,
+  "skipped_already_receipted": 0
+ },
+ "rail_ms": 34743,
+ "objects": 99994,
+ "receipts": 99994,
+ "receipts_eq_objects": true,
+ "post_states": {
+  "STORED": 99994,
+  "SEARCHABLE": 99994,
+  "VERIFIED_DIGEST": 99994
+ },
+ "at": "2026-10-14T05:05:01.720Z"
+}

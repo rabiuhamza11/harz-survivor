@@ -1,0 +1,9 @@
+{
+ "test": "T8_expansion",
+ "pass": true,
+ "at": "2026-10-14T05:13:51.352Z",
+ "nodes_before": 2,
+ "nodes_after": 3,
+ "writes_on_new_node": 100,
+ "identities_unchanged": true
+}

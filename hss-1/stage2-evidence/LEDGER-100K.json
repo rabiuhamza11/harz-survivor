@@ -1,0 +1,18 @@
+{
+ "receipts": 474,
+ "attempted": 237000,
+ "verified_digest": 236994,
+ "quarantined": 6,
+ "gaps": [],
+ "offsets_disjoint": true,
+ "gate_ledger_batches_0_199": 200,
+ "gate_ledger_attempted": 100000,
+ "gate_ledger_verified": 99994,
+ "gate_ledger_quarantined": 6,
+ "overshoot_batches_200_plus": 274,
+ "overshoot_attempted": 137000,
+ "overshoot_verified": 137000,
+ "overshoot_quarantined": 0,
+ "interrupt_test": "crash after batch 25 (exit 77), resume skipped 25 existing receipts, contiguity proven",
+ "at": "2026-10-13"
+}

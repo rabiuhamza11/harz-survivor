@@ -1,0 +1,11 @@
+{
+ "test": "T7_index_reconstruction",
+ "pass": true,
+ "at": "2026-10-14T05:13:49.748Z",
+ "index_destroyed": true,
+ "refused_honestly": true,
+ "rebuilt": true,
+ "shards": 1,
+ "results_identical": true,
+ "corpus_untouched": true
+}

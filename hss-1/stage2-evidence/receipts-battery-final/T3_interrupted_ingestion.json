@@ -1,0 +1,11 @@
+{
+ "test": "T3_interrupted_ingestion",
+ "pass": true,
+ "at": "2026-10-14T05:13:18.296Z",
+ "rounds": 5,
+ "rounds_with_real_kill": "5 (700ms timeouts)",
+ "unique_stored_during_rounds": 464,
+ "dedup_hits_on_full_resume": 464,
+ "objects_after_resume": 1400,
+ "lost": 0
+}

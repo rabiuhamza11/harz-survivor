@@ -1,0 +1,9 @@
+{
+ "test": "T4_deduplication",
+ "pass": true,
+ "at": "2026-10-14T05:13:46.130Z",
+ "reingested": 2000,
+ "duplicates_rejected": 2000,
+ "new_payloads": 0,
+ "objects_on_disk": 2000
+}

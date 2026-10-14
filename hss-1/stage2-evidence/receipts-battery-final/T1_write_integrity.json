@@ -1,0 +1,9 @@
+{
+ "test": "T1_write_integrity",
+ "pass": true,
+ "at": "2026-10-14T05:12:09.957Z",
+ "ingested": 2000,
+ "readback_verified": 2000,
+ "digest_mismatches": 0,
+ "ingestion_rate_docs_per_s": 17.9
+}

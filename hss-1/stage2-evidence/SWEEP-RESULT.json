@@ -1,0 +1,18 @@
+{
+ "categories": {
+  "1_in_corpus_digest_match": 18122,
+  "2_in_corpus_body_missing_or_mismatch": 6,
+  "3_absent_corpus_in_hunt_index": 3249,
+  "4_absent_both": 0,
+  "5_unresolved_operational": 0
+ },
+ "total_hashes_classified": 21377,
+ "reconciles_to_21377": true,
+ "operational_error_receipts": 0,
+ "hunt_indexes_checked": [
+  "acct1/harz_search_v02 (42,622 docs)",
+  "acct3/harz_search_v02 (11,365 docs)"
+ ],
+ "note_cat3": "present in hunt index = SNIPPET-ONLY rows; NOT verified bodies \u2014 full text unproven for these",
+ "at": "2026-10-14"
+}

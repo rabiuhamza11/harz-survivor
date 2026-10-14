@@ -33,17 +33,26 @@ class HssStore {
       const od = this.objDir(b);
       for (const f of fs.readdirSync(od)) if (f.endsWith('.tmp')) { fs.unlinkSync(path.join(od, f)); events.tmpOrphansRemoved++; }
       // adopt durably-committed objects that never reached the manifest (killed before manifest write)
-      const m = this.manifest(b);
+      let m;
+      try { m = this.manifest(b); }
+      catch (e) {
+        if (!/MANIFEST TYPE VIOLATION|Unterminated|Unexpected|JSON/.test(e.message)) throw e;
+        // TORN/CORRUPT MANIFEST (explicit event, logged, never silent): journal + object
+        // scan are authoritative. Rebuild STORED population; verification states are
+        // re-established by the verify rail from its receipts (receipts are truth).
+        m = { _rebuild: { reason: 'manifest corrupt: ' + e.message.slice(0, 120), at: new Date().toISOString() } };
+        events.manifestRebuilt = (events.manifestRebuilt || 0) + 1;
+      }
       for (const f of fs.readdirSync(od)) {
         if (f.length !== 64 || f.includes('.')) continue;
         if (m[f]) continue;
         if (!committed.has(f)) { fs.unlinkSync(path.join(od, f)); events.tmpOrphansRemoved++; continue; } // not committed: discard
         const bytes = fs.readFileSync(path.join(od, f));
         if (sha256(bytes) !== f) { fs.unlinkSync(path.join(od, f)); events.corruptDiscarded = (events.corruptDiscarded || 0) + 1; continue; }
-        m[f] = { doc_id: f, content_hash: f, states: ['STORED'], size: bytes.length, kind: 'complete',
+        m[f] = { doc_id: f, content_hash: f, states: ['STORED', 'PENDING_VERIFICATION'], size: bytes.length, kind: 'complete',
                  storage_locations: this.backends.map(x => path.basename(x)),
                  recovery_adopted_unacked: !acked.has(f), collected_at: null,
-                 note: 'adopted by journal recovery: bytes verified, ack state from journal' };
+                 note: 'adopted by journal recovery: bytes verified, ack state from journal; rail law — pending until the verify rail reconfirms' };
         if (acked.has(f)) events.ackedConfirmed++; else events.adoptedUnacked++;
       }
       this.saveManifest(b, m);
@@ -58,7 +67,13 @@ class HssStore {
     }
     return m;
   }
-  saveManifest(b, m) { fs.writeFileSync(path.join(b, 'objects/manifest.json'), JSON.stringify(m, null, 1)); }
+  saveManifest(b, m) {
+    // ATOMIC (defect #8, Oct 14 Gate C: a killed process left a torn manifest that
+    // bricked store open). tmp + rename = a reader sees old or new, never torn.
+    const p = path.join(b, 'objects/manifest.json');
+    fs.writeFileSync(p + '.tmp', JSON.stringify(m, null, 1));
+    fs.renameSync(p + '.tmp', p);
+  }
   objDir(b) { const d = path.join(b, 'objects'); fs.mkdirSync(d, {recursive:true}); return d; }
 
   // --- put: dedup BEFORE payload commit; ack only after read-back verify ---
@@ -117,6 +132,39 @@ class HssStore {
     }
     return { ok: true, hash, size: bytes.length, degraded_backends: degraded };
   }
+  // --- VERIFICATION RAIL (Ruling 003: separate from ingestion; resumable; no auto-accept) ---
+  verifyBodies(receiptDir) {
+    const fsx = require('fs'); fsx.mkdirSync(receiptDir, {recursive: true});
+    const m = this.manifest(this.backends[0]);
+    const pending = Object.entries(m).filter(([, r]) => r.states.includes('PENDING_VERIFICATION'));
+    const pendingState = {};
+    let verified = 0, failed = 0, skipped = 0;
+    for (const [hash, rec] of pending) {
+      const rp = require('path').join(receiptDir, hash.slice(0, 2), hash + '.json');
+      if (fsx.existsSync(rp)) { skipped++; continue; } // resume: receipt is truth
+      let ok = false;
+      for (const be of this.backends) {
+        const p = require('path').join(this.objDir(be), hash);
+        if (fsx.existsSync(p) && sha256(fsx.readFileSync(p)) === hash) { ok = true; break; }
+      }
+      const entry = {hash, verdict: ok ? 'VERIFIED_DIGEST' : 'FAILED_DIGEST', at: new Date().toISOString()};
+      fsx.mkdirSync(require('path').dirname(rp), {recursive: true});
+      fsx.writeFileSync(rp + '.tmp', JSON.stringify(entry)); fsx.renameSync(rp + '.tmp', rp);
+      // batched manifest flush: one saveManifest per backend for the WHOLE pass, not per object
+      // (per-object flush was O(n^2) — caught at the 100k Gate C run, Oct 14)
+      pendingState[hash] = ok ? 'VERIFIED_DIGEST' : 'FAILED_DIGEST';
+      ok ? verified++ : failed++;
+    }
+    for (const be of this.backends) {
+      const mm = this.manifest(be);
+      for (const [hash, st] of Object.entries(pendingState)) {
+        if (mm[hash]) { mm[hash].states = [...new Set([...mm[hash].states.filter(s => s !== 'PENDING_VERIFICATION'), st])]; } // defect #9: idempotent state push
+      }
+      this.saveManifest(be, mm);
+    }
+    return {ok: true, attempted_new: verified + failed, verified, failed, skipped_already_receipted: skipped};
+  }
+
   // --- batchPut: batched ingestion for scale (same laws as put: dedup, verify-before-ack) ---
   batchPut(docs, opts = {}) {
     const live = this.backends.filter(b => fs.existsSync(path.join(b, 'journal.log')));
@@ -154,7 +202,7 @@ class HssStore {
       records[f.hash] = { doc_id: f.hash, content_hash: f.hash, source: f.meta.source || 'seed',
         collected_at: f.meta.collected_at || now, language: f.meta.language || 'en',
         content_type: f.meta.content_type || 'text', license_policy: f.meta.license_policy || 'unspecified',
-        states: ['STORED'], storage_locations: live.map(b => path.basename(b)), size: f.bytes.length, kind: 'complete' };
+        states: ['STORED', 'PENDING_VERIFICATION'], storage_locations: live.map(b => path.basename(b)), size: f.bytes.length, kind: 'complete' };
       results.inserted++;
     }
     if (verifyFail) results.verify_failures = verifyFail;

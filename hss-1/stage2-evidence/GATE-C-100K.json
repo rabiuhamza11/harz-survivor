@@ -1,0 +1,48 @@
+{
+ "workload": "100,000 docs (12,000 real corpus + 88,000 derived variants, distinct hashes, labeled)",
+ "attempted": 100000,
+ "refused_identity_at_ingest": 0,
+ "ingest_ms": 0,
+ "ingest_docs_per_s": null,
+ "rss_peak_bytes": 2899955712,
+ "get_latency_ms": {
+  "p50": 404.4,
+  "p95": 511.4
+ },
+ "restart_recovery_ms": 3066,
+ "index": {
+  "shards": 10,
+  "build_ok": true,
+  "size_bytes": 1582292970
+ },
+ "regression": {
+  "R1_manifest_type_explicit_error": true,
+  "R2_prototype_token_collision_pass": true
+ },
+ "rails": {
+  "verify_rail_result": {
+   "ok": true,
+   "attempted_new": 99623,
+   "verified": 99623,
+   "failed": 0,
+   "skipped_already_receipted": 1
+  },
+  "verify_ms": 17072,
+  "post_verify_state_counts": {
+   "STORED": 99994,
+   "SEARCHABLE": 99994,
+   "VERIFIED_DIGEST": 100000
+  }
+ },
+ "storage": {
+  "raw_payload": 456357076,
+  "payload_replicas": 946085818,
+  "manifests": 111679359,
+  "journals": 40197588,
+  "index": 1582292970,
+  "total": 2693710514
+ },
+ "multiplier_vs_raw": 5.9,
+ "index_share_of_total": 0.587,
+ "at": "2026-10-14T04:33:42.292Z"
+}

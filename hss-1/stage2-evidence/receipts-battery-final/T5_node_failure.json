@@ -1,0 +1,10 @@
+{
+ "test": "T5_node_failure",
+ "pass": true,
+ "at": "2026-10-14T05:13:46.204Z",
+ "deleted_from": "nodeA",
+ "served_from": "nodeB (surviving replica)",
+ "digest_verified": true,
+ "replica_alarm_raised": true,
+ "object_restored_from_replica": true
+}

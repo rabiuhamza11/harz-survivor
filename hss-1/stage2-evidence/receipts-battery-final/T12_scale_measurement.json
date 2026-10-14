@@ -1,0 +1,18 @@
+{
+ "test": "T12_scale_measurement",
+ "pass": true,
+ "at": "2026-10-14T05:16:03.284Z",
+ "scale_label": "TOY (2,000 docs, sandbox) — NOT extrapolated",
+ "ingestion_rate_docs_per_s": 17.9,
+ "search_latency_ms_p50": 371,
+ "p95": 440,
+ "payload_plus_overhead_bytes": 29046922,
+ "bytes_per_doc_with_replica_overhead": 14523,
+ "states": {
+  "records": 2000,
+  "STORED": 2000,
+  "SEARCHABLE": 2000,
+  "VERIFIED": 0,
+  "metadata_only": 0
+ }
+}

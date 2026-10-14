@@ -1,0 +1,18 @@
+{
+ "test": "T2_restart_recovery",
+ "pass": true,
+ "at": "2026-10-14T05:12:11.590Z",
+ "killed_mid_write": true,
+ "recovery_events": {
+  "tornTailDropped": 0,
+  "tmpOrphansRemoved": 0,
+  "adoptedUnacked": 0,
+  "ackedConfirmed": 0
+ },
+ "acked_in_journal": 189,
+ "adopted_unacked": 0,
+ "manifest_stored": 189,
+ "lost_acked_writes": 0,
+ "orphan_tmp_files_left": 0,
+ "invariant": "manifest STORED = journal acked + adopted-unacked (all bytes digest-verified)"
+}
