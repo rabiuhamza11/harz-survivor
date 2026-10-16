@@ -45,3 +45,11 @@ One line per asset: PASS or what you saw instead. If anything fails, the exact w
 screen — that is the failure signature the desk needs; do not retry more than once before
 reporting. On PASS of all three, the Internetless field validation claim is yours to make
 public, measured at this test scale, and the last staged item in the offline lane closes.
+
+
+## AMENDMENT 1 (Oct 16, 2026) — v1.1: asset 3 URL correction
+Correction (Wave 1 Team D reproduction finding, repo evidence): the knowledge core
+serves at https://harz-knowledge-core.harz.workers.dev — the URL printed above as
+"harz-kcore.harz.workers.dev" returns 404 (stale subdomain, never the asset itself).
+Use the harz-knowledge-core URL for asset 3. All other steps unchanged. Original text
+preserved above unchanged; this amendment supersedes only the asset-3 URL.
